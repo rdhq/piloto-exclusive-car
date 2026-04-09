@@ -252,7 +252,7 @@ let wheels = [], carBodyMats = [], roadGroup = new THREE.Group(), roadLen = 0;
 
 // Load car
 const loader = new GLTFLoader();
-loader.load('assets/3d-models/lamborghini-aventador-lp-700-4/source/2011_lamborghini_aventador_lp_700-4.glb', function(gltf) {
+loader.load('assets/3d-models/2012-lamborghini-aventador/source/aventador.glb', function(gltf) {
   const model = gltf.scene;
   const box = new THREE.Box3().setFromObject(model);
   const center = box.getCenter(new THREE.Vector3());
@@ -268,55 +268,16 @@ loader.load('assets/3d-models/lamborghini-aventador-lp-700-4/source/2011_lamborg
       child.receiveShadow = true;
       const name = (child.name || '').toUpperCase();
       const matName = (child.material && child.material.name || '').toLowerCase();
-      // Wheels — match by name or by group
-      if (name.includes('WHEEL') || name.includes('TYRE') || name.includes('TIRE') || name.includes('RIM') || name.includes('RODA')) {
-        wheels.push(child);
-      }
-      // Body paint — broad matching for different models
+      if (name.includes('WHEEL') || name.includes('TYRE') || name.includes('TIRE')) wheels.push(child);
       if (child.material) {
         const mat = child.material;
-        const c = mat.color;
-        if (matName.includes('ext') || matName.includes('argos') || matName.includes('pearl') || matName.includes('body') || matName.includes('paint') || matName.includes('diff') || matName.includes('car') || matName.includes('lambo')) {
-          carBodyMats.push(mat);
-        }
-        // Also catch white/light gray body panels by color (common default)
-        else if (c && c.r > 0.7 && c.g > 0.7 && c.b > 0.7 && !matName.includes('glass') && !matName.includes('window') && !matName.includes('light') && !matName.includes('chrome')) {
+        if (matName.includes('ext') || matName.includes('argos') || matName.includes('pearl') || matName.includes('body') || matName.includes('paint')) {
           carBodyMats.push(mat);
         }
       }
     }
   });
 
-  // Also check parent groups for wheels
-  if (wheels.length === 0) {
-    model.traverse(function(child) {
-      if (child.isGroup || child.isObject3D) {
-        const n = (child.name || '').toUpperCase();
-        if (n.includes('WHEEL') || n.includes('TIRE') || n.includes('TYRE')) {
-          child.traverse(function(sub) { if (sub.isMesh) wheels.push(sub); });
-        }
-      }
-    });
-  }
-  // Last resort — find all meshes and log names for debugging
-  if (wheels.length === 0) {
-    var allNames = [];
-    model.traverse(function(child) {
-      if (child.isMesh || child.isGroup) allNames.push(child.name);
-    });
-    console.log('ALL NODE NAMES:', allNames.join(', '));
-    // Visual debug
-    var dd=document.createElement('div');dd.style.cssText='position:fixed;top:80px;left:20px;z-index:99999;background:rgba(0,0,0,0.95);color:#0f0;font:10px monospace;padding:12px;border-radius:8px;max-height:50vh;overflow-y:auto;max-width:350px;';dd.innerHTML=allNames.map(function(n){return n;}).join('<br>');document.body.appendChild(dd);
-    // Try matching any node with common wheel-related terms
-    model.traverse(function(child) {
-      const n = (child.name || '').toLowerCase();
-      if (n.includes('ruota') || n.includes('cerchio') || n.includes('pneuma') || n.includes('fl_') || n.includes('fr_') || n.includes('rl_') || n.includes('rr_') || n.includes('f_l') || n.includes('f_r') || n.includes('r_l') || n.includes('r_r')) {
-        if (child.isMesh) wheels.push(child);
-        else child.traverse(function(sub) { if (sub.isMesh) wheels.push(sub); });
-      }
-    });
-  }
-  console.log('Wheels:', wheels.length, 'Body mats:', carBodyMats.length);
 
   // Set orange color
   const col = new THREE.Color('#ff6600');
@@ -363,9 +324,9 @@ function animate() {
   controls.update();
   // Road movement
   if (roadLen > 0) {
-    roadGroup.position.z += 0.05;
-    if (roadGroup.position.z >= roadLen) roadGroup.position.z -= roadLen;
-    wheels.forEach(w => { w.rotation.x -= 0.1; });
+    roadGroup.position.z -= 0.05;
+    if (roadGroup.position.z <= -roadLen) roadGroup.position.z += roadLen;
+    wheels.forEach(w => { w.rotation.x += 0.1; });
   }
   renderer.render(scene, camera);
 }
