@@ -268,12 +268,37 @@ loader.load('assets/3d-models/lamborghini-aventador-lp-700-4/source/2011_lamborg
       child.receiveShadow = true;
       const name = (child.name || '').toUpperCase();
       const matName = (child.material && child.material.name || '').toLowerCase();
-      if (name.includes('WHEEL') || name.includes('TYRE') || name.includes('TIRE')) wheels.push(child);
-      if (child.material && (matName.includes('ext') || matName.includes('argos') || matName.includes('pearl') || matName.includes('body') || matName.includes('paint'))) {
-        carBodyMats.push(child.material);
+      // Wheels — match by name or by group
+      if (name.includes('WHEEL') || name.includes('TYRE') || name.includes('TIRE') || name.includes('RIM') || name.includes('RODA')) {
+        wheels.push(child);
+      }
+      // Body paint — broad matching for different models
+      if (child.material) {
+        const mat = child.material;
+        const c = mat.color;
+        if (matName.includes('ext') || matName.includes('argos') || matName.includes('pearl') || matName.includes('body') || matName.includes('paint') || matName.includes('diff') || matName.includes('car') || matName.includes('lambo')) {
+          carBodyMats.push(mat);
+        }
+        // Also catch white/light gray body panels by color (common default)
+        else if (c && c.r > 0.7 && c.g > 0.7 && c.b > 0.7 && !matName.includes('glass') && !matName.includes('window') && !matName.includes('light') && !matName.includes('chrome')) {
+          carBodyMats.push(mat);
+        }
       }
     }
   });
+
+  // Also check parent groups for wheels
+  if (wheels.length === 0) {
+    model.traverse(function(child) {
+      if (child.isGroup || child.isObject3D) {
+        const n = (child.name || '').toUpperCase();
+        if (n.includes('WHEEL') || n.includes('TIRE') || n.includes('TYRE')) {
+          child.traverse(function(sub) { if (sub.isMesh) wheels.push(sub); });
+        }
+      }
+    });
+  }
+  console.log('Wheels:', wheels.length, 'Body mats:', carBodyMats.length);
 
   // Set orange color
   const col = new THREE.Color('#ff6600');
