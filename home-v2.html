@@ -305,6 +305,8 @@ loader.load('assets/3d-models/lamborghini-aventador-lp-700-4/source/2011_lamborg
       if (child.isMesh || child.isGroup) allNames.push(child.name);
     });
     console.log('ALL NODE NAMES:', allNames.join(', '));
+    // Visual debug
+    var dd=document.createElement('div');dd.style.cssText='position:fixed;top:80px;left:20px;z-index:99999;background:rgba(0,0,0,0.95);color:#0f0;font:10px monospace;padding:12px;border-radius:8px;max-height:50vh;overflow-y:auto;max-width:350px;';dd.innerHTML=allNames.map(function(n){return n;}).join('<br>');document.body.appendChild(dd);
     // Try matching any node with common wheel-related terms
     model.traverse(function(child) {
       const n = (child.name || '').toLowerCase();
