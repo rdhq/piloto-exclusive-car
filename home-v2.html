@@ -298,6 +298,22 @@ loader.load('assets/3d-models/lamborghini-aventador-lp-700-4/source/2011_lamborg
       }
     });
   }
+  // Last resort — find all meshes and log names for debugging
+  if (wheels.length === 0) {
+    var allNames = [];
+    model.traverse(function(child) {
+      if (child.isMesh || child.isGroup) allNames.push(child.name);
+    });
+    console.log('ALL NODE NAMES:', allNames.join(', '));
+    // Try matching any node with common wheel-related terms
+    model.traverse(function(child) {
+      const n = (child.name || '').toLowerCase();
+      if (n.includes('ruota') || n.includes('cerchio') || n.includes('pneuma') || n.includes('fl_') || n.includes('fr_') || n.includes('rl_') || n.includes('rr_') || n.includes('f_l') || n.includes('f_r') || n.includes('r_l') || n.includes('r_r')) {
+        if (child.isMesh) wheels.push(child);
+        else child.traverse(function(sub) { if (sub.isMesh) wheels.push(sub); });
+      }
+    });
+  }
   console.log('Wheels:', wheels.length, 'Body mats:', carBodyMats.length);
 
   // Set orange color
@@ -345,9 +361,9 @@ function animate() {
   controls.update();
   // Road movement
   if (roadLen > 0) {
-    roadGroup.position.z -= 0.05;
-    if (roadGroup.position.z <= -roadLen) roadGroup.position.z += roadLen;
-    wheels.forEach(w => { w.rotation.x += 0.1; });
+    roadGroup.position.z += 0.05;
+    if (roadGroup.position.z >= roadLen) roadGroup.position.z -= roadLen;
+    wheels.forEach(w => { w.rotation.x -= 0.1; });
   }
   renderer.render(scene, camera);
 }
