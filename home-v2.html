@@ -252,7 +252,7 @@ let wheels = [], carBodyMats = [], roadGroup = new THREE.Group(), roadLen = 0;
 
 // Load car
 const loader = new GLTFLoader();
-loader.load('assets/3d-models/lamborghini-aventador/source/lamborghini_aventador_lp750-4_sv.glb', function(gltf) {
+loader.load('assets/3d-models/2012-lamborghini-aventador/source/aventador.glb', function(gltf) {
   const model = gltf.scene;
   const box = new THREE.Box3().setFromObject(model);
   const center = box.getCenter(new THREE.Vector3());
