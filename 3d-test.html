@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>3D Viewer — Lamborghini Aventador</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root { --ease: cubic-bezier(.25,1,.5,1); }
+* { margin: 0; box-sizing: border-box; }
+body { background: #0a0a0a; color: #e8e8e8; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
+#canvas-wrap { position: fixed; inset: 0; z-index: 1; }
+
+/* Black fog overlay — top, bottom, left, right fading in */
+#vignette {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none;
+}
+#vignette::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, #000 0%, transparent 25%, transparent 70%, #000 100%),
+    linear-gradient(to right, #000 0%, transparent 20%, transparent 80%, #000 100%);
+  background-blend-mode: darken;
+}
+#vignette::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 55% 50% at 50% 50%,
+    transparent 0%,
+    transparent 40%,
+    rgba(0,0,0,0.3) 55%,
+    rgba(0,0,0,0.7) 70%,
+    #000 90%
+  );
+}
+
+/* UI Overlay */
+#ui { position: fixed; z-index: 10; inset: 0; pointer-events: none; }
+#ui > * { pointer-events: auto; }
+
+/* Top bar */
+.top-bar { position: absolute; top: 0; left: 0; right: 0; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
+.label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #6b6b6b; }
+.car-name { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 600; letter-spacing: -0.02em; }
+
+/* Controls panel */
+.controls { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; background: rgba(20,20,20,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.06); border-radius: 999px; padding: 6px; }
+.ctrl-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: #999; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .4s var(--ease); font-size: 0.65rem; font-weight: 600; font-family: 'Inter', sans-serif; }
+.ctrl-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; background: rgba(255,255,255,0.05); }
+.ctrl-btn.active { border-color: #fff; color: #fff; background: rgba(255,255,255,0.1); }
+.ctrl-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.08); }
+
+/* Color swatches */
+.colors { position: absolute; right: 32px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
+.swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all .3s var(--ease); }
+.swatch:hover, .swatch.active { border-color: rgba(255,255,255,0.6); transform: scale(1.15); }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; border-radius: 50%; }
+input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
+
+/* Specs panel */
+.specs { position: absolute; left: 32px; bottom: 100px; }
+.spec-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.spec-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+.spec-label { font-size: 0.6rem; color: #555; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* Loading */
+#loading { position: fixed; inset: 0; z-index: 100; background: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; transition: opacity .6s var(--ease); }
+#loading.done { opacity: 0; pointer-events: none; }
+.loader-bar { width: 200px; height: 2px; background: #1e1e1e; border-radius: 1px; overflow: hidden; }
+.loader-fill { height: 100%; background: #fff; width: 0; transition: width .3s; }
+
+/* Hint */
+.hint { position: absolute; bottom: 90px; right: 32px; text-align: right; }
+.hint p { font-size: 0.6rem; color: #3a3a3a; letter-spacing: 0.05em; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div id="loading">
+  <span class="label">A carregar modelo 3D</span>
+  <div class="loader-bar"><div id="loader-fill" class="loader-fill"></div></div>
+  <span id="loader-pct" class="label" style="color:#3a3a3a;">0%</span>
+</div>
+
+<!-- 3D Canvas -->
+<div id="canvas-wrap"></div>
+<!-- Vignette disabled -->
+<!-- <div id="vignette"></div> -->
+
+<!-- UI Overlay -->
+<div id="ui">
+
+  <!-- Top -->
+  <div class="top-bar">
+    <div></div>
+    <a href="home-v2.html" class="label" style="color:#555;text-decoration:none;">← Voltar</a>
+  </div>
+
+  <!-- Color picker + Reset -->
+  <div class="colors">
+    <input type="color" id="custom-color" value="#ff6600" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);padding:0;-webkit-appearance:none;appearance:none;cursor:pointer;background:conic-gradient(red,yellow,lime,aqua,blue,magenta,red);overflow:hidden;" title="Mudar cor"/>
+    <button class="ctrl-btn" id="btn-reset" title="Reset câmera" style="width:36px;height:36px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+    </button>
+  </div>
+
+
+
+</div>
+
+<!-- Three.js -->
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+const container = document.getElementById('canvas-wrap');
+const loaderFill = document.getElementById('loader-fill');
+const loaderPct = document.getElementById('loader-pct');
+const loadingScreen = document.getElementById('loading');
+
+// Scene
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+scene.fog = new THREE.Fog(0x000000, 5, 14);
+
+// Camera
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(5, 2.5, 7);
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.3;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+container.appendChild(renderer.domElement);
+
+// Controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.04;
+controls.minDistance = 3;
+controls.maxDistance = 9;
+controls.enablePan = false;
+controls.target.set(0, 0.6, 0);
+controls.update();
+
+// Lighting — Studio setup
+const ambient = new THREE.AmbientLight(0xffffff, 0.15);
+scene.add(ambient);
+
+// Key light — focused from above like a spotlight
+const key = new THREE.DirectionalLight(0xffffff, 2);
+key.position.set(2, 12, 3);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.near = 0.5;
+key.shadow.camera.far = 30;
+key.shadow.camera.left = -10;
+key.shadow.camera.right = 10;
+key.shadow.camera.top = 10;
+key.shadow.camera.bottom = -10;
+key.shadow.bias = -0.0001;
+scene.add(key);
+
+// Fill light
+const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+fill.position.set(-5, 5, -3);
+scene.add(fill);
+
+// Rim light
+const rim = new THREE.DirectionalLight(0xffffff, 0.4);
+rim.position.set(0, 3, -8);
+scene.add(rim);
+
+// Spot light — wide cone to illuminate road
+const spot = new THREE.SpotLight(0xffffff, 5, 35, Math.PI * 0.55, 0.5, 0.8);
+spot.position.set(0, 16, 0);
+spot.target.position.set(0, 0, 0);
+spot.castShadow = true;
+spot.shadow.mapSize.set(1024, 1024);
+scene.add(spot);
+scene.add(spot.target);
+
+// No separate floor — road model is the ground
+
+// Grid helper — subtle
+const grid = new THREE.GridHelper(30, 60, 0x1a1a1a, 0x1a1a1a);
+grid.position.y = 0.001;
+scene.add(grid);
+
+// State
+let carBodyMaterials = [];
+let wheels = [];
+let doorLeftParts = [];
+let doorRightParts = [];
+let doorPivotLeft = null;
+let doorPivotRight = null;
+let doorsOpen = false;
+let wheelsSpinning = false;
+let autoRotate = true;
+const DOOR_ANGLE = Math.PI * 0.42;
+const roadGroup = new THREE.Group();
+let roadSegmentLength = 0;
+let roadMoving = true;
+const ROAD_SPEED = 0.05;
+
+// Load car — with Draco decoder ready
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/draco/');
+const loader = new GLTFLoader();
+loader.setDRACOLoader(dracoLoader);
+loader.load(
+  'assets/3d-models/lamborghini-aventador/source/lamborghini_aventador_lp750-4_sv.glb',
+  function(gltf) {
+    const model = gltf.scene;
+
+    // Scale and center
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const s = 3.5 / Math.max(size.x, size.y, size.z);
+    model.scale.setScalar(s);
+    model.position.sub(center.multiplyScalar(s));
+    model.position.y = 0;
+
+    // Traverse and collect
+    model.traverse(function(child) {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        const name = (child.name || '').toUpperCase();
+        const matName = (child.material && child.material.name || '').toLowerCase();
+
+        // Wheels
+        if (name.includes('WHEEL') || name.includes('TYRE') || name.includes('TIRE')) {
+          wheels.push(child);
+        }
+        // Doors
+        if (name.includes('DOOR_LEFT')) doorLeftParts.push(child);
+        if (name.includes('DOOR_RIGHT')) doorRightParts.push(child);
+        // Body paint
+        if (child.material && (matName.includes('ext') || matName.includes('argos') || matName.includes('pearl') || matName.includes('body') || matName.includes('paint'))) {
+          carBodyMaterials.push(child.material);
+        }
+      }
+    });
+
+    // Setup door pivots
+    if (doorLeftParts.length > 0) {
+      const pivotL = new THREE.Group();
+      const pivotR = new THREE.Group();
+      const boxL = new THREE.Box3();
+      doorLeftParts.forEach(p => boxL.expandByObject(p));
+      const boxR = new THREE.Box3();
+      doorRightParts.forEach(p => boxR.expandByObject(p));
+
+      pivotL.position.set(boxL.max.x, boxL.max.y, boxL.min.z);
+      pivotR.position.set(boxR.min.x, boxR.max.y, boxR.min.z);
+
+      doorLeftParts.forEach(function(p) {
+        model.remove(p);
+        p.position.sub(pivotL.position);
+        pivotL.add(p);
+      });
+      doorRightParts.forEach(function(p) {
+        model.remove(p);
+        p.position.sub(pivotR.position);
+        pivotR.add(p);
+      });
+
+      model.add(pivotL);
+      model.add(pivotR);
+      doorPivotLeft = pivotL;
+      doorPivotRight = pivotR;
+    }
+
+    scene.add(model);
+
+    // Apply default color
+    setColor('#ff6600');
+
+    scene.remove(grid);
+
+    // Load road — duplicate for infinite loop
+    const roadLoader = new GLTFLoader();
+    roadLoader.load('assets/3d-models/road__avenue__street.glb', function(roadGltf) {
+      const road1 = roadGltf.scene;
+      const roadBox = new THREE.Box3().setFromObject(road1);
+      const roadSize = roadBox.getSize(new THREE.Vector3());
+      const roadScale = 25 / Math.max(roadSize.x, roadSize.z);
+      road1.scale.setScalar(roadScale);
+      const roadCenter = roadBox.getCenter(new THREE.Vector3());
+      road1.position.sub(roadCenter.multiplyScalar(roadScale));
+      road1.position.y = 0.01;
+
+      // Clone for second segment
+      const road2 = road1.clone();
+
+      // Calculate road length after scaling
+      const scaledBox = new THREE.Box3().setFromObject(road1);
+      const roadLength = scaledBox.max.z - scaledBox.min.z;
+      roadSegmentLength = roadLength;
+
+      // Position road2 ahead of road1
+      road2.position.z = road1.position.z + roadLength;
+
+      // Darken materials — no reflections
+      [road1, road2].forEach(function(r) {
+        r.traverse(function(child) {
+          if (child.isMesh) {
+            child.receiveShadow = true;
+            if (child.material) {
+              child.material = child.material.clone();
+              child.material.roughness = 0.95;
+              child.material.metalness = 0;
+              child.material.needsUpdate = true;
+            }
+          }
+        });
+      });
+
+      roadGroup.add(road1);
+      roadGroup.add(road2);
+      scene.add(roadGroup);
+
+      // Hide loading only after road is also loaded
+      setTimeout(() => loadingScreen.classList.add('done'), 500);
+    });
+  },
+  function(xhr) {
+    if (xhr.total) {
+      const pct = Math.round(xhr.loaded / xhr.total * 100);
+      loaderFill.style.width = pct + '%';
+      loaderPct.textContent = pct + '%';
+    }
+  },
+  function(error) {
+    loaderPct.textContent = 'Erro ao carregar';
+    console.error(error);
+  }
+);
+
+// Change color
+function setColor(hex) {
+  const c = new THREE.Color(hex);
+  carBodyMaterials.forEach(m => { m.color.set(c); m.needsUpdate = true; });
+}
+
+// Color picker
+document.getElementById('custom-color').addEventListener('input', function() {
+  setColor(this.value);
+});
+
+// Reset camera
+document.getElementById('btn-reset').addEventListener('click', function() {
+  gsap.to(camera.position, { x: 5, y: 2.5, z: 7, duration: 1.2, ease: 'power3.inOut' });
+  gsap.to(controls.target, { x: 0, y: 0.6, z: 0, duration: 1.2, ease: 'power3.inOut' });
+  autoRotate = true;
+  document.getElementById('btn-rotate').classList.add('active');
+});
+
+// Stop auto-rotate on interaction
+container.addEventListener('pointerdown', () => {
+  autoRotate = false;
+  document.getElementById('btn-rotate').classList.remove('active');
+});
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  if (autoRotate && !roadMoving) scene.rotation.y += 0.002;
+  if (wheelsSpinning) wheels.forEach(w => { w.rotation.x += 0.04; });
+
+  // Move road forward to simulate driving
+  if (roadMoving && roadSegmentLength > 0) {
+    roadGroup.position.z -= ROAD_SPEED;
+    // When segment passes, loop back
+    if (roadGroup.position.z <= -roadSegmentLength) {
+      roadGroup.position.z += roadSegmentLength;
+    }
+    // Also spin wheels when road is moving
+    wheels.forEach(w => { w.rotation.x += ROAD_SPEED * 2; });
+  }
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

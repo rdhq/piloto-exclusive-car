@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Empresa — Piloto Automóveis</title>
+<meta name="description" content="Conheça a Piloto Automóveis. Experiência, confiança e excelência na compra e venda de automóveis em Barcelos, Braga."/>
+<link rel="icon" href="site-antigo/pilotoautomoveis.pt_home/assets/favicon_70a28403b374.ico"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#080805',card:'#121212',border:'#2A2A2A',muted:'#777',surface:'#0d0d0a'},fontFamily:{sans:['Figtree','sans-serif'],display:['Space Grotesk','sans-serif']},borderRadius:{'4xl':'2rem'}}}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#080805;color:#fff;font-family:'Figtree',sans-serif;margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:#fff;color:#000}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#080805}::-webkit-scrollbar-thumb{background:#2A2A2A;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#fff}
+.glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)}
+.glass-strong{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12)}
+.metallic{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(180deg,#fff 0%,#666 100%)}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:#fff;color:#080805;font-weight:600;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:none;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none;position:relative;overflow:hidden}
+.btn-primary:hover{background:#e0e0e0;transform:translateY(-2px);box-shadow:0 8px 30px -5px rgba(255,255,255,0.2)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:transparent;color:#fff;font-weight:500;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.05);transform:translateY(-2px)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1) 30%,rgba(255,255,255,0.1) 70%,transparent)}
+.gs{opacity:0;transform:translateY(40px);will-change:transform,opacity}
+.gs-left{opacity:0;transform:translateX(-60px);will-change:transform,opacity}
+.gs-right{opacity:0;transform:translateX(60px);will-change:transform,opacity}
+@keyframes charBlurIn{0%{opacity:0;transform:translateY(20px);filter:blur(12px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}.char-blur{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(20px)}.char-blur.revealed{animation:charBlurIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}.char-space{display:inline-block;width:0.3em}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav class="sticky top-0 w-full z-50 transition-all duration-500 border-b border-white/5" id="main-nav">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+    <a href="home-nova.html" class="shrink-0"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert"/></a>
+    <div class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-medium text-muted">
+      <a href="home-nova.html" class="hover:text-white transition-colors">Home</a>
+      <a href="empresa.html" class="text-white">Empresa</a>
+      <a href="viaturas.html" class="hover:text-white transition-colors">Viaturas</a>
+      <a href="motas.html" class="hover:text-white transition-colors">Motas</a>
+      <a href="intermediacao.html" class="hover:text-white transition-colors">Intermediação</a>
+      <a href="compramos.html" class="hover:text-white transition-colors">Compramos</a>
+      <a href="testemunhos.html" class="hover:text-white transition-colors">Testemunhos</a>
+      <a href="contactos.html" class="hover:text-white transition-colors">Contactos</a>
+    </div>
+    <a href="tel:+351966232555" class="btn-primary text-xs py-2.5 px-5 hidden sm:inline-flex"><iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>966 232 555</a>
+  </div>
+</nav>
+
+<!-- =============================================
+     HERO — Cinematic Full-bleed
+     ============================================= -->
+<section class="relative h-[70vh] md:h-[80vh] flex items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="site-antigo/pilotoautomoveis.pt_empresa/assets/banner552n613L552996_a7dc7718071b.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-bg/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-bg/60 via-transparent to-bg/40"></div>
+  </div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 w-full">
+    <div class="max-w-2xl">
+      <span class="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest uppercase mb-6" style="animation: float 4s ease-in-out infinite;">
+        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+        Desde 2019
+      </span>
+      <h1 id="hero-title" class="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-6 whitespace-nowrap"></h1>
+      <p class="text-lg md:text-xl text-white/50 font-light leading-relaxed max-w-lg gs">
+        Excelência, confiança e paixão pelo automóvel. Conheça a nossa história.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     ABOUT — Split Layout
+     ============================================= -->
+<section class="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.015] blur-[200px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-[1400px] mx-auto">
+    <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+
+      <!-- Left — Large number + line -->
+      <div class="lg:w-1/2 gs-left">
+        <div class="relative">
+          <div class="font-display text-[12rem] md:text-[16rem] font-bold tracking-tighter leading-none text-white/[0.03] select-none">PA</div>
+          <div class="absolute top-1/2 left-0 -translate-y-1/2">
+            <div class="flex items-center gap-6 mb-6">
+              <div class="w-12 h-px bg-white/20"></div>
+              <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold">Quem Somos</span>
+            </div>
+            <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter mb-6">
+              A nossa <span class="metallic">história</span>
+            </h2>
+            <p class="text-base text-white/60 font-light leading-relaxed max-w-md mb-4">
+              Com uma longa experiência no ramo automóvel, o Stand <strong class="text-white font-medium">Piloto Automóveis</strong> está no mercado para oferecer o melhor serviço na compra e venda de carros novos e usados.
+            </p>
+            <p class="text-base text-white/60 font-light leading-relaxed max-w-md">
+              Aliados aos melhores serviços de financiamento até <strong class="text-white font-medium">120 meses</strong> com as melhores taxas de juro do mercado.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — Stats cards -->
+      <div class="lg:w-1/2 gs-right">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass rounded-2xl p-8 text-center group hover:bg-white/[0.06] transition-all duration-500">
+            <div class="font-display text-5xl md:text-6xl font-bold tracking-tighter mb-2 metallic" id="stat-cars">86+</div>
+            <div class="text-xs uppercase tracking-widest text-muted">Viaturas em stock</div>
+          </div>
+          <div class="glass rounded-2xl p-8 text-center group hover:bg-white/[0.06] transition-all duration-500">
+            <div class="font-display text-5xl md:text-6xl font-bold tracking-tighter mb-2 metallic" id="stat-years">5+</div>
+            <div class="text-xs uppercase tracking-widest text-muted">Anos de experiência</div>
+          </div>
+          <div class="glass rounded-2xl p-8 text-center group hover:bg-white/[0.06] transition-all duration-500">
+            <div class="font-display text-5xl md:text-6xl font-bold tracking-tighter mb-2 metallic">5.0</div>
+            <div class="flex justify-center gap-0.5 mb-2">
+              <iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon>
+              <iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon>
+              <iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon>
+              <iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon>
+              <iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon>
+            </div>
+            <div class="text-xs uppercase tracking-widest text-muted">Google Reviews</div>
+          </div>
+          <div class="glass rounded-2xl p-8 text-center group hover:bg-white/[0.06] transition-all duration-500">
+            <div class="font-display text-5xl md:text-6xl font-bold tracking-tighter mb-2 metallic">120</div>
+            <div class="text-xs uppercase tracking-widest text-muted">Meses financiamento</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- =============================================
+     VALUES — Horizontal Scroll Cards
+     ============================================= -->
+<section class="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="text-center mb-16 gs">
+      <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">Pilares</span>
+      <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">Os nossos <span class="metallic">valores</span></h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="group relative bg-card rounded-[2rem] p-8 border border-border hover:border-white/15 transition-all duration-500 gs overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/[0.02] blur-[60px] rounded-full pointer-events-none group-hover:bg-white/[0.05] transition-all duration-700"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <iconify-icon icon="solar:shield-check-linear" class="text-2xl text-white/70"></iconify-icon>
+          </div>
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3">Confiança</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Transparência total em cada negócio. Cada viatura é inspeccionada e documentada antes da venda.</p>
+        </div>
+      </div>
+
+      <div class="group relative bg-card rounded-[2rem] p-8 border border-border hover:border-white/15 transition-all duration-500 gs overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/[0.02] blur-[60px] rounded-full pointer-events-none group-hover:bg-white/[0.05] transition-all duration-700"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <iconify-icon icon="solar:star-ring-linear" class="text-2xl text-white/70"></iconify-icon>
+          </div>
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3">Excelência</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Do primeiro contacto à entrega das chaves, garantimos um serviço premium e personalizado.</p>
+        </div>
+      </div>
+
+      <div class="group relative bg-card rounded-[2rem] p-8 border border-border hover:border-white/15 transition-all duration-500 gs overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/[0.02] blur-[60px] rounded-full pointer-events-none group-hover:bg-white/[0.05] transition-all duration-700"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <iconify-icon icon="solar:hand-shake-linear" class="text-2xl text-white/70"></iconify-icon>
+          </div>
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3">Compromisso</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Financiamento até 120 meses com as melhores taxas. Encontramos a solução ideal para si.</p>
+        </div>
+      </div>
+
+      <div class="group relative bg-card rounded-[2rem] p-8 border border-border hover:border-white/15 transition-all duration-500 gs overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/[0.02] blur-[60px] rounded-full pointer-events-none group-hover:bg-white/[0.05] transition-all duration-700"></div>
+        <div class="relative z-10">
+          <div class="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+            <iconify-icon icon="solar:heart-linear" class="text-2xl text-white/70"></iconify-icon>
+          </div>
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3">Paixão</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Amamos o que fazemos. Cada carro que selecionamos reflete o nosso padrão de qualidade.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- =============================================
+     TIMELINE — Company Journey
+     ============================================= -->
+<section class="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="absolute bottom-0 left-1/4 w-[600px] h-[400px] bg-white/[0.01] blur-[200px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-[1400px] mx-auto">
+    <div class="text-center mb-20 gs">
+      <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">Percurso</span>
+      <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">A nossa <span class="metallic">jornada</span></h2>
+    </div>
+
+    <!-- Vertical timeline -->
+    <div class="relative max-w-3xl mx-auto" id="timeline-wrap">
+      <!-- Track (background line) -->
+      <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-white/[0.06] md:-translate-x-px"></div>
+      <!-- Progress fill (animated) -->
+      <div id="timeline-progress" class="absolute left-6 md:left-1/2 top-0 w-px bg-white/40 md:-translate-x-px origin-top" style="height:0%;"></div>
+
+      <!-- Event 1 -->
+      <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 mb-16 gs">
+        <div class="md:w-1/2 md:text-right md:pr-12">
+          <span class="font-display text-4xl md:text-5xl font-bold tracking-tighter metallic">2019</span>
+          <h3 class="font-display text-xl font-semibold tracking-tight mt-2 mb-2">Fundação</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Nascemos com a missão de democratizar o acesso a viaturas premium no norte de Portugal.</p>
+        </div>
+        <div class="absolute left-6 md:left-1/2 w-3 h-3 bg-white rounded-full -translate-x-1/2 ring-4 ring-bg"></div>
+        <div class="md:w-1/2 md:pl-12"></div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 mb-16 gs">
+        <div class="md:w-1/2 md:pr-12"></div>
+        <div class="absolute left-6 md:left-1/2 w-3 h-3 bg-white rounded-full -translate-x-1/2 ring-4 ring-bg"></div>
+        <div class="md:w-1/2 md:pl-12">
+          <span class="font-display text-4xl md:text-5xl font-bold tracking-tighter metallic">2021</span>
+          <h3 class="font-display text-xl font-semibold tracking-tight mt-2 mb-2">Expansão do Stock</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Duplicámos a oferta com foco em supercars e veículos de luxo importados da Europa.</p>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 mb-16 gs">
+        <div class="md:w-1/2 md:text-right md:pr-12">
+          <span class="font-display text-4xl md:text-5xl font-bold tracking-tighter metallic">2023</span>
+          <h3 class="font-display text-xl font-semibold tracking-tight mt-2 mb-2">Intermediação de Crédito</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Parceria com as principais entidades financeiras para oferecer crédito até 120 meses.</p>
+        </div>
+        <div class="absolute left-6 md:left-1/2 w-3 h-3 bg-white rounded-full -translate-x-1/2 ring-4 ring-bg"></div>
+        <div class="md:w-1/2 md:pl-12"></div>
+      </div>
+
+      <!-- Event 4 -->
+      <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 gs">
+        <div class="md:w-1/2 md:pr-12"></div>
+        <div class="absolute left-6 md:left-1/2 w-3 h-3 bg-white rounded-full -translate-x-1/2 ring-4 ring-bg"></div>
+        <div class="md:w-1/2 md:pl-12">
+          <span class="font-display text-4xl md:text-5xl font-bold tracking-tighter metallic">2025</span>
+          <h3 class="font-display text-xl font-semibold tracking-tight mt-2 mb-2">Referência Nacional</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">5.0 estrelas no Google com mais de 21 avaliações. Entregas em todo o território nacional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- =============================================
+     CTA — Visit Us
+     ============================================= -->
+<section class="relative py-24 md:py-32 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-white/[0.02] via-transparent to-white/[0.02]"></div>
+  <div class="relative z-10 max-w-4xl mx-auto text-center px-6 gs">
+    <div class="glass-strong rounded-4xl p-12 md:p-20">
+      <div class="font-display text-3xl md:text-5xl font-bold tracking-tighter mb-4">Faça uma <span class="metallic">visita</span></div>
+      <p class="text-muted font-light text-lg mb-8 max-w-md mx-auto">Venha conhecer o nosso espaço e descobrir a viatura perfeita para si.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="viaturas.html" class="btn-primary">Ver Viaturas <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a>
+        <a href="contactos.html" class="btn-secondary"><iconify-icon icon="solar:map-point-linear"></iconify-icon> Como Chegar</a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/5">
+        <div class="text-center">
+          <iconify-icon icon="solar:map-point-linear" class="text-xl text-white/30 mb-2"></iconify-icon>
+          <div class="text-sm font-medium">Rua do Labriosque</div>
+          <div class="text-xs text-muted">4705-768 Braga</div>
+        </div>
+        <div class="text-center">
+          <iconify-icon icon="solar:phone-calling-linear" class="text-xl text-white/30 mb-2"></iconify-icon>
+          <div class="text-sm font-medium">966 232 555</div>
+          <div class="text-xs text-muted">Rede móvel nacional</div>
+        </div>
+        <div class="text-center">
+          <iconify-icon icon="solar:clock-circle-linear" class="text-xl text-white/30 mb-2"></iconify-icon>
+          <div class="text-sm font-medium">Seg-Sáb 09:30-19:00</div>
+          <div class="text-xs text-muted">Dom 09:30-18:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-border py-12 px-6 md:px-12 lg:px-24">
+  <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert"/>
+    <div class="flex gap-6 text-xs text-muted">
+      <a href="tel:+351966232555" class="hover:text-white transition-colors">966 232 555</a>
+      <a href="mailto:geral@pilotoautomoveis.pt" class="hover:text-white transition-colors">geral@pilotoautomoveis.pt</a>
+    </div>
+    <span class="text-xs text-muted/50">&copy; 2026 Piloto Automóveis — Raizes Sublimes Unipessoal Lda</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/+351966232555" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon></a>
+
+<script>
+// NAV
+window.addEventListener('scroll',function(){var n=document.getElementById('main-nav');n.style.background=window.scrollY>50?'rgba(8,8,5,0.9)':'transparent';n.style.backdropFilter=window.scrollY>50?'blur(20px)':'none';});
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.gs').forEach(function(e){gsap.fromTo(e,{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+gsap.utils.toArray('.gs-left').forEach(function(e){gsap.fromTo(e,{opacity:0,x:-60},{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+gsap.utils.toArray('.gs-right').forEach(function(e){gsap.fromTo(e,{opacity:0,x:60},{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+
+// TIMELINE PROGRESS BAR
+(function(){
+  var wrap=document.getElementById('timeline-wrap');
+  var bar=document.getElementById('timeline-progress');
+  if(!wrap||!bar)return;
+  ScrollTrigger.create({
+    trigger:wrap,
+    start:'top 60%',
+    end:'bottom 60%',
+    onUpdate:function(self){
+      bar.style.height=(self.progress*100)+'%';
+    }
+  });
+})();
+
+// HERO TITLE — char blur reveal
+(function(){
+  var el=document.getElementById('hero-title');
+  var text='Piloto Automóveis';
+  var html='';
+  for(var i=0;i<text.length;i++){
+    if(text[i]===' ')html+='<span class="char-space"> </span>';
+    else html+='<span class="char-blur">'+text[i]+'</span>';
+  }
+  el.innerHTML=html;
+  setTimeout(function(){
+    el.querySelectorAll('.char-blur').forEach(function(ch,i){
+      setTimeout(function(){ch.classList.add('revealed');},i*40);
+    });
+  },300);
+})();
+
+// COUNTER ANIMATION
+(function(){
+  function animateCount(id,target,suffix){
+    var el=document.getElementById(id);
+    if(!el)return;
+    ScrollTrigger.create({trigger:el,start:'top 90%',once:true,onEnter:function(){
+      var obj={val:0};
+      gsap.to(obj,{val:target,duration:2,ease:'power2.out',onUpdate:function(){
+        el.innerHTML=Math.round(obj.val)+suffix;
+      }});
+    }});
+  }
+  animateCount('stat-cars',86,'+');
+  animateCount('stat-years',5,'+');
+})();
+</script>
+</body>
+</html>

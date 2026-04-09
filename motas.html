@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Motas — Piloto Automóveis</title>
+<meta name="description" content="Motas usadas e seminovas com garantia. Piloto Automóveis, Braga."/>
+<link rel="icon" href="site-antigo/pilotoautomoveis.pt_home/assets/favicon_70a28403b374.ico"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#080805',card:'#121212',border:'#2A2A2A',muted:'#777'},fontFamily:{sans:['Figtree','sans-serif'],display:['Space Grotesk','sans-serif']},borderRadius:{'4xl':'2rem'}}}}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#080805;color:#fff;font-family:'Figtree',sans-serif;margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:#fff;color:#000}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#080805}::-webkit-scrollbar-thumb{background:#2A2A2A;border-radius:3px}
+.glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)}.glass-strong{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12)}
+.metallic{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(180deg,#fff 0%,#666 100%)}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:#fff;color:#080805;font-weight:600;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:none;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none}.btn-primary:hover{background:#e0e0e0;transform:translateY(-2px);box-shadow:0 8px 30px -5px rgba(255,255,255,0.2)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:transparent;color:#fff;font-weight:500;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none}.btn-secondary:hover{border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.05);transform:translateY(-2px)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1) 30%,rgba(255,255,255,0.1) 70%,transparent)}
+.gs{opacity:0;transform:translateY(40px);will-change:transform,opacity}
+.card-hover{position:relative}.card-hover::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(to bottom right,rgba(255,255,255,0.05),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;transition:all 0.5s ease;pointer-events:none}.card-hover:hover::before{background:linear-gradient(to bottom right,rgba(255,255,255,0.2),transparent,transparent)}
+@keyframes charBlurIn{0%{opacity:0;transform:translateY(20px);filter:blur(12px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}.char-blur{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(20px)}.char-blur.revealed{animation:charBlurIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}.char-space{display:inline-block;width:0.3em}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav class="sticky top-0 w-full z-50 transition-all duration-500 border-b border-white/5" id="main-nav">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+    <a href="home-nova.html" class="shrink-0"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert"/></a>
+    <div class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-medium text-muted">
+      <a href="home-nova.html" class="hover:text-white transition-colors">Home</a><a href="empresa.html" class="hover:text-white transition-colors">Empresa</a><a href="viaturas.html" class="hover:text-white transition-colors">Viaturas</a><a href="motas.html" class="text-white">Motas</a><a href="intermediacao.html" class="hover:text-white transition-colors">Intermediação</a><a href="compramos.html" class="hover:text-white transition-colors">Compramos</a><a href="testemunhos.html" class="hover:text-white transition-colors">Testemunhos</a><a href="contactos.html" class="hover:text-white transition-colors">Contactos</a>
+    </div>
+    <a href="tel:+351966232555" class="btn-primary text-xs py-2.5 px-5 hidden sm:inline-flex"><iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>966 232 555</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative py-28 md:py-36 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="absolute top-1/2 left-1/4 w-[600px] h-[500px] bg-white/[0.02] blur-[200px] rounded-full pointer-events-none -translate-y-1/2"></div>
+  <div class="relative z-10 max-w-[1400px] mx-auto">
+    <div class="max-w-2xl">
+      <span class="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest uppercase mb-8" style="animation:float 4s ease-in-out infinite">
+        <iconify-icon icon="solar:bolt-linear" class="text-sm"></iconify-icon>
+        Duas Rodas
+      </span>
+      <h1 id="hero-title" class="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-6"></h1>
+      <p class="text-lg text-white/50 font-light leading-relaxed max-w-lg gs">Motas usadas e seminovas com garantia e financiamento disponível.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- MOTORCYCLE LISTING -->
+<section class="py-24 md:py-32 px-6 md:px-12 lg:px-24">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="mb-12 gs">
+      <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">Stock Disponível</span>
+      <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">Motas em <span class="metallic">destaque</span></h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Honda Forza -->
+      <div class="bg-card rounded-[2rem] overflow-hidden border border-border group card-hover gs">
+        <div class="relative h-72 overflow-hidden">
+          <img src="site-antigo/pilotoautomoveis.pt_motas/assets/55227799_omeustand_foto_ea3307f5d939.webp" alt="Honda Forza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60"></div>
+          <span class="absolute top-5 left-5 glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Honda</span>
+          <div class="absolute top-5 right-5 w-8 h-8 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="p-8">
+          <h3 class="font-display text-2xl font-semibold tracking-tight mb-2">Honda Forza</h3>
+          <div class="font-display text-3xl font-bold tracking-tighter mb-6">9.490€</div>
+          <div class="flex gap-4 text-sm text-white/60 font-light">
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2021</span>
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>1.129 km</span>
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+          </div>
+          <a href="contactos.html" class="btn-primary mt-6 text-xs">Saber Mais <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a>
+        </div>
+      </div>
+
+      <!-- Harley-Davidson -->
+      <div class="bg-card rounded-[2rem] overflow-hidden border border-border group card-hover gs">
+        <div class="relative h-72 overflow-hidden">
+          <img src="site-antigo/pilotoautomoveis.pt_motas/assets/fotomota9iR0F552161813028_a46787a71982.jpg" alt="Harley-Davidson V-Rod" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60"></div>
+          <span class="absolute top-5 left-5 glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Harley-Davidson</span>
+          <div class="absolute top-5 right-5 w-8 h-8 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="p-8">
+          <h3 class="font-display text-2xl font-semibold tracking-tight mb-2">Harley-Davidson VRSCA V-Rod</h3>
+          <div class="font-display text-3xl font-bold tracking-tighter mb-6">12.990€</div>
+          <div class="flex gap-4 text-sm text-white/60 font-light">
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2002</span>
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>21.074 km</span>
+            <span class="flex items-center gap-1.5"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+          </div>
+          <a href="contactos.html" class="btn-primary mt-6 text-xs">Saber Mais <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- CTA — Sell your bike -->
+<section class="py-24 px-6 gs">
+  <div class="max-w-3xl mx-auto text-center glass-strong rounded-4xl p-12 md:p-16">
+    <iconify-icon icon="solar:bolt-linear" class="text-4xl text-white/20 mb-6"></iconify-icon>
+    <div class="font-display text-2xl md:text-4xl font-bold tracking-tighter mb-4">Tem uma mota para <span class="metallic">vender?</span></div>
+    <p class="text-muted font-light mb-8">Também compramos motas. Avaliação gratuita e pagamento rápido.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="compramos.html" class="btn-primary">Avaliar Mota <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a>
+      <a href="contactos.html" class="btn-secondary"><iconify-icon icon="solar:phone-calling-linear"></iconify-icon> Contactar</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-border py-12 px-6 md:px-12 lg:px-24">
+  <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert"/>
+    <div class="flex gap-6 text-xs text-muted"><a href="tel:+351966232555" class="hover:text-white transition-colors">966 232 555</a><a href="mailto:geral@pilotoautomoveis.pt" class="hover:text-white transition-colors">geral@pilotoautomoveis.pt</a></div>
+    <span class="text-xs text-muted/50">&copy; 2026 Piloto Automóveis</span>
+  </div>
+</footer>
+<a href="https://wa.me/+351966232555" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon></a>
+
+<script>
+window.addEventListener('scroll',function(){var n=document.getElementById('main-nav');n.style.background=window.scrollY>50?'rgba(8,8,5,0.9)':'transparent';n.style.backdropFilter=window.scrollY>50?'blur(20px)':'none';});
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.gs').forEach(function(e){gsap.fromTo(e,{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+(function(){var el=document.getElementById('hero-title');var text='Motas';var html='';for(var i=0;i<text.length;i++){if(text[i]===' ')html+='<span class="char-space"> </span>';else html+='<span class="char-blur">'+text[i]+'</span>';}el.innerHTML=html;setTimeout(function(){el.querySelectorAll('.char-blur').forEach(function(ch,i){setTimeout(function(){ch.classList.add('revealed');},i*60);});},300);})();
+</script>
+</body>
+</html>

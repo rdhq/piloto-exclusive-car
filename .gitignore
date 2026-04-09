@@ -1,0 +1,15 @@
+# Templates de referência (não precisam no deploy)
+templates/
+
+# Squidyrun (ferramenta de dev)
+squidyrun/
+
+# Zone.Identifier (Windows/WSL)
+*:Zone.Identifier
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

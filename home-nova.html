@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Piloto Automóveis — Stand Automóvel em Barcelos, Braga</title>
+<meta name="description" content="Piloto Automóveis, comercializamos automóveis usados e semi-novos com garantia e aos melhores preços do mercado. Barcelos, Braga."/>
+<link rel="icon" href="site-antigo/pilotoautomoveis.pt_home/assets/favicon_70a28403b374.ico"/>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- Iconify -->
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js"></script>
+
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        bg: '#080805',
+        card: '#121212',
+        border: '#2A2A2A',
+        muted: '#777',
+        surface: '#0d0d0a',
+      },
+      fontFamily: {
+        sans: ['Figtree', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
+      },
+      borderRadius: { '4xl': '2rem' },
+    }
+  }
+}
+</script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #080805; color: #fff; font-family: 'Figtree', sans-serif; margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::selection { background: #fff; color: #000; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #080805; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #fff; }
+
+.glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+.glass-strong { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); }
+.metallic-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(180deg, #fff 0%, #666 100%); }
+.noise { position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); }
+.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.card-hover { position: relative; }
+.card-hover::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(to bottom right, rgba(255,255,255,0.05), transparent); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; transition: all 0.5s ease; pointer-events: none; }
+.card-hover:hover::before { background: linear-gradient(to bottom right, rgba(255,255,255,0.25), transparent, transparent); }
+
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: #fff; color: #080805; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 9999px; border: none; cursor: pointer; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; text-decoration: none; }
+.btn-primary:hover { background: #e0e0e0; transform: translateY(-2px); box-shadow: 0 8px 30px -5px rgba(255,255,255,0.2); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: transparent; color: #fff; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); text-decoration: none; }
+.btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+.gs { opacity: 0; transform: translateY(40px); will-change: transform, opacity; }
+.gs-left { opacity: 0; transform: translateX(-60px); will-change: transform, opacity; }
+.gs-scale { opacity: 0; transform: scale(0.85); will-change: transform, opacity; }
+
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 40s linear infinite; display: flex; width: max-content; }
+
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+@keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+.text-shimmer { background: linear-gradient(to right, #666 20%, #fff 50%, #666 80%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
+
+.section-grid { background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+.section-dots { background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, transparent); }
+
+/* Blur char reveal */
+@keyframes charBlurIn {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(12px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.char-blur {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(20px);
+}
+.char-blur.revealed {
+  animation: charBlurIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.char-blur-space { display: inline-block; width: 0.3em; }
+
+/* Spinning rings */
+@keyframes spin-slow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+@keyframes spin-slow-reverse { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- =============================================
+     COOKIE BANNER
+     ============================================= -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[100] p-4 hidden">
+  <div class="max-w-4xl mx-auto glass-strong rounded-2xl p-5 flex flex-col sm:flex-row items-center gap-4">
+    <p class="text-sm text-white/70 flex-1">Utilizamos cookies para melhorar a sua experiência. Ao continuar a navegar, concorda com a nossa <a href="#" class="underline text-white/90 hover:text-white">política de cookies</a>.</p>
+    <button onclick="document.getElementById('cookie-banner').classList.add('hidden')" class="btn-primary text-xs py-2 px-5 shrink-0">Concordar e Fechar</button>
+  </div>
+</div>
+
+<!-- =============================================
+     TOP BAR
+     ============================================= -->
+<div class="hidden md:block border-b border-white/5 relative z-50">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-2.5 flex justify-between items-center text-xs text-muted">
+    <div class="flex items-center gap-6">
+      <a href="tel:+351966232555" class="flex items-center gap-1.5 hover:text-white transition-colors">
+        <iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>
+        966 232 555
+      </a>
+      <span class="text-white/20">|</span>
+      <a href="mailto:geral@pilotoautomoveis.pt" class="hover:text-white transition-colors">geral@pilotoautomoveis.pt</a>
+      <span class="text-white/20">|</span>
+      <span>Seg-Sáb 09:30-19:00 · Dom 09:30-18:00</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="https://www.facebook.com/pilotoautomoveis.pt" target="_blank" class="hover:text-white transition-colors"><iconify-icon icon="mdi:facebook" class="text-base"></iconify-icon></a>
+      <a href="https://www.instagram.com/standpilotoautomoveis/" target="_blank" class="hover:text-white transition-colors"><iconify-icon icon="mdi:instagram" class="text-base"></iconify-icon></a>
+      <a href="https://wa.me/+351966232555" target="_blank" class="hover:text-white transition-colors"><iconify-icon icon="mdi:whatsapp" class="text-base"></iconify-icon></a>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     NAVIGATION
+     ============================================= -->
+<nav class="sticky top-0 w-full z-50 transition-all duration-500 border-b border-white/5" id="main-nav">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+    <a href="home-nova.html" class="shrink-0">
+      <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert" />
+    </a>
+    <div class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-medium text-muted">
+      <a href="home-nova.html" class="text-white">Home</a>
+      <a href="/empresa" class="hover:text-white transition-colors">Empresa</a>
+      <a href="viaturas.html" class="hover:text-white transition-colors">Viaturas</a>
+      <a href="/motas" class="hover:text-white transition-colors">Motas</a>
+      <a href="/intermediacao" class="hover:text-white transition-colors">Intermediação</a>
+      <a href="/compramos" class="hover:text-white transition-colors">Compramos</a>
+      <a href="/testemunhos" class="hover:text-white transition-colors">Testemunhos</a>
+      <a href="/contactos" class="hover:text-white transition-colors">Contactos</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="tel:+351966232555" class="btn-primary text-xs py-2.5 px-5 hidden sm:inline-flex">
+        <iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>
+        966 232 555
+      </a>
+      <button id="menu-toggle" class="lg:hidden w-10 h-10 rounded-full glass flex items-center justify-center">
+        <iconify-icon icon="solar:hamburger-menu-linear" class="text-xl"></iconify-icon>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed inset-0 z-[200] bg-bg/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 hidden">
+  <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 rounded-full glass flex items-center justify-center">
+    <iconify-icon icon="solar:close-circle-linear" class="text-xl"></iconify-icon>
+  </button>
+  <a href="home-nova.html" class="text-xl font-display font-bold tracking-tight text-white">Home</a>
+  <a href="/empresa" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Empresa</a>
+  <a href="viaturas.html" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Viaturas</a>
+  <a href="/motas" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Motas</a>
+  <a href="/intermediacao" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Intermediação</a>
+  <a href="/compramos" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Compramos</a>
+  <a href="/testemunhos" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Testemunhos</a>
+  <a href="/contactos" class="text-xl font-display font-light text-muted hover:text-white transition-colors">Contactos</a>
+  <a href="tel:+351966232555" class="btn-primary mt-4">
+    <iconify-icon icon="solar:phone-calling-linear"></iconify-icon> 966 232 555
+  </a>
+</div>
+
+<!-- =============================================
+     HERO CAROUSEL
+     ============================================= -->
+<section id="hero" class="relative h-[85vh] md:h-screen overflow-hidden">
+  <div id="hero-carousel" class="absolute inset-0">
+
+    <!-- Slide 1 — Lamborghini -->
+    <div class="carousel-slide absolute inset-0 opacity-0" data-index="0">
+      <img src="assets/raw-files/lamborghini.png" alt="Lamborghini Aventador" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+      <div class="absolute bottom-[15%] md:bottom-[18%] left-6 md:left-16 lg:left-24 z-10 max-w-2xl">
+        <div class="overflow-hidden mb-1"><div class="slide-sub text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 font-light mb-4" style="transform:translateY(100%);opacity:0;">Destaque — 349.900€</div></div>
+        <div class="overflow-hidden"><h1 class="slide-title font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-white" style="transform:translateY(100%);opacity:0;">Lamborghini<br/><span class="font-light text-white/60">Aventador LP700-4</span></h1></div>
+        <div class="overflow-hidden mt-6"><div class="slide-specs flex gap-4 text-xs text-white/50" style="transform:translateY(100%);opacity:0;"><span class="glass px-3 py-1 rounded-full">2012</span><span class="glass px-3 py-1 rounded-full">17.929 km</span><span class="glass px-3 py-1 rounded-full">6.5 V12</span><span class="glass px-3 py-1 rounded-full">Gasolina</span></div></div>
+        <div class="overflow-hidden mt-6"><a href="viaturas.html" class="slide-cta btn-primary" style="transform:translateY(100%);opacity:0;">Ver Viatura <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a></div>
+      </div>
+    </div>
+
+    <!-- Slide 2 — Ferrari -->
+    <div class="carousel-slide absolute inset-0 opacity-0" data-index="1">
+      <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros135963-1_3063937cdf10.webp" alt="Ferrari 488 GTB" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+      <div class="absolute bottom-[15%] md:bottom-[18%] left-6 md:left-16 lg:left-24 z-10 max-w-2xl">
+        <div class="overflow-hidden mb-1"><div class="slide-sub text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 font-light mb-4" style="transform:translateY(100%);opacity:0;">Destaque — 269.990€</div></div>
+        <div class="overflow-hidden"><h1 class="slide-title font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-white" style="transform:translateY(100%);opacity:0;">Ferrari<br/><span class="font-light text-white/60">488 GTB</span></h1></div>
+        <div class="overflow-hidden mt-6"><div class="slide-specs flex gap-4 text-xs text-white/50" style="transform:translateY(100%);opacity:0;"><span class="glass px-3 py-1 rounded-full">2018</span><span class="glass px-3 py-1 rounded-full">34.724 km</span><span class="glass px-3 py-1 rounded-full">Gasolina</span></div></div>
+        <div class="overflow-hidden mt-6"><a href="viaturas.html" class="slide-cta btn-primary" style="transform:translateY(100%);opacity:0;">Ver Viatura <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a></div>
+      </div>
+    </div>
+
+    <!-- Slide 3 — Mercedes G63 -->
+    <div class="carousel-slide absolute inset-0 opacity-0" data-index="2">
+      <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros130027-1_44565ae75b8c.webp" alt="Mercedes G 63 AMG" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+      <div class="absolute bottom-[15%] md:bottom-[18%] left-6 md:left-16 lg:left-24 z-10 max-w-2xl">
+        <div class="overflow-hidden mb-1"><div class="slide-sub text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 font-light mb-4" style="transform:translateY(100%);opacity:0;">Destaque — 220.000€</div></div>
+        <div class="overflow-hidden"><h1 class="slide-title font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-white" style="transform:translateY(100%);opacity:0;">Mercedes-Benz<br/><span class="font-light text-white/60">G 63 AMG</span></h1></div>
+        <div class="overflow-hidden mt-6"><div class="slide-specs flex gap-4 text-xs text-white/50" style="transform:translateY(100%);opacity:0;"><span class="glass px-3 py-1 rounded-full">2021</span><span class="glass px-3 py-1 rounded-full">20.820 km</span><span class="glass px-3 py-1 rounded-full">Gasolina</span></div></div>
+        <div class="overflow-hidden mt-6"><a href="viaturas.html" class="slide-cta btn-primary" style="transform:translateY(100%);opacity:0;">Ver Viatura <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a></div>
+      </div>
+    </div>
+
+    <!-- Slide 4 — Audi R8 -->
+    <div class="carousel-slide absolute inset-0 opacity-0" data-index="3">
+      <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros161314-1_c2f0dde86ee9.webp" alt="Audi R8 Spyder" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+      <div class="absolute bottom-[15%] md:bottom-[18%] left-6 md:left-16 lg:left-24 z-10 max-w-2xl">
+        <div class="overflow-hidden mb-1"><div class="slide-sub text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 font-light mb-4" style="transform:translateY(100%);opacity:0;">Destaque — 119.990€</div></div>
+        <div class="overflow-hidden"><h1 class="slide-title font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] text-white" style="transform:translateY(100%);opacity:0;">Audi R8<br/><span class="font-light text-white/60">Spyder 5.2 V10</span></h1></div>
+        <div class="overflow-hidden mt-6"><div class="slide-specs flex gap-4 text-xs text-white/50" style="transform:translateY(100%);opacity:0;"><span class="glass px-3 py-1 rounded-full">2012</span><span class="glass px-3 py-1 rounded-full">88.858 km</span><span class="glass px-3 py-1 rounded-full">Gasolina</span></div></div>
+        <div class="overflow-hidden mt-6"><a href="viaturas.html" class="slide-cta btn-primary" style="transform:translateY(100%);opacity:0;">Ver Viatura <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicators -->
+  <div class="absolute bottom-6 left-6 md:left-16 lg:left-24 z-20 flex items-center gap-2">
+    <div class="carousel-dot w-8 h-[3px] rounded-full bg-white/80 cursor-pointer transition-all" data-slide="0"></div>
+    <div class="carousel-dot w-8 h-[3px] rounded-full bg-white/25 cursor-pointer transition-all hover:bg-white/50" data-slide="1"></div>
+    <div class="carousel-dot w-8 h-[3px] rounded-full bg-white/25 cursor-pointer transition-all hover:bg-white/50" data-slide="2"></div>
+    <div class="carousel-dot w-8 h-[3px] rounded-full bg-white/25 cursor-pointer transition-all hover:bg-white/50" data-slide="3"></div>
+    <span class="text-[10px] text-white/30 font-mono ml-3"><span id="carousel-num">01</span> / 04</span>
+  </div>
+  <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 z-20"><div id="carousel-progress" class="h-full bg-white/40" style="width:0%;"></div></div>
+  <div class="absolute bottom-6 right-6 md:right-16 lg:right-24 z-20 flex gap-3">
+    <button id="c-prev" class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-all cursor-pointer"><iconify-icon icon="solar:arrow-left-linear" class="text-lg"></iconify-icon></button>
+    <button id="c-next" class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-all cursor-pointer"><iconify-icon icon="solar:arrow-right-linear" class="text-lg"></iconify-icon></button>
+  </div>
+</section>
+
+<!-- =============================================
+     BRANDS CAROUSEL — centered on hero bottom edge
+     ============================================= -->
+<section class="relative z-40 -mt-[60px] md:-mt-[65px] pb-8 overflow-visible gs">
+  <div class="absolute inset-0 bg-bg"></div>
+
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
+    <div class="relative flex items-center gap-0">
+      <!-- Fixed "Ver Todo Stock" button -->
+      <a href="viaturas.html" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white rounded-2xl flex flex-col items-center justify-center p-3 hover:scale-105 transition-all duration-300 group shadow-xl relative z-20">
+        <iconify-icon icon="solar:car-linear" class="text-3xl text-black/70 group-hover:text-black transition-colors mb-1"></iconify-icon>
+        <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-black/70 group-hover:text-black text-center leading-tight">Ver Todo<br/>Stock</span>
+      </a>
+      <!-- Scrolling track -->
+      <div class="relative overflow-hidden flex-1 -ml-3">
+        <div id="brands-track" class="flex gap-3 md:gap-4 transition-transform duration-500 ease-out pl-5">
+        <a data-brand-link href="viaturas.html?marca=Abarth" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/abarth_2ab7237cfc51.webp" alt="Abarth" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Audi" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/audi_60e5ac617283.webp" alt="Audi" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Bentley" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/bentley_b5038b2c163a.webp" alt="Bentley" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=BMW" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/bmw_29cccd4c3cfe.webp" alt="BMW" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Citroen" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/citroen_2968368b2185.webp" alt="Citroën" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Dacia" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/dacia_742cb8d966a0.webp" alt="Dacia" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Ferrari" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/ferrari_9d2d43d6140a.webp" alt="Ferrari" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Fiat" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/fiat_12a9215a15d2.webp" alt="Fiat" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Ford" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/ford_ac8c4d67d930.webp" alt="Ford" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Jaguar" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/jaguar_7e195376de4d.webp" alt="Jaguar" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Jeep" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/jeep_75e1790e5e8b.webp" alt="Jeep" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Kia" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/kia_5cc025c50224.webp" alt="Kia" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Lamborghini" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/lamborghini_82eeb6d822ea.webp" alt="Lamborghini" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Land+Rover" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/land-rover_7aa66a174ab9.webp" alt="Land Rover" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Maserati" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/maserati_d45c4136bc99.webp" alt="Maserati" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Mazda" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/mazda_5232377b443b.webp" alt="Mazda" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Mercedes-Benz" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/mercedes-benz_51439f04dd3a.webp" alt="Mercedes-Benz" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=MG" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/mg_0d9193ff5305.webp" alt="MG" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=MINI" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/mini_adc52418631f.webp" alt="MINI" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Nissan" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/nissan_bafb0436a1cd.webp" alt="Nissan" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Opel" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/opel_97b619bcf631.webp" alt="Opel" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Peugeot" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/peugeot_42fe64fe777b.webp" alt="Peugeot" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Porsche" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/porsche_42fe64fe777b.webp" alt="Porsche" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Renault" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/renault_85ee2964e5c4.webp" alt="Renault" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Seat" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/seat_b3e429708824.webp" alt="Seat" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Smart" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/smart_13aa528a22fb.webp" alt="Smart" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Tesla" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/tesla_9063ba99f999.webp" alt="Tesla" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Toyota" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/toyota_96323de454b4.webp" alt="Toyota" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=Volvo" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/volvo_53e9f54c74b5.webp" alt="Volvo" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+        <a data-brand-link href="viaturas.html?marca=VW" class="shrink-0 w-[130px] md:w-[155px] h-[110px] md:h-[120px] bg-white/90 rounded-2xl flex items-center justify-center p-4 hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/vw_be1218d6a193.webp" alt="VW" class="max-h-20 max-w-[120px] object-contain" />
+        </a>
+      </div>
+        <!-- Fade right edge -->
+        <div class="absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-bg to-transparent pointer-events-none z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     SCROLL SHOWCASE — Featured Cars Pinned Section
+     ============================================= -->
+<section id="car-showcase" class="relative hidden md:block py-20 lg:py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-bg"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-white/[0.015] blur-[200px] rounded-full pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 flex items-center min-h-[75vh]">
+
+    <!-- LEFT — Car Info -->
+    <div class="w-1/2 pr-12 lg:pr-20">
+      <div class="mb-6">
+        <span id="sc-badge" class="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+          Em Destaque
+        </span>
+      </div>
+      <div class="overflow-hidden">
+        <h2 id="sc-brand" class="font-display text-5xl lg:text-7xl font-bold tracking-tighter leading-[0.9]">Lamborghini</h2>
+      </div>
+      <div class="overflow-hidden mt-1">
+        <h3 id="sc-model" class="font-display text-3xl lg:text-5xl font-light tracking-tight text-white/50">Aventador LP700-4</h3>
+      </div>
+
+      <p id="sc-desc" class="text-sm md:text-base text-muted font-light leading-relaxed mt-6 max-w-md">Motor V12 de 6.5 litros, 700 cavalos de potência pura. Uma máquina que desafia os limites da engenharia automóvel.</p>
+
+      <!-- Specs Grid -->
+      <div class="grid grid-cols-3 gap-4 mt-8">
+        <div class="glass rounded-xl p-4 text-center">
+          <iconify-icon icon="solar:calendar-linear" class="text-lg text-white/40 mb-1"></iconify-icon>
+          <div id="sc-year" class="text-lg font-semibold tracking-tight">2012</div>
+          <div class="text-[9px] uppercase tracking-widest text-muted mt-0.5">Ano</div>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <iconify-icon icon="solar:routing-2-linear" class="text-lg text-white/40 mb-1"></iconify-icon>
+          <div id="sc-km" class="text-lg font-semibold tracking-tight">17.929</div>
+          <div class="text-[9px] uppercase tracking-widest text-muted mt-0.5">Quilómetros</div>
+        </div>
+        <div class="glass rounded-xl p-4 text-center">
+          <iconify-icon icon="solar:gas-station-linear" class="text-lg text-white/40 mb-1"></iconify-icon>
+          <div id="sc-fuel" class="text-lg font-semibold tracking-tight">Gasolina</div>
+          <div class="text-[9px] uppercase tracking-widest text-muted mt-0.5">Combustível</div>
+        </div>
+      </div>
+
+      <!-- Price + CTA -->
+      <div class="flex items-center gap-6 mt-8">
+        <div>
+          <div class="text-[10px] uppercase tracking-widest text-muted mb-1">Preço</div>
+          <div id="sc-price" class="font-display text-3xl lg:text-4xl font-bold tracking-tighter">349.900€</div>
+        </div>
+        <a href="viaturas.html" class="btn-primary ml-auto">
+          Ver Viatura
+          <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- CENTER — Car Image -->
+    <div class="w-1/2 relative h-[70vh] flex items-center justify-center">
+      <div id="sc-img-wrap" class="relative w-full h-full flex items-center justify-center">
+        <img id="sc-img-back" src="assets/raw-files/lamborghini.png" alt="" class="absolute max-w-[90%] max-h-[85%] object-contain" style="opacity:0;" />
+        <img id="sc-img" src="assets/raw-files/lamborghini.png" alt="" class="absolute max-w-[90%] max-h-[85%] object-contain" />
+      </div>
+      <!-- Spinning rings -->
+      <svg id="sc-ring-1" class="absolute top-1/2 left-1/2 w-[500px] h-[500px] pointer-events-none" viewBox="0 0 500 500" fill="none" style="animation: spin-slow 25s linear infinite;">
+        <circle cx="250" cy="250" r="245" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" stroke-dasharray="12 20" />
+        <circle cx="250" cy="250" r="245" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="80 400" stroke-linecap="round" />
+      </svg>
+      <svg id="sc-ring-2" class="absolute top-1/2 left-1/2 w-[600px] h-[600px] pointer-events-none" viewBox="0 0 600 600" fill="none" style="animation: spin-slow-reverse 35s linear infinite;">
+        <circle cx="300" cy="300" r="295" stroke="rgba(255,255,255,0.03)" stroke-width="0.5" stroke-dasharray="8 30" />
+        <circle cx="300" cy="300" r="295" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="60 500" stroke-linecap="round" />
+      </svg>
+      <svg class="absolute top-1/2 left-1/2 w-[420px] h-[420px] pointer-events-none" viewBox="0 0 420 420" fill="none" style="animation: spin-slow 18s linear infinite reverse;">
+        <circle cx="210" cy="210" r="205" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" stroke-dasharray="6 25" />
+        <circle cx="210" cy="210" r="205" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="40 340" stroke-linecap="round" />
+      </svg>
+      <div id="sc-glow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-white/[0.03] blur-[100px] rounded-full pointer-events-none"></div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDEBAR — Vertical Navigation -->
+  <div class="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1">
+    <!-- Up arrow -->
+    <button id="sc-prev" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/30 hover:text-white hover:border-white/40 transition-all cursor-pointer mb-3">
+      <iconify-icon icon="solar:arrow-up-linear" class="text-sm"></iconify-icon>
+    </button>
+    <!-- Dots -->
+    <div id="sc-dot-0" class="w-[3px] h-6 rounded-full bg-white transition-all duration-500 cursor-pointer" data-sc="0"></div>
+    <div id="sc-dot-1" class="w-[3px] h-6 rounded-full bg-white/20 transition-all duration-500 cursor-pointer" data-sc="1"></div>
+    <div id="sc-dot-2" class="w-[3px] h-6 rounded-full bg-white/20 transition-all duration-500 cursor-pointer" data-sc="2"></div>
+    <div id="sc-dot-3" class="w-[3px] h-6 rounded-full bg-white/20 transition-all duration-500 cursor-pointer" data-sc="3"></div>
+    <div id="sc-dot-4" class="w-[3px] h-6 rounded-full bg-white/20 transition-all duration-500 cursor-pointer" data-sc="4"></div>
+    <div id="sc-dot-5" class="w-[3px] h-6 rounded-full bg-white/20 transition-all duration-500 cursor-pointer" data-sc="5"></div>
+    <!-- Down arrow -->
+    <button id="sc-next" class="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/30 hover:text-white hover:border-white/40 transition-all cursor-pointer mt-3">
+      <iconify-icon icon="solar:arrow-down-linear" class="text-sm"></iconify-icon>
+    </button>
+    <!-- Counter -->
+    <span id="sc-counter" class="text-[9px] text-white/25 font-mono mt-2 [writing-mode:vertical-lr] tracking-widest">01/06</span>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 divider"></div>
+</section>
+
+<!-- =============================================
+     SEARCH BAR
+     ============================================= -->
+<section class="relative z-30 px-4 md:px-12 lg:px-24 py-8">
+  <form action="viaturas.html" method="GET" class="glass-strong rounded-2xl md:rounded-4xl p-5 md:p-8 max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4 items-end">
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Marca</label>
+        <select name="marca" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Todas</option>
+          <option>Audi</option><option>BMW</option><option>Citroën</option><option>Fiat</option><option>Ferrari</option><option>Ford</option><option>Jaguar</option><option>Kia</option><option>Lamborghini</option><option>Land Rover</option><option>Maserati</option><option>Mazda</option><option>Mercedes-Benz</option><option>MINI</option><option>Nissan</option><option>Opel</option><option>Peugeot</option><option>Porsche</option><option>Renault</option><option>Seat</option><option>Smart</option><option>Tesla</option><option>Toyota</option><option>Volvo</option><option>VW</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Combustível</label>
+        <select name="combustivel" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Todos</option>
+          <option>Gasolina</option><option>Gasóleo</option><option>Híbrido</option><option>Eléctrico</option><option>GPL</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Preço Até</label>
+        <select name="preco_ate" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Sem limite</option>
+          <option value="10000">10.000€</option><option value="20000">20.000€</option><option value="30000">30.000€</option><option value="50000">50.000€</option><option value="100000">100.000€</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Km Até</label>
+        <select name="km_ate" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Sem limite</option>
+          <option value="20000">20.000</option><option value="50000">50.000</option><option value="100000">100.000</option><option value="150000">150.000</option><option value="200000">200.000</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Ano Desde</label>
+        <select name="ano_desde" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Todos</option>
+          <option>2024</option><option>2022</option><option>2020</option><option>2018</option><option>2015</option><option>2010</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Caixa</label>
+        <select name="caixa" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
+          <option value="">Todas</option>
+          <option>Manual</option><option>Automática</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit" class="btn-primary w-full justify-center py-2.5">
+          <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
+          Pesquisar <span class="hidden md:inline">(86)</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- =============================================
+     FEATURED VEHICLES
+     ============================================= -->
+<section class="relative py-24 md:py-32 overflow-hidden">
+  <div class="absolute inset-0 section-dots"></div>
+  <div class="relative z-10">
+    <div class="px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto mb-12 gs">
+      <div class="flex items-end justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">Seleção Premium</span>
+          <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">Viaturas em <span class="metallic-text">Destaque</span></h2>
+        </div>
+        <a href="viaturas.html" class="btn-secondary hidden md:inline-flex text-xs">Ver Todo Stock <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a>
+      </div>
+    </div>
+
+    <div class="flex gap-5 overflow-x-auto hide-scrollbar px-6 md:px-12 lg:px-24 pb-8 snap-x snap-mandatory">
+
+      <!-- Car 1 — Lamborghini -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros153408-1_c2eff74a921c.webp" alt="Lamborghini Aventador" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Lamborghini</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">Aventador LP700-4</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">349.900€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2012</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>17.929 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 2 — Ferrari -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros135963-1_3063937cdf10.webp" alt="Ferrari 488 GTB" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Ferrari</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">488 GTB</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">269.990€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2018</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>34.724 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 3 — Mercedes G63 -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros130027-1_44565ae75b8c.webp" alt="Mercedes G 63 AMG" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Mercedes-Benz</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">G 63 AMG</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">220.000€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2021</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>20.820 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 4 — Audi R8 -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros161314-1_c2f0dde86ee9.webp" alt="Audi R8 Spyder" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Audi</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">R8 Spyder 5.2 V10</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">119.990€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2012</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>88.858 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 5 — Mercedes AMG GT -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros155729-1_fb2c6296cda3.webp" alt="Mercedes AMG GT S" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Mercedes-Benz</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">AMG GT S</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">114.990€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2017</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>18.740 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car 6 — Mercedes GLE -->
+      <div class="min-w-[300px] md:min-w-[380px] h-[480px] relative rounded-[2rem] overflow-hidden group cursor-pointer shrink-0 snap-center gs-scale">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros160253-1_1623a07bb6eb.webp" alt="Mercedes GLE 63 AMG S" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent"></div>
+        <div class="absolute top-5 left-5 right-5 flex justify-between items-center z-10">
+          <span class="glass px-3 py-1 rounded-full text-[10px] font-medium tracking-widest uppercase">Mercedes-Benz</span>
+          <div class="w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>
+        </div>
+        <div class="absolute bottom-5 left-5 right-5 z-10">
+          <h3 class="text-2xl font-medium tracking-tight mb-3">GLE 63 AMG S Coupé</h3>
+          <div class="glass bg-card/80 rounded-2xl p-4 flex flex-col gap-2.5 border-none">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-[10px] text-muted font-light">Preço</span><span class="text-lg font-semibold tracking-tight">99.990€</span>
+            </div>
+            <div class="flex justify-between items-center text-[11px] font-light text-white/70">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted"></iconify-icon>2015</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted"></iconify-icon>149.475 km</span>
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted"></iconify-icon>Gasolina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-6 md:px-12 lg:px-24 md:hidden mt-4"><a href="viaturas.html" class="btn-secondary w-full justify-center">Ver Todo Stock <iconify-icon icon="solar:arrow-right-linear"></iconify-icon></a></div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- =============================================
+     SERVICES
+     ============================================= -->
+<section class="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="absolute inset-0 section-grid"></div>
+  <div class="relative z-10 max-w-[1400px] mx-auto">
+    <div class="text-center mb-16 gs">
+      <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">O que fazemos</span>
+      <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">Serviços que <span class="metallic-text">Disponibilizamos</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-card rounded-[2rem] overflow-hidden border border-border group gs card-hover">
+        <div class="h-56 overflow-hidden"><img src="site-antigo/pilotoautomoveis.pt_home/assets/servico1_d8aee4996519.webp" alt="Consultoria" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75" /></div>
+        <div class="p-8">
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3 group-hover:text-white/70 transition-colors">Consultoria Automóvel</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Aconselhamento especializado na escolha do seu próximo veículo, com análise personalizada às suas necessidades.</p>
+        </div>
+      </div>
+      <div class="bg-card rounded-[2rem] overflow-hidden border border-border group gs card-hover">
+        <div class="h-56 overflow-hidden"><img src="site-antigo/pilotoautomoveis.pt_home/assets/servico2_e115bd19bd0d.webp" alt="Compramos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75" /></div>
+        <div class="p-8">
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3 group-hover:text-white/70 transition-colors">Compramos o seu Carro</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Avaliação justa e imediata do seu veículo. Processo simples e transparente com pagamento rápido.</p>
+        </div>
+      </div>
+      <div class="bg-card rounded-[2rem] overflow-hidden border border-border group gs card-hover">
+        <div class="h-56 overflow-hidden"><img src="site-antigo/pilotoautomoveis.pt_home/assets/servico3_0bc41963c624.webp" alt="Intermediação" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75" /></div>
+        <div class="p-8">
+          <h3 class="font-display text-xl font-semibold tracking-tight mb-3 group-hover:text-white/70 transition-colors">Intermediação de Crédito</h3>
+          <p class="text-sm text-muted font-light leading-relaxed">Soluções de financiamento adaptadas ao seu perfil. Encontramos as melhores condições do mercado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-[1400px] mx-auto"></div>
+
+<!-- =============================================
+     TESTIMONIALS
+     ============================================= -->
+<section class="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <div class="relative z-10 max-w-[1400px] mx-auto">
+    <div class="text-center mb-16 gs">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/google_91d8356e39d7.webp" alt="Google" class="h-5 brightness-0 invert opacity-60" />
+        <div class="flex gap-0.5">
+          <iconify-icon icon="solar:star-bold" class="text-white text-sm"></iconify-icon>
+          <iconify-icon icon="solar:star-bold" class="text-white text-sm"></iconify-icon>
+          <iconify-icon icon="solar:star-bold" class="text-white text-sm"></iconify-icon>
+          <iconify-icon icon="solar:star-bold" class="text-white text-sm"></iconify-icon>
+          <iconify-icon icon="solar:star-bold" class="text-white text-sm"></iconify-icon>
+        </div>
+        <span class="text-sm text-muted">5.0 (21 avaliações)</span>
+      </div>
+      <h2 class="font-display text-3xl md:text-5xl font-bold tracking-tighter">O que dizem os nossos <span class="metallic-text">Clientes</span></h2>
+    </div>
+
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-5 space-y-5">
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhojoao-sousa1746268280_b3b6cb105548.jpg" alt="João Sousa" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">João Sousa</div><div class="text-[10px] text-muted">Mai 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Stand confiável. A equipa prestável e atenciosa, o sr Paulo cumpriu com tudo o que estava acordado. Recomendo este stand."</p>
+      </div>
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhocelso-teixeira174153_fd92ec772b87.jpg" alt="Celso Teixeira" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">Celso Teixeira</div><div class="text-[10px] text-muted">Mar 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Comprei um Mercedes A 45 AMG. Viatura em perfeitas condições, entregue em Beja sem qualquer problema. Excelente profissionalismo."</p>
+      </div>
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhogustavo-alves1738157_30330579fbd2.jpg" alt="Gustavo Alves" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">Gustavo Alves</div><div class="text-[10px] text-muted">Jan 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Excelente experiência! Estou muito feliz com minha nova viatura."</p>
+      </div>
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhonazare-pestana173887_d1d1e72278cb.jpg" alt="Nazaré Pestana" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">Nazaré Pestana</div><div class="text-[10px] text-muted">Fev 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Acabei de fazer negócio e só tenho a dizer bem. Tudo como disseram telefonicamente. Recomendo!"</p>
+      </div>
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhocarlos-gomes17530930_37a4a710c0f8.jpg" alt="Carlos Gomes" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">Carlos Gomes</div><div class="text-[10px] text-muted">Jul 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Excelente, recomendo!"</p>
+      </div>
+      <div class="break-inside-avoid bg-card rounded-2xl p-6 border border-border gs card-hover">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="site-antigo/pilotoautomoveis.pt_home/assets/testemunhosonia-simoes17381621_103b617c0fdf.jpg" alt="Sónia Simões" class="w-10 h-10 rounded-full object-cover" />
+          <div><div class="text-sm font-medium">Sónia Simões</div><div class="text-[10px] text-muted">Jan 2025</div></div>
+          <div class="ml-auto flex gap-0.5"><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon><iconify-icon icon="solar:star-bold" class="text-white text-xs"></iconify-icon></div>
+        </div>
+        <p class="text-sm text-muted font-light leading-relaxed">"Muito satisfeita com o atendimento e com a viatura. Processo rápido e sem complicações."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     CTA SECTION
+     ============================================= -->
+<section class="relative py-24 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-white/[0.03] via-transparent to-white/[0.03]"></div>
+  <div class="relative z-10 max-w-3xl mx-auto text-center px-6 gs">
+    <div class="glass-strong rounded-4xl p-10 md:p-16">
+      <iconify-icon icon="solar:phone-calling-linear" class="text-4xl text-white/30 mb-6"></iconify-icon>
+      <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tighter mb-4">Nós Ligamos <span class="text-shimmer">Consigo</span></h2>
+      <p class="text-muted font-light mb-8">Deixe o seu contacto e ligamos de volta gratuitamente. Sem compromisso.</p>
+      <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="tel" placeholder="O seu telefone..." class="flex-1 bg-bg border border-border rounded-full px-5 py-3 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/30 transition-all" />
+        <button class="btn-primary">Ligar-me</button>
+      </div>
+      <p class="text-[10px] text-muted/50 mt-4">Chamada para rede móvel nacional</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+
+<footer class="border-t border-border py-16 px-6 md:px-12 lg:px-24">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+      <!-- Brand -->
+      <div>
+        <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto Automóveis" class="h-10 brightness-0 invert mb-6" />
+        <p class="text-sm text-muted font-light leading-relaxed mb-6">Comercializamos automóveis usados e semi-novos com garantia e aos melhores preços do mercado.</p>
+        <div class="flex gap-3">
+          <a href="https://www.facebook.com/pilotoautomoveis.pt" target="_blank" class="w-9 h-9 rounded-full glass flex items-center justify-center text-muted hover:text-white transition-colors"><iconify-icon icon="mdi:facebook"></iconify-icon></a>
+          <a href="https://www.instagram.com/standpilotoautomoveis/" target="_blank" class="w-9 h-9 rounded-full glass flex items-center justify-center text-muted hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+          <a href="https://wa.me/+351966232555" target="_blank" class="w-9 h-9 rounded-full glass flex items-center justify-center text-muted hover:text-white transition-colors"><iconify-icon icon="mdi:whatsapp"></iconify-icon></a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-semibold mb-6">Navegação</h4>
+        <div class="flex flex-col gap-3 text-sm text-muted font-light">
+          <a href="/empresa" class="hover:text-white transition-colors">Empresa</a>
+          <a href="viaturas.html" class="hover:text-white transition-colors">Viaturas</a>
+          <a href="/motas" class="hover:text-white transition-colors">Motas</a>
+          <a href="/intermediacao" class="hover:text-white transition-colors">Intermediação de Crédito</a>
+          <a href="/compramos" class="hover:text-white transition-colors">Compramos o seu Carro</a>
+          <a href="/testemunhos" class="hover:text-white transition-colors">Testemunhos</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-semibold mb-6">Contactos</h4>
+        <div class="flex flex-col gap-4 text-sm text-muted font-light">
+          <a href="tel:+351966232555" class="flex items-center gap-2 hover:text-white transition-colors"><iconify-icon icon="solar:phone-calling-linear" class="text-base"></iconify-icon>966 232 555</a>
+          <a href="mailto:geral@pilotoautomoveis.pt" class="flex items-center gap-2 hover:text-white transition-colors"><iconify-icon icon="solar:letter-linear" class="text-base"></iconify-icon>geral@pilotoautomoveis.pt</a>
+          <div class="flex items-start gap-2"><iconify-icon icon="solar:map-point-linear" class="text-base mt-0.5"></iconify-icon><span>Rua do Labriosque<br/>4705-768 Braga</span></div>
+        </div>
+      </div>
+
+      <!-- Hours -->
+      <div>
+        <h4 class="text-xs uppercase tracking-widest font-semibold mb-6">Horário</h4>
+        <div class="text-sm text-muted font-light space-y-2">
+          <div class="flex justify-between"><span>Seg — Sáb</span><span class="text-white/80">09:30 — 19:00</span></div>
+          <div class="flex justify-between"><span>Domingo</span><span class="text-white/80">09:30 — 18:00</span></div>
+          <div class="text-[10px] text-muted/50 mt-3">Pausa: 12:30 — 14:00 (Seg-Sáb)<br/>Pausa: 12:30 — 14:30 (Dom)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider mb-8"></div>
+
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted/50">
+      <span>&copy; 2026 Piloto Automóveis — Raizes Sublimes Unipessoal Lda | NIF: 515711950</span>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-muted transition-colors">Termos</a>
+        <a href="#" class="hover:text-muted transition-colors">Privacidade</a>
+        <a href="#" class="hover:text-muted transition-colors">Cookies</a>
+        <a href="#" class="hover:text-muted transition-colors">Livro de Reclamações</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/+351966232555" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform animate-float">
+  <iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon>
+</a>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div id="page-transition" class="fixed inset-0 z-[10000] pointer-events-none flex items-center justify-center" style="opacity:0; visibility:hidden;">
+  <div id="pt-bg" class="absolute inset-0 bg-bg" style="transform: scaleY(0); transform-origin: bottom;"></div>
+  <div id="pt-content" class="relative z-10 text-center" style="opacity:0; transform: translateY(30px); filter: blur(12px);">
+    <img id="pt-logo" src="" alt="" class="max-h-24 md:max-h-32 max-w-[250px] object-contain mx-auto mb-4" />
+    <div id="pt-name" class="font-display text-2xl md:text-3xl font-bold tracking-tighter text-white"></div>
+  </div>
+</div>
+
+<!-- =============================================
+     SCRIPTS
+     ============================================= -->
+<script>
+// CAROUSEL
+(function(){
+  var slides=document.querySelectorAll('.carousel-slide'),dots=document.querySelectorAll('.carousel-dot'),prog=document.getElementById('carousel-progress'),numEl=document.getElementById('carousel-num'),cur=0,total=slides.length,dur=5000,tmr=null,pTmr=null,busy=false;
+  function animIn(s){var img=s.querySelector('img'),sub=s.querySelector('.slide-sub'),ttl=s.querySelector('.slide-title'),specs=s.querySelector('.slide-specs'),cta=s.querySelector('.slide-cta');gsap.set(s,{opacity:1,zIndex:2});gsap.fromTo(img,{scale:1.15},{scale:1,duration:5,ease:'power2.out'});gsap.fromTo(sub,{y:'100%',opacity:0},{y:'0%',opacity:1,duration:0.8,delay:0.2,ease:'power3.out'});gsap.fromTo(ttl,{y:'100%',opacity:0},{y:'0%',opacity:1,duration:1,delay:0.35,ease:'power3.out'});if(specs)gsap.fromTo(specs,{y:'100%',opacity:0},{y:'0%',opacity:1,duration:0.8,delay:0.5,ease:'power3.out'});gsap.fromTo(cta,{y:'100%',opacity:0},{y:'0%',opacity:1,duration:0.8,delay:0.6,ease:'power3.out'});}
+  function animOut(s,cb){var sub=s.querySelector('.slide-sub'),ttl=s.querySelector('.slide-title'),specs=s.querySelector('.slide-specs'),cta=s.querySelector('.slide-cta');gsap.to(cta,{y:'-40%',opacity:0,duration:0.4,ease:'power2.in'});if(specs)gsap.to(specs,{y:'-40%',opacity:0,duration:0.4,delay:0.02,ease:'power2.in'});gsap.to(ttl,{y:'-40%',opacity:0,duration:0.5,delay:0.05,ease:'power2.in'});gsap.to(sub,{y:'-40%',opacity:0,duration:0.4,delay:0.1,ease:'power2.in'});gsap.to(s,{opacity:0,duration:0.6,delay:0.3,ease:'power2.inOut',onComplete:function(){gsap.set(s,{zIndex:0});if(cb)cb();}});}
+  function goTo(i){if(busy||i===cur)return;busy=true;var p=cur;cur=i;dots.forEach(function(d,j){d.style.background=j===cur?'rgba(255,255,255,0.8)':'rgba(255,255,255,0.25)';});numEl.textContent=String(cur+1).padStart(2,'0');animOut(slides[p],function(){busy=false;});animIn(slides[cur]);startP();}
+  function next(){goTo((cur+1)%total);}function prev(){goTo((cur-1+total)%total);}
+  function startP(){if(pTmr)cancelAnimationFrame(pTmr);var st=performance.now();function t(n){var e=n-st,p=Math.min((e/dur)*100,100);prog.style.width=p+'%';if(p<100)pTmr=requestAnimationFrame(t);}pTmr=requestAnimationFrame(t);}
+  function startA(){stopA();tmr=setInterval(next,dur);startP();}function stopA(){if(tmr)clearInterval(tmr);if(pTmr)cancelAnimationFrame(pTmr);}
+  animIn(slides[0]);startA();
+  dots.forEach(function(d){d.addEventListener('click',function(){goTo(+this.dataset.slide);stopA();startA();});});
+  document.getElementById('c-next').addEventListener('click',function(){next();stopA();startA();});
+  document.getElementById('c-prev').addEventListener('click',function(){prev();stopA();startA();});
+  document.getElementById('hero').addEventListener('mouseenter',stopA);
+  document.getElementById('hero').addEventListener('mouseleave',startA);
+})();
+
+// NAV
+(function(){var n=document.getElementById('main-nav');window.addEventListener('scroll',function(){n.style.background=window.scrollY>50?'rgba(8,8,5,0.9)':'transparent';n.style.backdropFilter=window.scrollY>50?'blur(20px)':'none';});})();
+
+// MOBILE MENU
+document.getElementById('menu-toggle').addEventListener('click',function(){document.getElementById('mobile-menu').classList.remove('hidden');});
+
+// GSAP SCROLL
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.gs').forEach(function(e){gsap.fromTo(e,{opacity:0,y:40},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+gsap.utils.toArray('.gs-left').forEach(function(e){gsap.fromTo(e,{opacity:0,x:-60},{opacity:1,x:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 85%',toggleActions:'play none none none'}});});
+gsap.utils.toArray('.gs-scale').forEach(function(e,i){gsap.fromTo(e,{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.8,delay:i*0.1,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 90%',toggleActions:'play none none none'}});});
+
+// CAR SHOWCASE — scroll-driven with blur char reveal
+(function(){
+  var section = document.getElementById('car-showcase');
+  if (!section) return;
+
+  var cars = [
+    { brand:'Lamborghini', model:'Aventador LP700-4', desc:'Motor V12 de 6.5 litros, 700 cavalos de potência pura. Uma máquina que desafia os limites da engenharia automóvel.', year:'2012', km:'17.929', fuel:'Gasolina', price:'349.900€', img:'assets/raw-files/lamborghini.png' },
+    { brand:'Ferrari', model:'488 GTB', desc:'O coração pulsante de Maranello. Twin-turbo V8, design aerodinâmico de referência e performance de cortar a respiração.', year:'2018', km:'34.724', fuel:'Gasolina', price:'269.990€', img:'assets/raw-files/ferrari.png' },
+    { brand:'Mercedes-Benz', model:'G 63 AMG', desc:'O ícone todo-o-terreno na sua forma mais brutal. V8 biturbo de 585cv num chassis lendário e intemporal.', year:'2021', km:'20.820', fuel:'Gasolina', price:'220.000€', img:'assets/raw-files/mercedes.png' },
+    { brand:'Audi', model:'R8 Spyder 5.2 V10', desc:'Aspiração natural V10, céu aberto. O supercarro alemão que combina precisão cirúrgica com emoção pura.', year:'2012', km:'88.858', fuel:'Gasolina', price:'119.990€', img:'assets/raw-files/audi.png' },
+    { brand:'Mercedes-Benz', model:'AMG GT S', desc:'Gran Turismo com alma de competição. V8 biturbo, transmissão de dupla embraiagem e aerodinâmica ativa.', year:'2017', km:'18.740', fuel:'Gasolina', price:'114.990€', img:'assets/raw-files/mercedes2.png' },
+    { brand:'Mercedes-Benz', model:'GLE 63 AMG S Coupé', desc:'A fusão entre SUV e coupé desportivo. V8 biturbo de 585cv com tracção integral e conforto de luxo.', year:'2015', km:'149.475', fuel:'Gasolina', price:'99.990€', img:'assets/raw-files/mercedes3.png' }
+  ];
+
+  var current = -1;
+  var elBrand = document.getElementById('sc-brand');
+  var elModel = document.getElementById('sc-model');
+  var elDesc = document.getElementById('sc-desc');
+  var elYear = document.getElementById('sc-year');
+  var elKm = document.getElementById('sc-km');
+  var elFuel = document.getElementById('sc-fuel');
+  var elPrice = document.getElementById('sc-price');
+  var elImg = document.getElementById('sc-img');
+  var elImgBack = document.getElementById('sc-img-back');
+  var elRing1 = document.getElementById('sc-ring-1');
+  var elRing2 = document.getElementById('sc-ring-2');
+  var elGlow = document.getElementById('sc-glow');
+  var elCounter = document.getElementById('sc-counter');
+  var isTransitioning = false;
+
+  // Split text into char spans with blur class
+  function splitToChars(text) {
+    var html = '';
+    for (var i = 0; i < text.length; i++) {
+      if (text[i] === ' ') {
+        html += '<span class="char-blur-space"> </span>';
+      } else {
+        html += '<span class="char-blur">' + text[i] + '</span>';
+      }
+    }
+    return html;
+  }
+
+  // Reveal chars one by one with stagger
+  function revealChars(el, delay) {
+    var chars = el.querySelectorAll('.char-blur');
+    chars.forEach(function(ch, i) {
+      setTimeout(function() {
+        ch.classList.add('revealed');
+      }, (delay || 0) + i * 30);
+    });
+  }
+
+  // Reset chars (remove revealed class)
+  function resetChars(el) {
+    var chars = el.querySelectorAll('.char-blur');
+    chars.forEach(function(ch) { ch.classList.remove('revealed'); });
+  }
+
+  function updateCar(idx) {
+    if (idx === current || isTransitioning) return;
+    var c = cars[idx];
+    current = idx;
+
+    // Brand — blur char reveal
+    gsap.to(elBrand, { opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: function() {
+      elBrand.innerHTML = splitToChars(c.brand);
+      gsap.set(elBrand, { opacity: 1 });
+      revealChars(elBrand, 0);
+    }});
+
+    // Model — blur char reveal with delay
+    gsap.to(elModel, { opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: function() {
+      elModel.innerHTML = splitToChars(c.model);
+      gsap.set(elModel, { opacity: 1 });
+      revealChars(elModel, 150);
+    }});
+
+    // Description — blur char reveal
+    gsap.to(elDesc, { opacity: 0, duration: 0.2, onComplete: function() {
+      elDesc.innerHTML = splitToChars(c.desc);
+      gsap.set(elDesc, { opacity: 1 });
+      revealChars(elDesc, 300);
+    }});
+
+    // Specs — bottom-up blur reveal with stagger
+    var specEls = [elYear, elKm, elFuel, elPrice];
+    gsap.to(specEls, { opacity: 0, y: -15, filter: 'blur(10px)', duration: 0.25, stagger: 0.03, onComplete: function() {
+      elYear.textContent = c.year;
+      elKm.textContent = c.km;
+      elFuel.textContent = c.fuel;
+      elPrice.textContent = c.price;
+      gsap.fromTo(specEls, { opacity: 0, y: 25, filter: 'blur(12px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, stagger: 0.06, ease: 'power3.out', delay: 0.35 });
+    }});
+
+    // Image — blur up reveal (same direction as text)
+    isTransitioning = true;
+
+    // Back layer: current image fades down with blur
+    elImgBack.src = elImg.src;
+    gsap.set(elImgBack, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    gsap.to(elImgBack, { opacity: 0, y: -40, filter: 'blur(14px)', duration: 0.5, ease: 'power2.in' });
+
+    // Front: hide, load new, reveal from bottom with blur
+    gsap.to(elImg, {
+      opacity: 0, duration: 0.15,
+      onComplete: function() {
+        var newImg = new Image();
+        newImg.src = c.img;
+        newImg.onload = function() {
+          elImg.src = c.img;
+          gsap.fromTo(elImg,
+            { opacity: 0, y: 60, filter: 'blur(14px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)',
+              duration: 0.8, ease: 'power3.out', delay: 0.15,
+              onComplete: function() {
+                isTransitioning = false;
+                gsap.set(elImgBack, { opacity: 0, y: 0 });
+              }
+            }
+          );
+        };
+      }
+    });
+
+    // Dots
+    for (var d = 0; d < cars.length; d++) {
+      document.getElementById('sc-dot-' + d).style.background = d === idx ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.2)';
+    }
+    elCounter.textContent = String(idx + 1).padStart(2, '0') + ' / 0' + cars.length;
+  }
+
+  // Init first car with blur reveal
+  setTimeout(function() { updateCar(0); }, 100);
+
+  // Auto-advance every 8s
+  var scTimer = setInterval(function() {
+    var next = (current + 1) % cars.length;
+    updateCar(next);
+  }, 8000);
+
+  function resetTimer() {
+    clearInterval(scTimer);
+    scTimer = setInterval(function() {
+      var next = (current + 1) % cars.length;
+      updateCar(next);
+    }, 8000);
+  }
+
+  // Sidebar navigation — arrows
+  document.getElementById('sc-next').addEventListener('click', function() {
+    updateCar((current + 1) % cars.length);
+    resetTimer();
+  });
+  document.getElementById('sc-prev').addEventListener('click', function() {
+    updateCar((current - 1 + cars.length) % cars.length);
+    resetTimer();
+  });
+
+  // Sidebar navigation — dot clicks
+  document.querySelectorAll('[data-sc]').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      updateCar(parseInt(this.dataset.sc));
+      resetTimer();
+    });
+  });
+
+  // Pause on hover
+  section.addEventListener('mouseenter', function() { clearInterval(scTimer); });
+  section.addEventListener('mouseleave', resetTimer);
+})();
+
+// BRANDS CAROUSEL (auto-scroll + drag)
+(function(){
+  var track=document.getElementById('brands-track');
+  if(!track)return;
+  var items=track.children;
+  var itemW=items[0].offsetWidth+16;
+  var visible=Math.floor(track.parentElement.offsetWidth/itemW);
+  var pos=0;
+  var max=items.length-visible;
+  function move(){track.style.transform='translateX(-'+pos*itemW+'px)';}
+  // Auto scroll
+  var autoTmr=setInterval(function(){pos++;if(pos>max)pos=0;move();},2500);
+  track.parentElement.addEventListener('mouseenter',function(){clearInterval(autoTmr);});
+  track.parentElement.addEventListener('mouseleave',function(){autoTmr=setInterval(function(){pos++;if(pos>max)pos=0;move();},2500);});
+  // Touch drag
+  var startX=0,startPos=0,dragging=false;
+  track.addEventListener('mousedown',function(e){dragging=true;startX=e.pageX;startPos=pos;track.style.transition='none';});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var diff=e.pageX-startX;var newPos=startPos-Math.round(diff/itemW);pos=Math.max(0,Math.min(newPos,max));move();});
+  document.addEventListener('mouseup',function(){if(dragging){dragging=false;track.style.transition='transform 0.5s ease-out';}});
+  track.addEventListener('touchstart',function(e){startX=e.touches[0].pageX;startPos=pos;track.style.transition='none';},{passive:true});
+  track.addEventListener('touchmove',function(e){var diff=e.touches[0].pageX-startX;var newPos=startPos-Math.round(diff/itemW);pos=Math.max(0,Math.min(newPos,max));move();},{passive:true});
+  track.addEventListener('touchend',function(){track.style.transition='transform 0.5s ease-out';});
+})();
+
+// PAGE TRANSITION — brand logo reveal
+(function(){
+  var overlay = document.getElementById('page-transition');
+  var ptBg = document.getElementById('pt-bg');
+  var ptContent = document.getElementById('pt-content');
+  var ptLogo = document.getElementById('pt-logo');
+  var ptName = document.getElementById('pt-name');
+
+  document.querySelectorAll('[data-brand-link]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      var img = this.querySelector('img');
+      var logoSrc = img ? img.src : '';
+      var brandName = img ? img.alt : '';
+
+      // Set content
+      ptLogo.src = logoSrc;
+      ptName.textContent = brandName;
+
+      // Show overlay
+      overlay.style.visibility = 'visible';
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'all';
+
+      // Animate bg curtain up
+      gsap.fromTo(ptBg, { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power3.inOut', onComplete: function() {
+        // Reveal logo + name with blur
+        gsap.to(ptContent, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power3.out', onComplete: function() {
+          // Hold for a moment then navigate
+          setTimeout(function() {
+            // Fade out content
+            gsap.to(ptContent, { opacity: 0, y: -20, filter: 'blur(8px)', duration: 0.3, ease: 'power2.in' });
+            // Navigate after animation
+            setTimeout(function() {
+              window.location.href = href;
+            }, 350);
+          }, 800);
+        }});
+      }});
+    });
+  });
+})();
+
+// COOKIE
+setTimeout(function(){document.getElementById('cookie-banner').classList.remove('hidden');},2000);
+</script>
+</body>
+</html>
