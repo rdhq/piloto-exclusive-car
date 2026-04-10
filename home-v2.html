@@ -559,11 +559,15 @@ window.addEventListener('resize', () => {
         <p class="label mb-4">Seleção</p>
         <h2 class="heading-lg text-white">Viaturas em Destaque</h2>
       </div>
-      <a href="viaturas.html" class="btn hidden md:inline-flex reveal">Ver Todo Stock <iconify-icon icon="solar:arrow-right-linear" class="text-sm pointer-events-none"></iconify-icon></a>
+      <div class="flex items-center gap-3 reveal">
+        <button id="feat-prev" class="w-10 h-10 border border-white/15 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all duration-500" style="cursor:pointer;"><iconify-icon icon="solar:arrow-left-linear" class="pointer-events-none"></iconify-icon></button>
+        <button id="feat-next" class="w-10 h-10 border border-white/15 flex items-center justify-center text-white/40 hover:text-white hover:border-white/40 transition-all duration-500" style="cursor:pointer;"><iconify-icon icon="solar:arrow-right-linear" class="pointer-events-none"></iconify-icon></button>
+        <a href="viaturas.html" class="btn hidden md:inline-flex ml-3">Ver Todo Stock</a>
+      </div>
     </div>
   </div>
-  <div class="pl-6 md:pl-12 lg:pl-20 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;" onscroll="">
-    <div id="featured-track" class="flex gap-5 pr-6 md:pr-12 lg:pr-20 pb-4">
+  <div class="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 overflow-hidden">
+    <div id="featured-track" class="flex gap-5 pb-4 transition-transform .6s" style="transition:transform .6s cubic-bezier(.25,1,.5,1);">
 
       <!-- Porsche Taycan -->
       <a href="viaturas.html" class="shrink-0 w-[320px] md:w-[380px] group block reveal">
@@ -711,7 +715,7 @@ window.addEventListener('resize', () => {
 
     </div>
   </div>
-  <div class="px-6 md:px-12 lg:px-20 md:hidden mt-6"><a href="viatura.html?id=mercedes-gle-63" class="btn w-full justify-center">Ver Todo Stock</a></div>
+  <div class="px-6 md:px-12 lg:px-20 md:hidden mt-6"><a href="viaturas.html" class="btn w-full justify-center">Ver Todo Stock</a></div>
 </section>
 
 <div class="divider"></div>
@@ -1001,6 +1005,23 @@ gsap.registerPlugin(ScrollTrigger);
     targetPx=px;
   },{passive:true});
   document.addEventListener('touchend',function(){dragging=false;});
+})();
+
+// Featured cars carousel
+(function(){
+  var track=document.getElementById('featured-track');if(!track)return;
+  var cards=track.children;if(!cards.length)return;
+  var cardW=cards[0].offsetWidth+20;
+  var visible=Math.floor(track.parentElement.offsetWidth/cardW);
+  var pos=0,max=cards.length-visible;
+  function move(){track.style.transform='translateX(-'+pos*cardW+'px)';}
+  document.getElementById('feat-next').addEventListener('click',function(){pos=Math.min(pos+1,max);move();});
+  document.getElementById('feat-prev').addEventListener('click',function(){pos=Math.max(pos-1,0);move();});
+  // Touch drag
+  var startX=0,startPos=0,dragging=false;
+  track.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startPos=pos;track.style.transition='none';},{passive:true});
+  track.addEventListener('touchmove',function(e){var diff=startX-e.touches[0].clientX;var n=startPos+Math.round(diff/cardW);pos=Math.max(0,Math.min(n,max));move();},{passive:true});
+  track.addEventListener('touchend',function(){track.style.transition='transform .6s cubic-bezier(.25,1,.5,1)';});
 })();
 
 // Page transition — brand logo reveal
