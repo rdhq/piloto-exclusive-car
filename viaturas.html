@@ -108,12 +108,12 @@ function getLink(car){
 }
 
 var CARS=[
-{b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'img/cars/omeustandcarros153408-1_c2eff74a921c.webp'},
-{b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'img/cars/omeustandcarros135963-1_3063937cdf10.webp'},
-{b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'img/cars/omeustandcarros130027-1_44565ae75b8c.webp'},
-{b:'Audi',m:'R8 Spyder 5.2 V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'img/cars/omeustandcarros161314-1_c2f0dde86ee9.webp'},
-{b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'img/cars/omeustandcarros155729-1_fb2c6296cda3.webp'},
-{b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'img/cars/omeustandcarros160253-1_1623a07bb6eb.webp'},
+{b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'img/cars/omeustandcarros153408-1_c2eff74a921c.webp',imgs:['img/gallery/omeustandcarros153408-1_c2eff74a921c.webp','img/gallery/omeustandcarros153408-2_53141c4634f9.webp','img/gallery/omeustandcarros153408-3_827a1543dcf8.webp','img/gallery/omeustandcarros153408-4_fe84d6601690.webp','img/gallery/omeustandcarros153408-5_42d61fe5b5c5.webp']},
+{b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'img/cars/omeustandcarros135963-1_3063937cdf10.webp',imgs:['img/gallery/omeustandcarros135963-1_3063937cdf10.webp','img/gallery/omeustandcarros135963-2_530cbb3bed2d.webp','img/gallery/omeustandcarros135963-3_e80c02a7635b.webp','img/gallery/omeustandcarros135963-4_88c9298ab9c8.webp','img/gallery/omeustandcarros135963-5_bee5cfd3f282.webp']},
+{b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'img/cars/omeustandcarros130027-1_44565ae75b8c.webp',imgs:['img/gallery/omeustandcarros130027-1_44565ae75b8c.webp','img/gallery/omeustandcarros130027-2_760b41a609f4.webp','img/gallery/omeustandcarros130027-3_7c31c24aa927.webp','img/gallery/omeustandcarros130027-4_1077137f0efb.webp','img/gallery/omeustandcarros130027-5_d37d1940db96.webp']},
+{b:'Audi',m:'R8 Spyder 5.2 V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'img/cars/omeustandcarros161314-1_c2f0dde86ee9.webp',imgs:['img/gallery/omeustandcarros161314-1_c2f0dde86ee9.webp','img/gallery/omeustandcarros161314-2_94a467eaf893.webp','img/gallery/omeustandcarros161314-3_22f1b7411453.webp','img/gallery/omeustandcarros161314-4_3acb53f59316.webp','img/gallery/omeustandcarros161314-5_6f0ad672db02.webp']},
+{b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'img/cars/omeustandcarros155729-1_fb2c6296cda3.webp',imgs:['img/gallery/omeustandcarros155729-1_fb2c6296cda3.webp','img/gallery/omeustandcarros155729-2_aff4962d3613.webp','img/gallery/omeustandcarros155729-3_61e11860f6a1.webp','img/gallery/omeustandcarros155729-4_0cff6acd6f58.webp','img/gallery/omeustandcarros155729-5_e98eba61f687.webp']},
+{b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'img/cars/omeustandcarros160253-1_1623a07bb6eb.webp',imgs:['img/gallery/omeustandcarros160253-1_1623a07bb6eb.webp','img/gallery/omeustandcarros160253-2_2620a249584a.webp','img/gallery/omeustandcarros160253-3_e0ecab57e2f3.webp','img/gallery/omeustandcarros160253-4_169cef2c713b.webp','img/gallery/omeustandcarros160253-5_72bdb577c259.webp']},
 {b:'Porsche',m:'Taycan Standard',p:82000,y:2024,km:38405,f:'Eléctrico',img:'img/cars/omeustandcarros154650-1_90a3d24500c8.webp'},
 {b:'Bentley',m:'Continental GT V8',p:89990,y:2013,km:81000,f:'Gasolina',img:'img/cars/omeustandcarros147490-1_2d57006dbc6c.webp'},
 {b:'Mercedes-Benz',m:'C 63 AMG S',p:77990,y:2016,km:60883,f:'Gasolina',img:'img/cars/omeustandcarros157208-1_4a44c5026f44.webp'},
@@ -151,14 +151,22 @@ if(params.get('preco_ate'))fP.value=params.get('preco_ate');
 if(params.get('km_ate'))fK.value=params.get('km_ate');
 if(params.get('ano_desde'))fY.value=params.get('ano_desde');
 
-function cardHTML(c){
+function cardHTML(c,idx){
   var ps=c.p.toLocaleString('pt-PT')+'€';
   var ks=c.km.toLocaleString('pt-PT')+' km';
   var link=getLink(c);
-  return '<a href="'+link+'" class="v-card bg-card rounded-sm overflow-hidden border border-border group block transition-all duration-500 hover:border-white/15">'+
-    '<div class="relative aspect-[4/3] overflow-hidden">'+
-      '<img src="'+c.img+'" alt="'+c.b+' '+c.m+'" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" loading="lazy"/>'+
+  var hasImgs=c.imgs&&c.imgs.length>1;
+  var dotsHtml='';
+  if(hasImgs){
+    dotsHtml='<div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">';
+    for(var d=0;d<c.imgs.length;d++) dotsHtml+='<div class="w-1.5 h-1.5 rounded-full '+(d===0?'bg-white':'bg-white/30')+' transition-all dot-'+idx+'"></div>';
+    dotsHtml+='</div>';
+  }
+  return '<a href="'+link+'" class="v-card bg-card rounded-sm overflow-hidden border border-border group block transition-all duration-500 hover:border-white/15" data-card="'+idx+'">'+
+    '<div class="relative aspect-[4/3] overflow-hidden" data-hover-imgs="'+(hasImgs?c.imgs.join(','):'')+'">'+
+      '<img src="'+c.img+'" alt="'+c.b+' '+c.m+'" class="card-img w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy"/>'+
       '<span class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase rounded-sm">'+c.b+'</span>'+
+      dotsHtml+
     '</div>'+
     '<div class="p-5">'+
       '<h3 class="heading-md text-white mb-1 group-hover:text-muted transition-colors truncate">'+c.m+'</h3>'+
@@ -208,12 +216,43 @@ function render(){
 function loadMore(){
   var batch=filtered.slice(shown,shown+PAGE);
   batch.forEach(function(c,i){
-    var div=document.createElement('div');div.innerHTML=cardHTML(c);var card=div.firstChild;
+    var div=document.createElement('div');div.innerHTML=cardHTML(c,shown+i);var card=div.firstChild;
     grid.appendChild(card);
     gsap.fromTo(card,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:i*.06,ease:'power3.out'});
   });
   shown+=batch.length;
   moreWrap.classList.toggle('hidden',shown>=filtered.length);
+  initHoverImgs();
+}
+
+// Hover image swap — mouse position determines which photo to show
+function initHoverImgs(){
+  document.querySelectorAll('[data-hover-imgs]').forEach(function(el){
+    var imgs=el.dataset.hoverImgs;
+    if(!imgs)return;
+    var arr=imgs.split(',');
+    if(arr.length<2)return;
+    var imgEl=el.querySelector('.card-img');
+    var cardIdx=el.closest('[data-card]').dataset.card;
+    var dots=el.querySelectorAll('[class*="dot-'+cardIdx+'"]');
+
+    el.addEventListener('mousemove',function(e){
+      var rect=el.getBoundingClientRect();
+      var x=(e.clientX-rect.left)/rect.width;
+      var idx=Math.min(Math.floor(x*arr.length),arr.length-1);
+      if(imgEl.dataset.curIdx!==''+idx){
+        imgEl.dataset.curIdx=idx;
+        imgEl.src=arr[idx];
+        dots.forEach(function(d,di){d.style.background=di===idx?'#fff':'rgba(255,255,255,0.3)';});
+      }
+    });
+
+    el.addEventListener('mouseleave',function(){
+      imgEl.src=arr[0];
+      imgEl.dataset.curIdx='0';
+      dots.forEach(function(d,di){d.style.background=di===0?'#fff':'rgba(255,255,255,0.3)';});
+    });
+  });
 }
 
 [fM,fF,fP,fK,fY].forEach(function(el){el.addEventListener('change',render);});
