@@ -196,31 +196,6 @@ input[type="color"]::-webkit-color-swatch-wrapper{padding:0;border-radius:50%}in
 <div class="divider"></div>
 
 <!-- =============================================
-     3D VIEWER — Explore in 360°
-     ============================================= -->
-<section class="py-16 md:py-24 px-6 md:px-12 lg:px-20">
-  <div class="max-w-[1600px] mx-auto">
-    <div class="flex items-end justify-between mb-10">
-      <div class="reveal">
-        <p class="label mb-3">Experiência</p>
-        <h2 class="heading-lg text-white">Explorar em 360°</h2>
-      </div>
-      <div class="flex items-center gap-3 reveal">
-        <input type="color" id="viewer-color" value="#ff6600" style="width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,.1);padding:0;-webkit-appearance:none;appearance:none;cursor:pointer;background:conic-gradient(red,yellow,lime,aqua,blue,magenta,red);overflow:hidden;" title="Mudar cor"/>
-      </div>
-    </div>
-    <div id="viewer-3d" class="relative w-full reveal" style="aspect-ratio:16/9;background:#050505;">
-      <div id="viewer-load" class="absolute inset-0 flex items-center justify-center z-10">
-        <span class="label text-muted/30">A carregar 3D...</span>
-      </div>
-    </div>
-    <p class="label text-muted/30 mt-4 text-center">Arrastar para rodar · Scroll para zoom</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- =============================================
      SIMILAR VEHICLES
      ============================================= -->
 <section class="py-16 md:py-24 px-6 md:px-12 lg:px-20">
@@ -273,40 +248,6 @@ input[type="color"]::-webkit-color-swatch-wrapper{padding:0;border-radius:50%}in
 <a href="https://wa.me/+351966232555?text=Olá, tenho interesse no Lamborghini Aventador LP700-4" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon></a>
 <style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}</style>
 
-<!-- 3D Viewer -->
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
-</script>
-<script type="module">
-import * as THREE from 'three';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-
-const c=document.getElementById('viewer-3d'),l=document.getElementById('viewer-load');
-const scene=new THREE.Scene();scene.background=new THREE.Color(0x050505);scene.fog=new THREE.Fog(0x050505,8,20);
-const cam=new THREE.PerspectiveCamera(30,c.clientWidth/c.clientHeight,.1,100);cam.position.set(5,2.5,7);
-const r=new THREE.WebGLRenderer({antialias:true});r.setSize(c.clientWidth,c.clientHeight);r.setPixelRatio(1);r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.3;c.appendChild(r.domElement);
-const ctrl=new OrbitControls(cam,r.domElement);ctrl.enableDamping=true;ctrl.dampingFactor=.04;ctrl.minDistance=3;ctrl.maxDistance=9;ctrl.enablePan=false;ctrl.maxPolarAngle=Math.PI/2.05;ctrl.target.set(0,.6,0);ctrl.update();
-
-scene.add(new THREE.AmbientLight(0xffffff,.2));
-const k=new THREE.DirectionalLight(0xffffff,2);k.position.set(2,12,3);scene.add(k);
-scene.add(new THREE.DirectionalLight(0xffffff,.5).translateX(-5).translateY(5));
-const sp=new THREE.SpotLight(0xffffff,4,30,Math.PI*.4,.6,.8);sp.position.set(0,14,0);scene.add(sp);scene.add(sp.target);
-
-let mats=[];
-new GLTFLoader().load('assets/3d-models/lamborghini-aventador/source/aventador-sv-opt.glb',function(g){
-  const m=g.scene;const b=new THREE.Box3().setFromObject(m);const ce=b.getCenter(new THREE.Vector3());const sz=b.getSize(new THREE.Vector3());
-  const s=3.5/Math.max(sz.x,sz.y,sz.z);m.scale.setScalar(s);m.position.sub(ce.multiplyScalar(s));m.position.y=0;
-  m.traverse(function(ch){if(ch.isMesh&&ch.material){const n=(ch.material.name||'').toLowerCase();if(n.includes('ext')||n.includes('argos')||n.includes('pearl')||n.includes('body')||n.includes('paint'))mats.push(ch.material);}});
-  const col=new THREE.Color('#ff6600');mats.forEach(function(mt){mt.color.set(col);mt.needsUpdate=true;});
-  scene.add(m);l.style.display='none';
-});
-
-document.getElementById('viewer-color').addEventListener('input',function(){const col=new THREE.Color(this.value);mats.forEach(function(mt){mt.color.set(col);mt.needsUpdate=true;});});
-
-(function a(){requestAnimationFrame(a);ctrl.update();scene.rotation.y+=.001;r.render(scene,cam);})();
-window.addEventListener('resize',function(){cam.aspect=c.clientWidth/c.clientHeight;cam.updateProjectionMatrix();r.setSize(c.clientWidth,c.clientHeight);});
-</script>
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
