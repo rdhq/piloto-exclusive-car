@@ -845,10 +845,18 @@ gsap.registerPlugin(ScrollTrigger);
   function update(idx){
     if(idx===current||transitioning)return;transitioning=true;var c=cars[idx];current=idx;
 
-    // Text — slide up and out, then new text enters from below
-    gsap.to([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:-25,duration:.4,ease:'power2.in',stagger:.03,onComplete:function(){
-      elB.textContent=c.brand;elM.textContent=c.model;elD.textContent=c.desc;elY.textContent=c.year;elK.textContent=c.km;elF.textContent=c.fuel;elP.textContent=c.price;elLink.href='viatura.html?id='+c.id;
-      gsap.fromTo([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:30,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.8,ease:'power3.out',stagger:.04,delay:.15});
+    // Text — brand, model, desc slide up
+    gsap.to([elB,elM,elD],{opacity:0,y:-25,duration:.4,ease:'power2.in',stagger:.03,onComplete:function(){
+      elB.textContent=c.brand;elM.textContent=c.model;elD.textContent=c.desc;elLink.href='viatura.html?id='+c.id;
+      gsap.fromTo([elB,elM,elD],{opacity:0,y:30,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.8,ease:'power3.out',stagger:.05,delay:.15});
+    }});
+    // Specs — year, km, fuel, price with individual blur reveal
+    gsap.to([elY,elK,elF,elP],{opacity:0,y:-15,filter:'blur(8px)',duration:.3,ease:'power2.in',stagger:.04,onComplete:function(){
+      elY.textContent=c.year;elK.textContent=c.km;elF.textContent=c.fuel;elP.textContent=c.price;
+      gsap.fromTo(elY,{opacity:0,y:20,filter:'blur(10px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.7,ease:'power3.out',delay:.3});
+      gsap.fromTo(elK,{opacity:0,y:20,filter:'blur(10px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.7,ease:'power3.out',delay:.4});
+      gsap.fromTo(elF,{opacity:0,y:20,filter:'blur(10px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.7,ease:'power3.out',delay:.5});
+      gsap.fromTo(elP,{opacity:0,y:25,filter:'blur(12px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.9,ease:'power3.out',delay:.6});
     }});
 
     // Image — current fades out + rises, new fades in from below
