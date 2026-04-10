@@ -106,13 +106,14 @@ body::before {
 
 /* Form inputs — bottom border only */
 .input-minimal {
-  width: 100%; background: transparent; border: none; border-bottom: 1px solid #1e1e1e;
-  padding: 0.8rem 0; font-size: 0.85rem; color: #e8e8e8; font-weight: 300;
+  width: 100%; background: #141414; border: none; border-bottom: 1px solid #2a2a2a;
+  padding: 0.8rem 0.6rem; font-size: 0.85rem; color: #fff; font-weight: 400;
   transition: border-color var(--duration-fast) var(--ease); outline: none;
   -webkit-appearance: none; appearance: none;
 }
 .input-minimal:focus { border-bottom-color: #fff; }
-.input-minimal::placeholder { color: #3a3a3a; }
+.input-minimal::placeholder { color: #555; }
+select.input-minimal option { background: #141414; color: #fff; }
 select.input-minimal { cursor: pointer; }
 
 /* Brands track */
