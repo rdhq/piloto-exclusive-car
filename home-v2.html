@@ -851,17 +851,17 @@ gsap.registerPlugin(ScrollTrigger);
       gsap.fromTo([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:30,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.8,ease:'power3.out',stagger:.04,delay:.15});
     }});
 
-    // Image — current slides UP with blur, new enters from BELOW with blur
+    // Image — current fades out + rises, new fades in from below
     elIB.src=elI.src;
-    gsap.set(elIB,{opacity:1,y:0,filter:'blur(0px)'});
-    // Current car goes UP
-    gsap.to(elIB,{opacity:0,y:-120,filter:'blur(12px)',duration:.7,ease:'power2.in'});
-    // New car comes from BELOW
+    gsap.set(elIB,{opacity:1,y:0,filter:'blur(0px)',scale:1});
+    // Current car fades + rises + shrinks
+    gsap.to(elIB,{opacity:0,y:-80,filter:'blur(8px)',scale:0.95,duration:.6,ease:'power2.in'});
+    // New car enters from below
     var img=new Image();img.src=c.img;
-    gsap.set(elI,{opacity:0,y:120,filter:'blur(12px)'});
+    gsap.set(elI,{opacity:0,y:60,filter:'blur(8px)',scale:0.95});
     img.onload=function(){
       elI.src=c.img;
-      gsap.to(elI,{opacity:1,y:0,filter:'blur(0px)',duration:.9,ease:'power3.out',delay:.25,onComplete:function(){
+      gsap.to(elI,{opacity:1,y:0,filter:'blur(0px)',scale:1,duration:.8,ease:'power3.out',delay:.3,onComplete:function(){
         transitioning=false;
         gsap.set(elIB,{opacity:0,y:0});
       }});
