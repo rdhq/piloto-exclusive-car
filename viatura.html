@@ -141,7 +141,7 @@ var wu='https://wa.me/+351966232555?text='+wm;
 var gal=document.getElementById('gallery');
 car.imgs.forEach(function(img,i){var e=document.createElement('img');e.src=car.imgBase+img;e.className='thumb w-16 h-11 md:w-20 md:h-14 object-cover shrink-0'+(i===0?' active':'');e.onclick=function(){go(i);};gal.appendChild(e);});
 
-function go(i){ii=i;var h=document.getElementById('main-img');gsap.to(h,{opacity:0,duration:.15,onComplete:function(){h.src=car.imgBase+car.imgs[i];gsap.to(h,{opacity:1,duration:.25});}});document.querySelectorAll('.thumb').forEach(function(t,j){t.classList.toggle('active',j===i);});document.getElementById('img-cur').textContent=i+1;}
+function go(i){ii=i;var h=document.getElementById('main-img');gsap.to(h,{opacity:0,scale:1.02,filter:'blur(6px)',duration:.4,ease:'power2.in',onComplete:function(){h.src=car.imgBase+car.imgs[i];gsap.fromTo(h,{opacity:0,scale:0.98,filter:'blur(6px)'},{opacity:1,scale:1,filter:'blur(0px)',duration:.6,ease:'power3.out'});}});document.querySelectorAll('.thumb').forEach(function(t,j){t.classList.toggle('active',j===i);});document.getElementById('img-cur').textContent=i+1;}
 document.getElementById('img-next').addEventListener('click',function(){go((ii+1)%car.imgs.length);});
 document.getElementById('img-prev').addEventListener('click',function(){go((ii-1+car.imgs.length)%car.imgs.length);});
 document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go((ii+1)%car.imgs.length);if(e.key==='ArrowLeft')go((ii-1+car.imgs.length)%car.imgs.length);});
