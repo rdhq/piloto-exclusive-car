@@ -45,8 +45,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
 <section class="px-6 md:px-12 pb-16">
 <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
 <div class="lg:col-span-7">
-<div class="relative aspect-[4/3] overflow-hidden bg-card mb-2 rounded-sm">
-<img id="main-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-400"/>
+<div class="relative aspect-[4/3] overflow-hidden bg-card mb-2 rounded-sm" id="zoom-container" style="cursor:zoom-in;">
+<img id="main-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-400" style="transform-origin:center center;"/>
+<div id="zoom-lens" class="absolute w-40 h-40 border border-white/20 rounded-full pointer-events-none z-20 hidden" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(1px);box-shadow:0 0 0 9999px rgba(0,0,0,0.15);"></div>
 <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded text-xs"><span id="img-cur">1</span>/<span id="img-tot">6</span></div>
 <button id="img-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-all rounded-sm" style="cursor:pointer"><iconify-icon icon="solar:arrow-left-linear" class="pointer-events-none"></iconify-icon></button>
 <button id="img-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-all rounded-sm" style="cursor:pointer"><iconify-icon icon="solar:arrow-right-linear" class="pointer-events-none"></iconify-icon></button>
@@ -145,6 +146,30 @@ function go(i){ii=i;var h=document.getElementById('main-img');gsap.to(h,{opacity
 document.getElementById('img-next').addEventListener('click',function(){go((ii+1)%car.imgs.length);});
 document.getElementById('img-prev').addEventListener('click',function(){go((ii-1+car.imgs.length)%car.imgs.length);});
 document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go((ii+1)%car.imgs.length);if(e.key==='ArrowLeft')go((ii-1+car.imgs.length)%car.imgs.length);});
+
+// Zoom on hover
+(function(){
+var container=document.getElementById('zoom-container');
+var img=document.getElementById('main-img');
+var lens=document.getElementById('zoom-lens');
+var zooming=false;
+var scale=2.5;
+
+container.addEventListener('mouseenter',function(){lens.classList.remove('hidden');zooming=true;img.style.transition='transform .1s ease-out';});
+container.addEventListener('mouseleave',function(){lens.classList.add('hidden');zooming=false;img.style.transform='scale(1)';img.style.transformOrigin='center center';img.style.transition='transform .4s ease';});
+container.addEventListener('mousemove',function(e){
+  if(!zooming)return;
+  var rect=container.getBoundingClientRect();
+  var x=(e.clientX-rect.left)/rect.width;
+  var y=(e.clientY-rect.top)/rect.height;
+  // Move lens
+  lens.style.left=(e.clientX-rect.left-80)+'px';
+  lens.style.top=(e.clientY-rect.top-80)+'px';
+  // Zoom image towards cursor
+  img.style.transformOrigin=(x*100)+'% '+(y*100)+'%';
+  img.style.transform='scale('+scale+')';
+});
+})();
 
 // Specs
 [{l:'Ano',v:car.year+'/'+car.month},{l:'Km',v:car.km+' km'},{l:'Combustível',v:car.fuel},{l:'Motor',v:car.engine},{l:'Potência',v:car.power},{l:'Caixa',v:car.transmission},{l:'Tracção',v:car.traction},{l:'0-100',v:car.accel},{l:'Vel. Máx.',v:car.speed},{l:'Cor',v:car.color},{l:'Portas',v:car.doors},{l:'Lugares',v:car.seats},{l:'Origem',v:car.origin},{l:'Garantia',v:car.warranty}].forEach(function(s){document.getElementById('specs').innerHTML+='<div class="bg-card p-3.5"><p class="label mb-0.5" style="font-size:.55rem">'+s.l+'</p><p class="text-sm font-medium text-white">'+s.v+'</p></div>';});
