@@ -844,19 +844,29 @@ gsap.registerPlugin(ScrollTrigger);
 
   function update(idx){
     if(idx===current||transitioning)return;transitioning=true;var c=cars[idx];current=idx;
-    // Text — fade out then update
-    gsap.to([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:-15,duration:.25,ease:'power2.in',stagger:.02,onComplete:function(){
+
+    // Text — slide up and out, then new text enters from below
+    gsap.to([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:-25,duration:.4,ease:'power2.in',stagger:.03,onComplete:function(){
       elB.textContent=c.brand;elM.textContent=c.model;elD.textContent=c.desc;elY.textContent=c.year;elK.textContent=c.km;elF.textContent=c.fuel;elP.textContent=c.price;
-      gsap.fromTo([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:20,filter:'blur(8px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.6,ease:'power3.out',stagger:.03,delay:.1});
+      gsap.fromTo([elB,elM,elD,elY,elK,elF,elP],{opacity:0,y:30,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.8,ease:'power3.out',stagger:.04,delay:.15});
     }});
-    // Image
-    elIB.src=elI.src;gsap.set(elIB,{opacity:1,y:0,filter:'blur(0px)'});
-    gsap.to(elIB,{opacity:0,y:-30,filter:'blur(10px)',duration:.5,ease:'power2.in'});
-    gsap.to(elI,{opacity:0,duration:.15,onComplete:function(){
-      var img=new Image();img.src=c.img;img.onload=function(){elI.src=c.img;
-        gsap.fromTo(elI,{opacity:0,y:40,filter:'blur(10px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.7,ease:'power3.out',delay:.1,onComplete:function(){transitioning=false;gsap.set(elIB,{opacity:0,y:0});}});
-      };
-    }});
+
+    // Image — current slides UP and out, new enters from BELOW
+    elIB.src=elI.src;
+    gsap.set(elIB,{opacity:1,y:0});
+    // Current car goes UP
+    gsap.to(elIB,{opacity:0,y:-120,duration:.7,ease:'power2.in'});
+    // New car comes from BELOW
+    var img=new Image();img.src=c.img;
+    gsap.set(elI,{opacity:0,y:120});
+    img.onload=function(){
+      elI.src=c.img;
+      gsap.to(elI,{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.25,onComplete:function(){
+        transitioning=false;
+        gsap.set(elIB,{opacity:0,y:0});
+      }});
+    };
+
     // Dots
     for(var d=0;d<cars.length;d++)document.getElementById('sc-dot-'+d).style.background=d===idx?'rgba(255,255,255,1)':'rgba(255,255,255,0.15)';
   }
