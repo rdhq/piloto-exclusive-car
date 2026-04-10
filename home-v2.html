@@ -880,25 +880,52 @@ gsap.registerPlugin(ScrollTrigger);
   section.addEventListener('mouseleave',resetT);
 })();
 
-// Brands carousel — auto-scroll + drag
+// Brands carousel — smooth pixel-based drag + auto-scroll
 (function(){
   var track=document.getElementById('brands-track');if(!track)return;
-  var items=track.children;var itemW=items[0].offsetWidth+12;
-  var visible=Math.floor(track.parentElement.offsetWidth/itemW);
-  var pos=0,max=items.length-visible;
-  function move(){track.style.transform='translateX(-'+pos*itemW+'px)';}
+  var wrap=track.parentElement;
+  var px=0, targetPx=0, dragging=false, startX=0, startPx=0;
+  var maxPx=track.scrollWidth-wrap.offsetWidth;
+
+  // Smooth lerp animation
+  function tick(){
+    if(!dragging) px+=(targetPx-px)*0.08;
+    track.style.transform='translateX('+ (-px) +'px)';
+    requestAnimationFrame(tick);
+  }
+  tick();
+
   // Auto scroll
-  var dir=1,tmr=setInterval(function(){pos+=dir;if(pos>=max)dir=-1;if(pos<=0)dir=1;move();},2500);
-  track.parentElement.addEventListener('mouseenter',function(){clearInterval(tmr);});
-  track.parentElement.addEventListener('mouseleave',function(){tmr=setInterval(function(){pos+=dir;if(pos>=max)dir=-1;if(pos<=0)dir=1;move();},2500);});
+  var autoDir=1;
+  var tmr=setInterval(function(){
+    targetPx+=1.5*autoDir;
+    if(targetPx>=maxPx){autoDir=-1;}
+    if(targetPx<=0){autoDir=1;}
+  },16);
+  wrap.addEventListener('mouseenter',function(){clearInterval(tmr);});
+  wrap.addEventListener('mouseleave',function(){
+    tmr=setInterval(function(){targetPx+=1.5*autoDir;if(targetPx>=maxPx)autoDir=-1;if(targetPx<=0)autoDir=1;},16);
+  });
+
+  // Mouse drag
+  track.addEventListener('mousedown',function(e){e.preventDefault();dragging=true;startX=e.clientX;startPx=px;});
+  document.addEventListener('mousemove',function(e){
+    if(!dragging)return;
+    var diff=startX-e.clientX;
+    px=Math.max(0,Math.min(startPx+diff,maxPx));
+    targetPx=px;
+  });
+  document.addEventListener('mouseup',function(){dragging=false;});
+
   // Touch drag
-  var startX=0,startPos=0,dragging=false;
-  track.addEventListener('mousedown',function(e){dragging=true;startX=e.pageX;startPos=pos;track.style.transition='none';});
-  document.addEventListener('mousemove',function(e){if(!dragging)return;var diff=e.pageX-startX;var n=startPos-Math.round(diff/itemW);pos=Math.max(0,Math.min(n,max));move();});
-  document.addEventListener('mouseup',function(){if(dragging){dragging=false;track.style.transition='transform .6s var(--ease)';}});
-  track.addEventListener('touchstart',function(e){startX=e.touches[0].pageX;startPos=pos;track.style.transition='none';},{passive:true});
-  track.addEventListener('touchmove',function(e){var diff=e.touches[0].pageX-startX;var n=startPos-Math.round(diff/itemW);pos=Math.max(0,Math.min(n,max));move();},{passive:true});
-  track.addEventListener('touchend',function(){track.style.transition='transform .6s var(--ease)';});
+  track.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startPx=px;},{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(!dragging)return;
+    var diff=startX-e.touches[0].clientX;
+    px=Math.max(0,Math.min(startPx+diff,maxPx));
+    targetPx=px;
+  },{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
 })();
 
 // Page transition — brand logo reveal
