@@ -168,7 +168,10 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
      ============================================= -->
 <section id="hero" class="relative h-screen overflow-hidden">
   <!-- 3D Canvas background -->
-  <div id="hero-3d" class="absolute inset-0 z-0"></div>
+  <div id="hero-3d" class="absolute inset-0 z-0">
+    <!-- Fallback image while 3D loads -->
+    <img id="hero-fallback" src="site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros153408-1_c2eff74a921c.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30" style="filter:brightness(0.4);"/>
+  </div>
 
   <!-- Fog overlay -->
   <div class="absolute inset-0 z-[2] pointer-events-none" style="background: linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, transparent 30%, transparent 60%, rgba(10,10,10,0.9) 100%), linear-gradient(to right, rgba(10,10,10,0.5) 0%, transparent 30%, transparent 70%, rgba(10,10,10,0.5) 100%);"></div>
@@ -255,7 +258,7 @@ let wheels = [], carBodyMats = [], roadGroup = new THREE.Group(), roadLen = 0;
 
 // Load car
 const loader = new GLTFLoader();
-loader.load('assets/3d-models/2012-lamborghini-aventador/source/aventador.glb', function(gltf) {
+loader.load('assets/3d-models/lamborghini-aventador/source/aventador-sv-opt.glb', function(gltf) {
   const model = gltf.scene;
   const box = new THREE.Box3().setFromObject(model);
   const center = box.getCenter(new THREE.Vector3());
@@ -287,6 +290,10 @@ loader.load('assets/3d-models/2012-lamborghini-aventador/source/aventador.glb', 
   carBodyMats.forEach(m => { m.color.set(col); m.needsUpdate = true; });
 
   scene.add(model);
+
+  // Remove fallback image
+  const fb = document.getElementById('hero-fallback');
+  if (fb) fb.style.transition = 'opacity 1s'; fb.style.opacity = '0'; setTimeout(() => fb.remove(), 1000);
 
   // Load road
   loader.load('assets/3d-models/road__avenue__street.glb', function(rg) {
