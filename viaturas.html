@@ -1,352 +1,225 @@
 <!DOCTYPE html>
-<html class="dark" lang="pt">
+<html lang="pt">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Viaturas — Piloto Automóveis</title>
-<meta name="description" content="Consulte o nosso stock de viaturas usadas e semi-novas. Piloto Automóveis, Barcelos, Braga."/>
 <link rel="icon" href="img/logos/favicon_70a28403b374.ico"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js"></script>
-<script>
-tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#0a0a0a',card:'#141414',border:'#1e1e1e',muted:'#6b6b6b',surface:'#0d0d0a'},fontFamily:{sans:['Figtree','sans-serif'],display:['Space Grotesk','sans-serif']},borderRadius:{'4xl':'2rem'}}}}
-</script>
+<script>tailwind.config={theme:{extend:{colors:{bg:'#0a0a0a',card:'#141414',border:'#1e1e1e',muted:'#6b6b6b'},fontFamily:{sans:['Inter','sans-serif'],display:['Space Grotesk','sans-serif']}}}}</script>
 <style>
-*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}::selection{background:#fff;color:#000}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2A2A2A;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#fff}
-.glass{background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)}
-.glass-strong{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12)}
-.metallic-text{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(180deg,#fff 0%,#666 100%)}
-.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:#fff;color:#080805;font-weight:600;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:none;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;text-decoration:none}
-.btn-primary:hover{background:#e0e0e0;transform:translateY(-2px);box-shadow:0 8px 30px -5px rgba(255,255,255,0.2)}
-.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:transparent;color:#fff;font-weight:500;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);text-decoration:none}
-.btn-secondary:hover{border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.05);transform:translateY(-2px)}
-.noise{position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1) 30%,rgba(255,255,255,0.1) 70%,transparent)}
-.card-hover{position:relative}.card-hover::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(to bottom right,rgba(255,255,255,0.05),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;transition:all 0.5s ease;pointer-events:none}.card-hover:hover::before{background:linear-gradient(to bottom right,rgba(255,255,255,0.25),transparent,transparent)}
-.gs{opacity:0;transform:translateY(40px);will-change:transform,opacity}
-@keyframes charBlurIn{0%{opacity:0;transform:translateY(20px);filter:blur(12px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}.char-blur{display:inline-block;opacity:0;filter:blur(12px);transform:translateY(20px)}.char-blur.revealed{animation:charBlurIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
-#vehicle-grid .v-card{opacity:0;transform:translateY(30px);filter:blur(4px)}
+:root{--ease:cubic-bezier(.25,1,.5,1)}*,*::before,*::after{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{background:#0a0a0a;color:#e8e8e8;font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}::selection{background:#fff;color:#000}::-webkit-scrollbar{width:0}
+.heading-lg{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:600;line-height:1;letter-spacing:-.025em}
+.heading-md{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,1.5vw,1.3rem);font-weight:500;line-height:1.1;letter-spacing:-.02em}
+.label{font-size:.6rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#6b6b6b}
+a{color:inherit;text-decoration:none}
+.btn-solid{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid #fff;background:#fff;color:#0a0a0a;cursor:pointer;transition:all .5s var(--ease)}.btn-solid:hover{background:transparent;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);background:transparent;color:#e8e8e8;cursor:pointer;transition:all .5s var(--ease)}.btn:hover{border-color:rgba(255,255,255,.5)}
+.divider{height:1px;background:#1e1e1e}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+.input-s{width:100%;background:#141414;border:none;border-bottom:1px solid #2a2a2a;padding:.7rem .5rem;font-size:.8rem;color:#fff;font-weight:400;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .3s var(--ease)}
+.input-s:focus{border-bottom-color:#fff}
+select.input-s option{background:#141414;color:#fff}
+.v-card{opacity:0;transform:translateY(20px)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 </style>
 </head>
 <body>
-<div class="noise"></div>
 
-<!-- NAV -->
-<nav class="sticky top-0 w-full z-50 transition-all duration-500 border-b border-white/5" id="main-nav">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
-    <a href="/" class="shrink-0"><img src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert"/></a>
-    <div class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-medium text-muted">
-      <a href="/" class="hover:text-white transition-colors">Home</a>
-      <a href="empresa.html" class="hover:text-white transition-colors">Empresa</a>
-      <a href="viaturas.html" class="text-white">Viaturas</a>
-      <a href="motas.html" class="hover:text-white transition-colors">Motas</a>
-      <a href="intermediacao.html" class="hover:text-white transition-colors">Intermediação</a>
-      <a href="compramos.html" class="hover:text-white transition-colors">Compramos</a>
-      <a href="testemunhos.html" class="hover:text-white transition-colors">Testemunhos</a>
-      <a href="contactos.html" class="hover:text-white transition-colors">Contactos</a>
-    </div>
-    <a href="tel:+351966232555" class="btn-primary text-xs py-2.5 px-5 hidden sm:inline-flex"><iconify-icon icon="solar:phone-calling-linear" class="text-sm"></iconify-icon>966 232 555</a>
-  </div>
-</nav>
+<nav class="fixed top-0 w-full z-[100]" style="background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);">
+<div class="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+<a href="/"><img src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-8 brightness-0 invert opacity-80"/></a>
+<div class="hidden lg:flex items-center gap-8">
+<a href="/" class="label hover:text-white transition-colors">Home</a>
+<a href="empresa.html" class="label hover:text-white transition-colors">Empresa</a>
+<a href="viaturas.html" class="label text-white">Viaturas</a>
+<a href="intermediacao.html" class="label hover:text-white transition-colors">Crédito</a>
+<a href="compramos.html" class="label hover:text-white transition-colors">Compramos</a>
+<a href="contactos.html" class="label hover:text-white transition-colors">Contactos</a>
+</div>
+<a href="tel:+351966232555" class="label hover:text-white transition-colors hidden sm:block">966 232 555</a>
+</div></nav>
 
-<!-- PAGE HEADER -->
-<section class="relative py-16 md:py-20 px-6 md:px-12 lg:px-24 overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent"></div>
-  <div class="relative z-10 max-w-[1400px] mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-      <div>
-        <span class="text-xs uppercase tracking-[0.3em] text-muted font-semibold block mb-3">Stock Disponível</span>
-        <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tighter">Nossas <span class="metallic-text">Viaturas</span></h1>
-      </div>
-      <div class="flex items-center gap-3">
-        <span id="total-count" class="text-sm text-muted"><span id="count-num">0</span> viaturas encontradas</span>
-        <select id="sort-select" class="bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-          <option value="recent">Mais recentes</option>
-          <option value="price-asc">Preço mais baixo</option>
-          <option value="price-desc">Preço mais alto</option>
-          <option value="year-desc">Mais novos</option>
-          <option value="year-asc">Mais antigos</option>
-          <option value="km-asc">Menos Km</option>
-          <option value="km-desc">Mais Km</option>
-        </select>
-      </div>
-    </div>
-  </div>
+<!-- HEADER -->
+<section class="pt-28 pb-8 px-6 md:px-12">
+<div class="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<p class="label mb-3">Stock disponível</p>
+<h1 class="heading-lg text-white">Nossas Viaturas</h1>
+</div>
+<div class="flex items-center gap-4">
+<span id="count" class="label"><span id="count-num">0</span> resultados</span>
+<select id="sort" class="input-s" style="width:auto;padding:.5rem .8rem;font-size:.7rem;">
+<option value="recent">Mais recentes</option>
+<option value="price-asc">Preço ↑</option>
+<option value="price-desc">Preço ↓</option>
+<option value="year-desc">Mais novos</option>
+<option value="km-asc">Menos km</option>
+</select>
+</div>
+</div>
 </section>
 
 <!-- FILTERS + GRID -->
-<section class="px-6 md:px-12 lg:px-24 pb-24">
-  <div class="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8">
+<section class="px-6 md:px-12 pb-20">
+<div class="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8">
 
-    <!-- SIDEBAR FILTERS -->
-    <aside class="lg:w-[280px] shrink-0">
-      <div class="lg:sticky lg:top-24 space-y-5">
-        <div class="glass-strong rounded-2xl p-5">
-          <div class="flex items-center justify-between mb-5">
-            <h3 class="text-xs uppercase tracking-widest font-semibold">Filtros</h3>
-            <button id="clear-filters" class="text-[10px] uppercase tracking-widest text-muted hover:text-white transition-colors cursor-pointer">Limpar</button>
-          </div>
+<!-- SIDEBAR -->
+<aside class="lg:w-[260px] shrink-0">
+<div class="lg:sticky lg:top-24 bg-card border border-border p-6 rounded-sm">
+<div class="flex justify-between items-center mb-5">
+<h3 class="label text-white" style="font-size:.65rem;">Filtros</h3>
+<button id="clear" class="label hover:text-white transition-colors cursor-pointer" style="font-size:.55rem;">Limpar</button>
+</div>
+<div class="space-y-4">
+<div><label class="label block mb-2" style="font-size:.55rem;">Marca</label><select id="f-marca" class="input-s"><option value="">Todas</option></select></div>
+<div><label class="label block mb-2" style="font-size:.55rem;">Combustível</label><select id="f-fuel" class="input-s"><option value="">Todos</option><option>Gasolina</option><option>Gasóleo</option><option>Eléctrico</option><option>Híbrido</option><option>GPL</option></select></div>
+<div><label class="label block mb-2" style="font-size:.55rem;">Preço até</label><select id="f-price" class="input-s"><option value="">Sem limite</option><option value="15000">15.000€</option><option value="30000">30.000€</option><option value="50000">50.000€</option><option value="100000">100.000€</option><option value="250000">250.000€</option></select></div>
+<div><label class="label block mb-2" style="font-size:.55rem;">Km até</label><select id="f-km" class="input-s"><option value="">Sem limite</option><option value="50000">50.000</option><option value="100000">100.000</option><option value="150000">150.000</option><option value="200000">200.000</option></select></div>
+<div><label class="label block mb-2" style="font-size:.55rem;">Ano desde</label><select id="f-year" class="input-s"><option value="">Todos</option><option>2024</option><option>2022</option><option>2020</option><option>2018</option><option>2015</option><option>2010</option></select></div>
+</div>
+</div>
+</aside>
 
-          <div class="space-y-4">
-            <div>
-              <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Marca</label>
-              <select id="f-marca" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-                <option value="">Todas</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Combustível</label>
-              <select id="f-fuel" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-                <option value="">Todos</option>
-                <option>Gasolina</option><option>Gasóleo</option><option>Eléctrico</option><option>Híbrido</option><option>GPL</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Preço Até</label>
-              <select id="f-price" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-                <option value="">Sem limite</option>
-                <option value="10000">10.000€</option><option value="20000">20.000€</option><option value="30000">30.000€</option><option value="50000">50.000€</option><option value="100000">100.000€</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Km Até</label>
-              <select id="f-km" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-                <option value="">Sem limite</option>
-                <option value="50000">50.000</option><option value="100000">100.000</option><option value="150000">150.000</option><option value="200000">200.000</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-[10px] uppercase tracking-widest text-muted font-semibold mb-1.5 block">Ano Desde</label>
-              <select id="f-year" class="w-full bg-bg border border-border rounded-xl px-3 py-2.5 text-sm text-white appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer">
-                <option value="">Todos</option>
-                <option>2024</option><option>2022</option><option>2020</option><option>2018</option><option>2015</option><option>2010</option><option>2005</option>
-              </select>
-            </div>
-          </div>
-
-          <button id="apply-filters" class="btn-primary w-full justify-center mt-6 py-2.5 text-xs">
-            <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
-            Pesquisar
-          </button>
-        </div>
-      </div>
-    </aside>
-
-    <!-- VEHICLE GRID -->
-    <div class="flex-1">
-      <!-- Active filters -->
-      <div id="active-filters" class="flex flex-wrap gap-2 mb-6 hidden"></div>
-
-      <!-- Grid -->
-      <div id="vehicle-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-      </div>
-
-      <!-- Load more -->
-      <div id="load-more-wrap" class="text-center mt-12 hidden">
-        <button id="load-more" class="btn-secondary">
-          Carregar mais viaturas
-          <iconify-icon icon="solar:arrow-down-linear"></iconify-icon>
-        </button>
-      </div>
-
-      <!-- Empty state -->
-      <div id="empty-state" class="text-center py-20 hidden">
-        <iconify-icon icon="solar:car-linear" class="text-5xl text-white/10 mb-4"></iconify-icon>
-        <p class="text-muted font-light">De momento não existem viaturas para apresentar com estes filtros.</p>
-        <button onclick="document.getElementById('clear-filters').click()" class="btn-secondary mt-6 text-xs">Limpar Filtros</button>
-      </div>
-    </div>
-  </div>
+<!-- GRID -->
+<div class="flex-1">
+<div id="tags" class="flex flex-wrap gap-2 mb-5 hidden"></div>
+<div id="grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+<div id="more-wrap" class="text-center mt-10 hidden"><button id="more" class="btn">Carregar mais</button></div>
+<div id="empty" class="text-center py-20 hidden"><p class="text-muted">Nenhuma viatura encontrada.</p><button onclick="document.getElementById('clear').click()" class="btn mt-4">Limpar filtros</button></div>
+</div>
+</div>
 </section>
 
-<!-- FOOTER -->
-<footer class="border-t border-border py-12 px-6 md:px-12 lg:px-24">
-  <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-    <img src="img/logos/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert"/>
-    <div class="flex gap-6 text-xs text-muted">
-      <a href="tel:+351966232555" class="hover:text-white transition-colors">966 232 555</a>
-      <a href="mailto:geral@pilotoautomoveis.pt" class="hover:text-white transition-colors">geral@pilotoautomoveis.pt</a>
-    </div>
-    <span class="text-xs text-muted/50">&copy; 2026 Piloto Automóveis</span>
-  </div>
-</footer>
+<footer class="py-10 px-6 md:px-12 border-t border-border"><div class="max-w-[1400px] mx-auto flex justify-between items-center"><img src="img/logos/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-6 brightness-0 invert opacity-40"/><p class="label text-muted/30">&copy; 2026 Piloto Automóveis</p></div></footer>
 
-<!-- WhatsApp -->
-<a href="https://wa.me/+351966232555" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon></a>
-<style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}</style>
+<a href="https://wa.me/+351966232555" target="_blank" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-xl"></iconify-icon></a>
 
 <script>
-// VEHICLE DATA
-var CARS=[
-{t:'Mazda CX-9',b:'Mazda',m:'CX-9',p:21990,y:2017,km:145918,f:'Gasolina',img:'img/cars/5524326181_omeustand_foto_7425d92912e3.webp'},
-{t:'Renault Mégane Sport Tourer 1.5 dCi',b:'Renault',m:'Mégane Sport Tourer',p:19490,y:2017,km:233602,f:'Gasóleo',img:'img/cars/5524324405_omeustand_foto_3602e48c7507.webp'},
-{t:'Mercedes-Benz CLA 200 d Shooting Brake AMG',b:'Mercedes-Benz',m:'CLA 200 d AMG Line',p:12990,y:2015,km:142879,f:'Gasóleo',img:'img/cars/omeustandcarros163543-1_d26cd2f8844a.webp'},
-{t:'Mercedes-Benz A 180 CDI',b:'Mercedes-Benz',m:'A 180 CDI',p:12990,y:2013,km:237399,f:'Gasóleo',img:'img/cars/omeustandcarros163534-1_0490a0198b41.webp'},
-{t:'Fiat 500X 1.6 E-Torq Urban',b:'Fiat',m:'500X Urban',p:21990,y:2018,km:156250,f:'Gasolina',img:'img/cars/omeustandcarros163463-1_1268c315de00.webp'},
-{t:'Mercedes-Benz CLA 180 d Shooting Brake',b:'Mercedes-Benz',m:'CLA 180 d Style Plus',p:15790,y:2020,km:166689,f:'Gasóleo',img:'img/cars/omeustandcarros162677-1_d7d640cc1523.webp'},
-{t:'Peugeot 208 1.5 BlueHDi Active',b:'Peugeot',m:'208 Active Pack',p:12990,y:2021,km:40566,f:'Gasóleo',img:'img/cars/omeustandcarros162556-1_5ada12c801c1.webp'},
-{t:'BMW 116 d Urban Line',b:'BMW',m:'116 d Urban Line',p:9990,y:2017,km:176327,f:'Gasóleo',img:'img/cars/omeustandcarros162551-1_9b11c17997b7.webp'},
-{t:'Fiat Tipo 1.3 M-Jet Lounge',b:'Fiat',m:'Tipo 1.3 Lounge',p:6990,y:2019,km:91115,f:'Gasóleo',img:'img/cars/omeustandcarros162548-1_0556fcf9d00f.webp'},
-{t:'Renault Clio 1.5 dCi Dynamique',b:'Renault',m:'Clio Dynamique S',p:13990,y:2019,km:263155,f:'Gasóleo',img:'img/cars/omeustandcarros162370-1_d1f0c20bc5a5.webp'},
-{t:'Mercedes-Benz A 180 CDI Edition',b:'Mercedes-Benz',m:'A 180 CDI Edition',p:13990,y:2014,km:259250,f:'Gasóleo',img:'img/cars/omeustandcarros161778-1_1a008478c229.webp'},
-{t:'Mercedes-Benz SLK 200 K',b:'Mercedes-Benz',m:'SLK 200 K',p:12990,y:2006,km:217153,f:'Gasolina',img:'img/cars/omeustandcarros161776-1_39f6f8fa8d46.webp'},
-{t:'Audi R8 Spyder 5.2 V10',b:'Audi',m:'R8 Spyder V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'img/cars/omeustandcarros161314-1_c2f0dde86ee9.webp'},
-{t:'MINI Countryman One D',b:'MINI',m:'Countryman One D',p:10980,y:2010,km:187041,f:'Gasóleo',img:'img/cars/omeustandcarros161092-1_0b7cc8df1900.webp'},
-{t:'BMW 520 d Pack M Auto',b:'BMW',m:'520 d Pack M',p:23990,y:2017,km:262000,f:'Gasóleo',img:'img/cars/omeustandcarros161084-1_5758c1391478.webp'},
-{t:'BMW 218 i Cabrio Sport',b:'BMW',m:'218 i Cabrio Sport',p:19490,y:2016,km:108715,f:'Gasolina',img:'img/cars/omeustandcarros160626-1_875b9801f0b0.webp'},
-{t:'Mercedes-Benz GLE 63 AMG S Coupé',b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'img/cars/omeustandcarros160253-1_1623a07bb6eb.webp'},
-{t:'Renault Clio LPG',b:'Renault',m:'Clio LPG',p:11490,y:2021,km:171078,f:'GPL',img:'img/cars/omeustandcarros160179-1_5656041d9ef7.webp'},
-{t:'Renault Mégane ST 1.5 Blue dCi',b:'Renault',m:'Mégane ST Intens',p:13990,y:2020,km:137993,f:'Gasóleo',img:'img/cars/omeustandcarros160173-1_952699f4a7a6.webp'},
-{t:'Citroën C4 Cactus 1.2 PureTech',b:'Citroën',m:'C4 Cactus Feel',p:10990,y:2020,km:176794,f:'Gasolina',img:'img/cars/omeustandcarros159793-1_7340aab1fe23.webp'},
-{t:'Audi Q8 50 TDI quattro',b:'Audi',m:'Q8 50 TDI quattro',p:63990,y:2019,km:133725,f:'Gasóleo',img:'img/cars/omeustandcarros159789-1_937c581904b1.webp'},
-{t:'BMW 428 i M Sport',b:'BMW',m:'428 i M Sport',p:33990,y:2014,km:110590,f:'Gasolina',img:'img/cars/omeustandcarros159739-1_fc9e6e8ef451.webp'},
-{t:'Lamborghini Aventador LP700-4',b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'img/cars/omeustandcarros153408-1_c2eff74a921c.webp'},
-{t:'Ferrari 488 GTB',b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'img/cars/omeustandcarros135963-1_3063937cdf10.webp'},
-{t:'Mercedes-Benz G 63 AMG',b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'img/cars/omeustandcarros130027-1_44565ae75b8c.webp'},
-{t:'Mercedes-Benz AMG GT S',b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'img/cars/omeustandcarros155729-1_fb2c6296cda3.webp'},
-];
-
-// STATE
-var PAGE_SIZE=12;
-var shown=0;
-var filtered=[];
-
-// ELEMENTS
-var grid=document.getElementById('vehicle-grid');
-var countEl=document.getElementById('count-num');
-var loadWrap=document.getElementById('load-more-wrap');
-var emptyEl=document.getElementById('empty-state');
-var sortEl=document.getElementById('sort-select');
-var fMarca=document.getElementById('f-marca');
-var fFuel=document.getElementById('f-fuel');
-var fPrice=document.getElementById('f-price');
-var fKm=document.getElementById('f-km');
-var fYear=document.getElementById('f-year');
-var activeFiltersEl=document.getElementById('active-filters');
-
-// Populate brand filter from data
-var brands=[...new Set(CARS.map(c=>c.b))].sort();
-brands.forEach(function(b){var o=document.createElement('option');o.value=b;o.textContent=b;fMarca.appendChild(o);});
-
-// URL params — read all filters from home page
-var params=new URLSearchParams(window.location.search);
-if(params.get('marca'))fMarca.value=params.get('marca');
-if(params.get('combustivel'))fFuel.value=params.get('combustivel');
-if(params.get('preco_ate'))fPrice.value=params.get('preco_ate');
-if(params.get('km_ate'))fKm.value=params.get('km_ate');
-if(params.get('ano_desde'))fYear.value=params.get('ano_desde');
-
-// CARD HTML
-function cardHTML(c){
-  var priceStr=c.p.toLocaleString('pt-PT')+'€';
-  var kmStr=c.km.toLocaleString('pt-PT')+' km';
-  return '<div class="v-card bg-card rounded-[1.5rem] overflow-hidden border border-border group cursor-pointer card-hover transition-all duration-500 hover:border-white/15">'+
-    '<div class="relative h-52 overflow-hidden">'+
-      '<img src="'+c.img+'" alt="'+c.t+'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy"/>'+
-      '<div class="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60"></div>'+
-      '<span class="absolute top-4 left-4 glass px-3 py-1 rounded-full text-[9px] font-medium tracking-widest uppercase">'+c.b+'</span>'+
-      '<div class="absolute top-4 right-4 w-7 h-7 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:rotate-45"><iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon></div>'+
-    '</div>'+
-    '<div class="p-5">'+
-      '<h3 class="font-display text-base font-semibold tracking-tight mb-1 group-hover:text-white/70 transition-colors truncate">'+c.m+'</h3>'+
-      '<div class="text-lg font-bold tracking-tight mb-4">'+priceStr+'</div>'+
-      '<div class="flex justify-between items-center text-[11px] font-light text-white/60 pt-3 border-t border-white/5">'+
-        '<span class="flex items-center gap-1"><iconify-icon icon="solar:calendar-linear" class="text-muted text-xs"></iconify-icon>'+c.y+'</span>'+
-        '<span class="flex items-center gap-1"><iconify-icon icon="solar:routing-2-linear" class="text-muted text-xs"></iconify-icon>'+kmStr+'</span>'+
-        '<span class="flex items-center gap-1"><iconify-icon icon="solar:gas-station-linear" class="text-muted text-xs"></iconify-icon>'+c.f+'</span>'+
-      '</div>'+
-    '</div>'+
-  '</div>';
+// Map car IDs for detail page links
+var ID_MAP={'Lamborghini':'lamborghini','Ferrari':'ferrari','Mercedes-Benz G 63':'mercedes-g63','Audi R8':'audi-r8','Mercedes-Benz AMG GT':'mercedes-amg-gt','Mercedes-Benz GLE 63':'mercedes-gle-63'};
+function getLink(car){
+  for(var k in ID_MAP){if((car.b+' '+car.m).includes(k))return 'viatura.html?id='+ID_MAP[k];}
+  return 'viaturas.html';
 }
 
-// FILTER + SORT
-function getFiltered(){
-  var marca=fMarca.value;
-  var fuel=fFuel.value;
-  var maxPrice=fPrice.value?parseInt(fPrice.value):0;
-  var maxKm=fKm.value?parseInt(fKm.value):0;
-  var minYear=fYear.value?parseInt(fYear.value):0;
+var CARS=[
+{b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'img/cars/omeustandcarros153408-1_c2eff74a921c.webp'},
+{b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'img/cars/omeustandcarros135963-1_3063937cdf10.webp'},
+{b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'img/cars/omeustandcarros130027-1_44565ae75b8c.webp'},
+{b:'Audi',m:'R8 Spyder 5.2 V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'img/cars/omeustandcarros161314-1_c2f0dde86ee9.webp'},
+{b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'img/cars/omeustandcarros155729-1_fb2c6296cda3.webp'},
+{b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'img/cars/omeustandcarros160253-1_1623a07bb6eb.webp'},
+{b:'Porsche',m:'Taycan Standard',p:82000,y:2024,km:38405,f:'Eléctrico',img:'img/cars/omeustandcarros154650-1_90a3d24500c8.webp'},
+{b:'Bentley',m:'Continental GT V8',p:89990,y:2013,km:81000,f:'Gasolina',img:'img/cars/omeustandcarros147490-1_2d57006dbc6c.webp'},
+{b:'Mercedes-Benz',m:'C 63 AMG S',p:77990,y:2016,km:60883,f:'Gasolina',img:'img/cars/omeustandcarros157208-1_4a44c5026f44.webp'},
+{b:'BMW',m:'M4 Coupe',p:62990,y:2017,km:58621,f:'Gasolina',img:'img/cars/omeustandcarros145310-1_ce074fb7bf63.webp'},
+{b:'Audi',m:'Q8 50 TDI quattro',p:63990,y:2019,km:133725,f:'Gasóleo',img:'img/cars/omeustandcarros159789-1_937c581904b1.webp'},
+{b:'Audi',m:'e-tron GT quattro',p:57990,y:2022,km:59200,f:'Eléctrico',img:'img/cars/omeustandcarros158125-1_e722c9946b3d.webp'},
+{b:'BMW',m:'840d xDrive Pack M',p:57990,y:2019,km:165089,f:'Gasóleo',img:'img/cars/omeustandcarros158621-1_0992c579b34c.webp'},
+{b:'Porsche',m:'Panamera S e-Hybrid',p:45990,y:2014,km:157000,f:'Híbrido',img:'img/cars/omeustandcarros150379-1_be377c80b821.webp'},
+{b:'Maserati',m:'Quattroporte 4.2 V8',p:34990,y:2005,km:133521,f:'Gasolina',img:'img/cars/omeustandcarros144572-1_4843870c5794.webp'},
+{b:'BMW',m:'428 i M Sport',p:33990,y:2014,km:110590,f:'Gasolina',img:'img/cars/omeustandcarros159739-1_fc9e6e8ef451.webp'},
+{b:'BMW',m:'520 d Pack M',p:23990,y:2017,km:262000,f:'Gasóleo',img:'img/cars/omeustandcarros161084-1_5758c1391478.webp'},
+{b:'Mazda',m:'CX-9',p:21990,y:2017,km:145918,f:'Gasolina',img:'img/cars/5524326181_omeustand_foto_7425d92912e3.webp'},
+{b:'BMW',m:'218 i Cabrio Sport',p:19490,y:2016,km:108715,f:'Gasolina',img:'img/cars/omeustandcarros160626-1_875b9801f0b0.webp'},
+{b:'Renault',m:'Mégane Sport Tourer',p:19490,y:2017,km:233602,f:'Gasóleo',img:'img/cars/5524324405_omeustand_foto_3602e48c7507.webp'},
+{b:'Mercedes-Benz',m:'CLA 180 d Style Plus',p:15790,y:2020,km:166689,f:'Gasóleo',img:'img/cars/omeustandcarros162677-1_d7d640cc1523.webp'},
+{b:'Mercedes-Benz',m:'A 180 CDI Edition',p:13990,y:2014,km:259250,f:'Gasóleo',img:'img/cars/omeustandcarros161778-1_1a008478c229.webp'},
+{b:'Renault',m:'Mégane ST Intens',p:13990,y:2020,km:137993,f:'Gasóleo',img:'img/cars/omeustandcarros160173-1_952699f4a7a6.webp'},
+{b:'Mercedes-Benz',m:'CLA 200 d AMG Line',p:12990,y:2015,km:142879,f:'Gasóleo',img:'img/cars/omeustandcarros163543-1_d26cd2f8844a.webp'},
+{b:'Peugeot',m:'208 Active Pack',p:12990,y:2021,km:40566,f:'Gasóleo',img:'img/cars/omeustandcarros162556-1_5ada12c801c1.webp'},
+{b:'Mercedes-Benz',m:'SLK 200 K',p:12990,y:2006,km:217153,f:'Gasolina',img:'img/cars/omeustandcarros161776-1_39f6f8fa8d46.webp'},
+];
 
+var PAGE=12,shown=0,filtered=[];
+var grid=document.getElementById('grid'),countEl=document.getElementById('count-num'),moreWrap=document.getElementById('more-wrap'),emptyEl=document.getElementById('empty'),sortEl=document.getElementById('sort');
+var fM=document.getElementById('f-marca'),fF=document.getElementById('f-fuel'),fP=document.getElementById('f-price'),fK=document.getElementById('f-km'),fY=document.getElementById('f-year'),tagsEl=document.getElementById('tags');
+
+// Populate brands
+[...new Set(CARS.map(c=>c.b))].sort().forEach(function(b){var o=document.createElement('option');o.value=b;o.textContent=b;fM.appendChild(o);});
+
+// URL params
+var params=new URLSearchParams(location.search);
+if(params.get('marca'))fM.value=params.get('marca');
+if(params.get('combustivel'))fF.value=params.get('combustivel');
+if(params.get('preco_ate'))fP.value=params.get('preco_ate');
+if(params.get('km_ate'))fK.value=params.get('km_ate');
+if(params.get('ano_desde'))fY.value=params.get('ano_desde');
+
+function cardHTML(c){
+  var ps=c.p.toLocaleString('pt-PT')+'€';
+  var ks=c.km.toLocaleString('pt-PT')+' km';
+  var link=getLink(c);
+  return '<a href="'+link+'" class="v-card bg-card rounded-sm overflow-hidden border border-border group block transition-all duration-500 hover:border-white/15">'+
+    '<div class="relative aspect-[4/3] overflow-hidden">'+
+      '<img src="'+c.img+'" alt="'+c.b+' '+c.m+'" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" loading="lazy"/>'+
+      '<span class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium tracking-wider uppercase rounded-sm">'+c.b+'</span>'+
+    '</div>'+
+    '<div class="p-5">'+
+      '<h3 class="heading-md text-white mb-1 group-hover:text-muted transition-colors truncate">'+c.m+'</h3>'+
+      '<div class="flex items-center gap-4 text-xs text-muted mt-2 mb-3"><span>'+c.y+'</span><span class="w-px h-3 bg-border"></span><span>'+ks+'</span><span class="w-px h-3 bg-border"></span><span>'+c.f+'</span></div>'+
+      '<div class="divider mb-3"></div>'+
+      '<p class="heading-md text-white">'+ps+'</p>'+
+    '</div></a>';
+}
+
+function getFiltered(){
+  var marca=fM.value,fuel=fF.value,maxP=fP.value?+fP.value:0,maxK=fK.value?+fK.value:0,minY=fY.value?+fY.value:0;
   var r=CARS.filter(function(c){
     if(marca&&c.b!==marca)return false;
     if(fuel&&c.f!==fuel)return false;
-    if(maxPrice&&c.p>maxPrice)return false;
-    if(maxKm&&c.km>maxKm)return false;
-    if(minYear&&c.y<minYear)return false;
+    if(maxP&&c.p>maxP)return false;
+    if(maxK&&c.km>maxK)return false;
+    if(minY&&c.y<minY)return false;
     return true;
   });
-
-  var sort=sortEl.value;
+  var s=sortEl.value;
   r.sort(function(a,b){
-    if(sort==='price-asc')return a.p-b.p;
-    if(sort==='price-desc')return b.p-a.p;
-    if(sort==='year-desc')return b.y-a.y;
-    if(sort==='year-asc')return a.y-b.y;
-    if(sort==='km-asc')return a.km-b.km;
-    if(sort==='km-desc')return b.km-a.km;
+    if(s==='price-asc')return a.p-b.p;if(s==='price-desc')return b.p-a.p;
+    if(s==='year-desc')return b.y-a.y;if(s==='km-asc')return a.km-b.km;
     return 0;
   });
   return r;
 }
 
-function showActiveFilters(){
-  var tags=[];
-  if(fMarca.value)tags.push({label:fMarca.value,field:'f-marca'});
-  if(fFuel.value)tags.push({label:fFuel.value,field:'f-fuel'});
-  if(fPrice.value)tags.push({label:'Até '+parseInt(fPrice.value).toLocaleString('pt-PT')+'€',field:'f-price'});
-  if(fKm.value)tags.push({label:'Até '+parseInt(fKm.value).toLocaleString('pt-PT')+' km',field:'f-km'});
-  if(fYear.value)tags.push({label:'Desde '+fYear.value,field:'f-year'});
-
-  if(tags.length===0){activeFiltersEl.classList.add('hidden');return;}
-  activeFiltersEl.classList.remove('hidden');
-  activeFiltersEl.innerHTML=tags.map(function(t){
-    return '<span class="inline-flex items-center gap-1.5 glass px-3 py-1 rounded-full text-[10px] font-medium tracking-wide cursor-pointer hover:bg-white/10 transition-colors" data-clear="'+t.field+'">'+t.label+'<iconify-icon icon="solar:close-circle-linear" class="text-xs text-muted"></iconify-icon></span>';
-  }).join('');
-  activeFiltersEl.querySelectorAll('[data-clear]').forEach(function(el){
-    el.addEventListener('click',function(){document.getElementById(this.dataset.clear).value='';render();});
-  });
+function showTags(){
+  var t=[];
+  if(fM.value)t.push({l:fM.value,f:'f-marca'});if(fF.value)t.push({l:fF.value,f:'f-fuel'});
+  if(fP.value)t.push({l:'Até '+parseInt(fP.value).toLocaleString('pt-PT')+'€',f:'f-price'});
+  if(fK.value)t.push({l:'Até '+parseInt(fK.value).toLocaleString('pt-PT')+' km',f:'f-km'});
+  if(fY.value)t.push({l:'Desde '+fY.value,f:'f-year'});
+  if(!t.length){tagsEl.classList.add('hidden');return;}
+  tagsEl.classList.remove('hidden');
+  tagsEl.innerHTML=t.map(function(x){return '<span class="inline-flex items-center gap-1 bg-card border border-border px-3 py-1 text-[10px] tracking-wide cursor-pointer hover:border-white/20 transition-colors rounded-sm" data-clear="'+x.f+'">'+x.l+' <iconify-icon icon="solar:close-circle-linear" class="text-xs text-muted pointer-events-none"></iconify-icon></span>';}).join('');
+  tagsEl.querySelectorAll('[data-clear]').forEach(function(el){el.addEventListener('click',function(){document.getElementById(this.dataset.clear).value='';render();});});
 }
 
 function render(){
-  filtered=getFiltered();
-  shown=0;
-  grid.innerHTML='';
-  countEl.textContent=filtered.length;
-  showActiveFilters();
-  if(filtered.length===0){emptyEl.classList.remove('hidden');loadWrap.classList.add('hidden');return;}
-  emptyEl.classList.add('hidden');
-  loadMore();
+  filtered=getFiltered();shown=0;grid.innerHTML='';countEl.textContent=filtered.length;showTags();
+  if(!filtered.length){emptyEl.classList.remove('hidden');moreWrap.classList.add('hidden');return;}
+  emptyEl.classList.add('hidden');loadMore();
 }
 
 function loadMore(){
-  var batch=filtered.slice(shown,shown+PAGE_SIZE);
+  var batch=filtered.slice(shown,shown+PAGE);
   batch.forEach(function(c,i){
-    var div=document.createElement('div');
-    div.innerHTML=cardHTML(c);
-    var card=div.firstChild;
+    var div=document.createElement('div');div.innerHTML=cardHTML(c);var card=div.firstChild;
     grid.appendChild(card);
-    gsap.fromTo(card,{opacity:0,y:30,filter:'blur(4px)'},{opacity:1,y:0,filter:'blur(0px)',duration:0.5,delay:i*0.06,ease:'power3.out'});
+    gsap.fromTo(card,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:i*.06,ease:'power3.out'});
   });
   shown+=batch.length;
-  if(shown<filtered.length){loadWrap.classList.remove('hidden');}else{loadWrap.classList.add('hidden');}
+  moreWrap.classList.toggle('hidden',shown>=filtered.length);
 }
 
-// EVENTS
-document.getElementById('apply-filters').addEventListener('click',render);
-document.getElementById('clear-filters').addEventListener('click',function(){fMarca.value='';fFuel.value='';fPrice.value='';fKm.value='';fYear.value='';render();});
-document.getElementById('load-more').addEventListener('click',loadMore);
+[fM,fF,fP,fK,fY].forEach(function(el){el.addEventListener('change',render);});
 sortEl.addEventListener('change',render);
-[fMarca,fFuel,fPrice,fKm,fYear].forEach(function(el){el.addEventListener('change',render);});
-
-// NAV BG
-window.addEventListener('scroll',function(){var n=document.getElementById('main-nav');n.style.background=window.scrollY>50?'rgba(8,8,5,0.9)':'transparent';n.style.backdropFilter=window.scrollY>50?'blur(20px)':'none';});
-
-// INIT
+document.getElementById('clear').addEventListener('click',function(){fM.value='';fF.value='';fP.value='';fK.value='';fY.value='';render();});
+document.getElementById('more').addEventListener('click',loadMore);
 render();
 </script>
 </body>
