@@ -156,6 +156,7 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
 <div id="preloader" class="fixed inset-0 z-[20000] flex items-center justify-center" style="background:#0a0a0a;">
   <div class="text-center">
     <div id="pre-counter" class="font-display font-bold tracking-tighter text-white/[0.04]" style="font-size:clamp(8rem,25vw,20rem);line-height:1;transition:filter 1s;">0</div>
+    <img id="pre-logo" src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-10 md:h-14 brightness-0 invert mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="opacity:0;filter:blur(10px);"/>
     <div class="absolute bottom-12 left-1/2 -translate-x-1/2 w-48">
       <div class="h-px bg-white/10 overflow-hidden"><div id="preloader-bar" class="h-full bg-white/40" style="width:0%;"></div></div>
       <p class="label mt-4 text-center" style="color:#2a2a2a;">Piloto Automóveis</p>
@@ -866,12 +867,17 @@ gsap.registerPlugin(ScrollTrigger);
   var bar = document.getElementById('preloader-bar');
   var pre = document.getElementById('preloader');
   var obj = {val:0};
-  gsap.to(obj, {val:100, duration:3.5, ease:'power2.inOut', onUpdate:function(){
+  var logo = document.getElementById('pre-logo');
+  gsap.to(obj, {val:100, duration:3, ease:'power2.inOut', onUpdate:function(){
     counter.textContent = Math.round(obj.val);
     bar.style.width = obj.val + '%';
   }, onComplete:function(){
-    counter.style.filter = 'blur(20px)';
-    gsap.to(pre, {opacity:0, duration:0.8, delay:0.3, ease:'power2.inOut', onComplete:function(){ pre.style.display='none'; }});
+    // Counter fades, logo appears
+    gsap.to(counter, {opacity:0, filter:'blur(20px)', duration:0.5, ease:'power2.in'});
+    gsap.to(logo, {opacity:0.9, filter:'blur(0px)', duration:0.8, delay:0.3, ease:'power3.out', onComplete:function(){
+      // Hold logo, then fade out everything
+      gsap.to(pre, {opacity:0, duration:0.8, delay:0.6, ease:'power2.inOut', onComplete:function(){ pre.style.display='none'; }});
+    }});
   }});
 })();
 
