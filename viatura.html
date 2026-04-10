@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title id="page-title">Viatura — Piloto Automóveis</title>
-<meta name="description" id="page-desc" content=""/>
 <link rel="icon" href="site-antigo/pilotoautomoveis.pt_home/assets/favicon_70a28403b374.ico"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -15,276 +14,152 @@
 <script>tailwind.config={theme:{extend:{colors:{bg:'#0a0a0a',card:'#141414',border:'#1e1e1e',muted:'#6b6b6b'},fontFamily:{sans:['Inter','sans-serif'],display:['Space Grotesk','sans-serif']}}}}</script>
 <style>
 :root{--ease:cubic-bezier(.25,1,.5,1)}*,*::before,*::after{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}body{background:#0a0a0a;color:#e8e8e8;font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}::selection{background:#fff;color:#000}::-webkit-scrollbar{width:0}
-.heading-xl{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:600;line-height:.95;letter-spacing:-.03em}
-.heading-lg{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:600;line-height:1;letter-spacing:-.025em}
-.heading-md{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.2rem,1.8vw,1.6rem);font-weight:500;line-height:1.1;letter-spacing:-.02em}
-.body-lg{font-size:clamp(1rem,1.1vw,1.15rem);font-weight:300;line-height:1.7;color:#6b6b6b}
-.label{font-size:.65rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#6b6b6b}
+.heading-xl{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:600;line-height:.95;letter-spacing:-.03em}
+.heading-lg{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:600;line-height:1;letter-spacing:-.025em}
+.heading-md{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,1.5vw,1.3rem);font-weight:500;line-height:1.1;letter-spacing:-.02em}
+.body-lg{font-size:clamp(.9rem,1vw,1.05rem);font-weight:300;line-height:1.7;color:#6b6b6b}
+.label{font-size:.6rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#6b6b6b}
 a{color:inherit;text-decoration:none}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.2rem;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);background:transparent;color:#e8e8e8;cursor:pointer;transition:all .7s var(--ease);position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#fff;transition:width .7s var(--ease)}.btn:hover{border-color:rgba(255,255,255,.5)}.btn:hover::after{width:100%}
-.btn-solid{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.2rem;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid #fff;background:#fff;color:#0a0a0a;cursor:pointer;transition:all .7s var(--ease)}.btn-solid:hover{background:transparent;color:#fff}
+.btn-solid{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid #fff;background:#fff;color:#0a0a0a;cursor:pointer;transition:all .5s var(--ease)}.btn-solid:hover{background:transparent;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.2);background:transparent;color:#e8e8e8;cursor:pointer;transition:all .5s var(--ease)}.btn:hover{border-color:rgba(255,255,255,.5)}
+.btn-green{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border:none;background:#25D366;color:#fff;cursor:pointer;transition:all .5s var(--ease);border-radius:2px}.btn-green:hover{background:#1da851}
 .divider{height:1px;background:#1e1e1e}
-.reveal{opacity:0;transform:translateY(30px);will-change:transform,opacity}
+.reveal{opacity:0;transform:translateY(20px)}
+.thumb{opacity:.5;transition:all .3s var(--ease);cursor:pointer;border:2px solid transparent;border-radius:2px}.thumb.active{opacity:1;border-color:#fff}.thumb:hover{opacity:.8}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
-.thumb{opacity:.4;transition:opacity .5s var(--ease);cursor:pointer}.thumb.active,.thumb:hover{opacity:1}
+#sticky-bar{transform:translateY(100%);transition:transform .5s var(--ease)}#sticky-bar.visible{transform:translateY(0)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 </style>
 </head>
 <body>
+<nav class="fixed top-0 w-full z-[100]" style="background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);">
+<div class="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+<a href="/"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-8 brightness-0 invert opacity-80"/></a>
+<div class="flex items-center gap-6"><a href="viaturas.html" class="label hover:text-white transition-colors">← Stock</a><a href="tel:+351966232555" class="label hover:text-white transition-colors hidden sm:block">966 232 555</a></div>
+</div></nav>
 
-<!-- NAV -->
-<nav id="nav" class="fixed top-0 w-full z-[100] transition-all duration-700" style="transition-timing-function:var(--ease);">
-  <div class="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-6 flex justify-between items-center">
-    <a href="/"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-8 md:h-10 brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-500"/></a>
-    <a href="viaturas.html" class="label hover:text-white transition-colors duration-500 hidden lg:block">← Voltar ao Stock</a>
-    <a href="tel:+351966232555" class="label hover:text-white transition-colors duration-500 hidden sm:block">+351 966 232 555</a>
-  </div>
-</nav>
+<div class="pt-20 pb-3 px-6 md:px-12 max-w-[1400px] mx-auto">
+<div class="flex items-center gap-2 label text-muted/50"><a href="/" class="hover:text-white transition-colors">Home</a><span>/</span><a href="viaturas.html" class="hover:text-white transition-colors">Viaturas</a><span>/</span><span id="bc-name" class="text-white/70"></span></div>
+</div>
 
-<!-- HERO -->
-<section class="relative h-[70vh] md:h-[85vh] overflow-hidden">
-  <img id="hero-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"/>
-  <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/20 to-transparent"></div>
-  <div class="absolute inset-0 bg-gradient-to-r from-bg/40 via-transparent to-bg/40"></div>
-  <div class="absolute bottom-0 left-0 right-0 z-10 px-6 md:px-12 lg:px-20 pb-10">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-      <div>
-        <p id="v-brand" class="label mb-3"></p>
-        <h1 id="v-model" class="heading-xl text-white"></h1>
-      </div>
-      <div class="text-right">
-        <p class="label mb-2">Preço</p>
-        <p id="v-price-hero" class="heading-lg text-white"></p>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="px-6 md:px-12 pb-16">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-7">
+<div class="relative aspect-[4/3] overflow-hidden bg-card mb-2 rounded-sm">
+<img id="main-img" src="" alt="" class="w-full h-full object-cover transition-opacity duration-400"/>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded text-xs"><span id="img-cur">1</span>/<span id="img-tot">6</span></div>
+<button id="img-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-all rounded-sm" style="cursor:pointer"><iconify-icon icon="solar:arrow-left-linear" class="pointer-events-none"></iconify-icon></button>
+<button id="img-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/60 transition-all rounded-sm" style="cursor:pointer"><iconify-icon icon="solar:arrow-right-linear" class="pointer-events-none"></iconify-icon></button>
+</div>
+<div id="gallery" class="flex gap-1.5 overflow-x-auto pb-2" style="scrollbar-width:none"></div>
+<div class="mt-8 reveal"><h2 class="heading-md text-white mb-5">Ficha Técnica</h2><div id="specs" class="grid grid-cols-2 md:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden"></div></div>
+<div class="mt-8 reveal"><h2 class="heading-md text-white mb-3">Sobre esta viatura</h2><div id="v-desc" class="body-lg space-y-3"></div></div>
+</div>
 
-<!-- GALLERY -->
-<section class="border-b border-border">
-  <div class="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 py-4 flex gap-3 overflow-x-auto" id="gallery" style="scrollbar-width:none;"></div>
-</section>
-
-<!-- SPECS + SIDEBAR -->
-<section class="py-16 md:py-24 px-6 md:px-12 lg:px-20">
-  <div class="max-w-[1600px] mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
-
-      <!-- Left -->
-      <div class="lg:col-span-2">
-        <p class="label mb-6 reveal">Especificações</p>
-        <div id="specs-grid" class="grid grid-cols-2 md:grid-cols-3 gap-px bg-border reveal"></div>
-
-        <div class="mt-16 reveal">
-          <p class="label mb-6">Sobre esta viatura</p>
-          <div id="v-desc" class="body-lg max-w-2xl space-y-4"></div>
-        </div>
-      </div>
-
-      <!-- Right — Sticky sidebar -->
-      <div>
-        <div class="lg:sticky lg:top-28">
-          <div class="bg-card border border-border p-8 md:p-10 mb-6 reveal">
-            <p class="label mb-2">Preço</p>
-            <p id="v-price" class="heading-xl text-white mb-6"></p>
-            <div id="v-finance" class="space-y-3 mb-8"></div>
-            <a href="intermediacao.html" class="btn-solid w-full justify-center mb-3">Simular Financiamento</a>
-            <a href="tel:+351966232555" class="btn w-full justify-center"><iconify-icon icon="solar:phone-calling-linear" class="text-sm pointer-events-none"></iconify-icon> Ligar Agora</a>
-          </div>
-
-          <div class="bg-card border border-border p-8 md:p-10 reveal">
-            <p class="label mb-6">Pedir informação</p>
-            <div class="space-y-4">
-              <input type="text" placeholder="Nome" class="w-full bg-transparent border-b border-border pb-3 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/30 transition-colors"/>
-              <input type="tel" placeholder="Telefone" class="w-full bg-transparent border-b border-border pb-3 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/30 transition-colors"/>
-              <input type="email" placeholder="Email" class="w-full bg-transparent border-b border-border pb-3 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/30 transition-colors"/>
-              <textarea placeholder="Mensagem (opcional)" rows="3" class="w-full bg-transparent border-b border-border pb-3 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/30 transition-colors resize-none"></textarea>
-            </div>
-            <button class="btn-solid w-full justify-center mt-6">Enviar Mensagem</button>
-            <p class="label text-muted/30 mt-4 text-center" style="font-size:.55rem;">Resposta em 24h · Sem compromisso</p>
-          </div>
-
-          <div class="flex items-center justify-center gap-4 mt-6 reveal" id="v-share"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="lg:col-span-5">
+<div class="lg:sticky lg:top-24 space-y-5">
+<div class="bg-card border border-border p-6 rounded-sm">
+<p id="v-brand" class="label mb-1"></p>
+<h1 id="v-model" class="heading-xl text-white mb-5"></h1>
+<div class="flex flex-wrap gap-2 mb-5" id="v-badges"></div>
+<div class="divider mb-5"></div>
+<p class="label mb-1">Preço</p>
+<p id="v-price" class="font-display text-4xl font-bold tracking-tighter text-white mb-5"></p>
+<div class="bg-bg border border-border p-4 rounded-sm mb-5" id="v-finance"></div>
+<div class="space-y-2.5">
+<a id="wa-cta" href="#" target="_blank" class="btn-green w-full justify-center"><iconify-icon icon="mdi:whatsapp" class="text-lg pointer-events-none"></iconify-icon>Contactar via WhatsApp</a>
+<a href="tel:+351966232555" class="btn-solid w-full justify-center"><iconify-icon icon="solar:phone-calling-linear" class="text-sm pointer-events-none"></iconify-icon>Ligar 966 232 555</a>
+<a href="intermediacao.html" class="btn w-full justify-center">Simular Financiamento</a>
+</div>
+</div>
+<div class="bg-card border border-border p-6 rounded-sm reveal">
+<h3 class="heading-md text-white mb-1">Tenho interesse</h3>
+<p class="text-xs text-muted mb-5">Resposta em menos de 24h</p>
+<div class="space-y-3">
+<input type="text" placeholder="Nome" class="w-full bg-bg border border-border px-4 py-2.5 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/20 transition-colors rounded-sm"/>
+<input type="tel" placeholder="Telefone" class="w-full bg-bg border border-border px-4 py-2.5 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/20 transition-colors rounded-sm"/>
+<input type="email" placeholder="Email" class="w-full bg-bg border border-border px-4 py-2.5 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/20 transition-colors rounded-sm"/>
+<textarea placeholder="Mensagem" rows="2" class="w-full bg-bg border border-border px-4 py-2.5 text-sm text-white placeholder:text-muted/40 focus:outline-none focus:border-white/20 transition-colors rounded-sm resize-none"></textarea>
+</div>
+<button class="btn-solid w-full justify-center mt-4">Enviar</button>
+</div>
+<div class="bg-card border border-border p-5 rounded-sm flex items-center gap-4 reveal">
+<img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-7 brightness-0 invert opacity-60"/>
+<div><p class="text-sm font-medium text-white">Piloto Automóveis</p><div class="flex items-center gap-1 mt-0.5"><iconify-icon icon="solar:star-bold" class="text-yellow-400 text-xs"></iconify-icon><span class="text-xs text-muted">5.0 · Braga</span></div></div>
+</div>
+</div></div>
+</div></section>
 
 <div class="divider"></div>
+<section class="py-14 px-6 md:px-12"><div class="max-w-[1400px] mx-auto">
+<div class="flex items-end justify-between mb-8"><div class="reveal"><p class="label mb-2">Semelhantes</p><h2 class="heading-lg text-white">Outras Viaturas</h2></div><a href="viaturas.html" class="btn hidden md:inline-flex reveal">Ver Stock</a></div>
+<div id="similar" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-border"></div>
+</div></section>
 
-<!-- SIMILAR -->
-<section class="py-16 md:py-24 px-6 md:px-12 lg:px-20">
-  <div class="max-w-[1600px] mx-auto">
-    <div class="flex items-end justify-between mb-10">
-      <div class="reveal"><p class="label mb-3">Também pode gostar</p><h2 class="heading-lg text-white">Viaturas Semelhantes</h2></div>
-      <a href="viaturas.html" class="btn hidden md:inline-flex reveal">Ver Todas</a>
-    </div>
-    <div id="similar" class="grid grid-cols-1 md:grid-cols-3 gap-px bg-border"></div>
-  </div>
-</section>
+<div id="sticky-bar" class="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border py-3 px-6">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between">
+<div><p id="sb-name" class="text-sm font-medium text-white truncate max-w-[200px]"></p><p id="sb-price" class="font-display text-lg font-bold tracking-tight text-white"></p></div>
+<div class="flex gap-2"><a id="sb-wa" href="#" target="_blank" class="btn-green py-2 px-3 text-[10px]"><iconify-icon icon="mdi:whatsapp" class="text-sm pointer-events-none"></iconify-icon>WhatsApp</a><a href="tel:+351966232555" class="btn-solid py-2 px-3 text-[10px]">Ligar</a></div>
+</div></div>
 
-<!-- FOOTER -->
-<footer class="py-16 px-6 md:px-12 lg:px-20 border-t border-border">
-  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-    <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert opacity-60"/>
-    <p class="label text-muted/40">&copy; 2026 Piloto Automóveis</p>
-  </div>
-</footer>
+<footer class="py-10 px-6 md:px-12 border-t border-border mb-14"><div class="max-w-[1400px] mx-auto flex justify-between items-center"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-6 brightness-0 invert opacity-40"/><p class="label text-muted/30">&copy; 2026 Piloto Automóveis</p></div></footer>
 
-<!-- WhatsApp -->
-<a id="wa-link" href="#" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-2xl"></iconify-icon></a>
+<a id="wa-float" href="#" target="_blank" class="fixed bottom-20 right-6 z-40 w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" style="animation:float 4s ease-in-out infinite"><iconify-icon icon="mdi:whatsapp" class="text-white text-xl"></iconify-icon></a>
 
 <script>
-// VEHICLE DATABASE
-var DB = {
-  'lamborghini': {
-    brand:'Lamborghini', model:'Aventador 6.5 V12 LP700-4', price:349900,
-    year:'2012', month:'10', km:'17.929', fuel:'Gasolina', engine:'6498 CC', power:'700 CV',
-    transmission:'Automática', color:'Laranja', doors:'2', seats:'2', origin:'Nacional',
-    warranty:'18 Meses', traction:'Integral (AWD)', speed:'350 km/h', accel:'2.9s',
-    desc:'<p>O Lamborghini Aventador LP700-4 é a expressão máxima da engenharia italiana. Motor V12 de 6.5 litros, naturalmente aspirado, que produz 700 cavalos e 690 Nm de binário.</p><p>Chassis em fibra de carbono, tracção integral permanente e caixa automática ISR de 7 velocidades. Esta unidade encontra-se em excelente estado com apenas 17.929 km. Revisões na marca. Documentação em dia.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_lamborghini_aventador_/assets/',
-    imgs:['omeustandcarros153408-1_c2eff74a921c.webp','omeustandcarros153408-10_1f16ca72bbc5.webp','omeustandcarros153408-11_7859f4d3f635.webp','omeustandcarros153408-12_240ac363b17e.webp','omeustandcarros153408-13_af18ae3cfedc.webp','omeustandcarros153408-14_0411db4c4692.webp']
-  },
-  'ferrari': {
-    brand:'Ferrari', model:'488 GTB', price:269990,
-    year:'2018', month:'03', km:'34.724', fuel:'Gasolina', engine:'3902 CC', power:'670 CV',
-    transmission:'Automática', color:'Vermelho', doors:'2', seats:'2', origin:'Importado',
-    warranty:'18 Meses', traction:'Traseira (RWD)', speed:'330 km/h', accel:'3.0s',
-    desc:'<p>O Ferrari 488 GTB é o coração pulsante de Maranello. Twin-turbo V8 de 3.9 litros com 670 cavalos e design aerodinâmico de referência.</p><p>Performance de cortar a respiração com 0-100 em 3.0 segundos. Importado, em excelente estado. Revisões efectuadas na marca.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_ferrari_488_gtb_ID1359/assets/',
-    imgs:['omeustandcarros135963-1_3063937cdf10.webp','omeustandcarros135963-10_0f1669535805.webp','omeustandcarros135963-11_c29fd3849cec.webp','omeustandcarros135963-12_3aaa57d15ddf.webp','omeustandcarros135963-13_f26723b8306a.webp','omeustandcarros135963-14_2c40bb920151.webp']
-  },
-  'mercedes-g63': {
-    brand:'Mercedes-Benz', model:'G 63 AMG Speedshift 9G-TRONIC', price:220000,
-    year:'2021', month:'09', km:'20.820', fuel:'Gasolina', engine:'3982 CC', power:'585 CV',
-    transmission:'Automática', color:'Bege', doors:'5', seats:'5', origin:'Importado',
-    warranty:'—', traction:'Integral (AWD)', speed:'220 km/h', accel:'4.5s',
-    desc:'<p>O ícone todo-o-terreno na sua forma mais brutal. V8 biturbo de 4.0 litros com 585 cavalos num chassis lendário e intemporal.</p><p>Versão Exclusive com acabamento premium. Importado da Alemanha, com toda a documentação e revisões em dia.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_g_63_amg/assets/',
-    imgs:['omeustandcarros130027-1_44565ae75b8c.webp','omeustandcarros130027-10_921e1738babe.webp','omeustandcarros130027-11_2409e10e0818.webp','omeustandcarros130027-12_76af630126da.webp','omeustandcarros130027-13_58aff1c0c7b8.webp','omeustandcarros130027-14_9615b9ec4264.webp']
-  },
-  'audi-r8': {
-    brand:'Audi', model:'R8 Spyder 5.2 FSi V10 quattro R tronic', price:119990,
-    year:'2012', month:'06', km:'88.858', fuel:'Gasolina', engine:'5204 CC', power:'525 CV',
-    transmission:'Automática', color:'Preto', doors:'2', seats:'2', origin:'Importado',
-    warranty:'18 Meses', traction:'Integral (AWD)', speed:'313 km/h', accel:'3.8s',
-    desc:'<p>Aspiração natural V10, céu aberto. O supercarro alemão que combina precisão cirúrgica com emoção pura. Motor 5.2 V10 com 525 cavalos.</p><p>Versão Spyder com capota eléctrica. Tracção quattro integral. Importado, garantia de 18 meses por acordo mútuo.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_audi_r8_spyder_5_2_fsi/assets/',
-    imgs:['omeustandcarros161314-1_c2f0dde86ee9.webp','omeustandcarros161314-10_125064251058.webp','omeustandcarros161314-11_0a3c088b52d7.webp','omeustandcarros161314-12_3a13c48cc26a.webp','omeustandcarros161314-13_48df503f13e6.webp','omeustandcarros161314-14_3e59bce1db2a.webp']
-  },
-  'mercedes-amg-gt': {
-    brand:'Mercedes-Benz', model:'AMG GT S Speedshift 7G-DCT', price:114990,
-    year:'2017', month:'06', km:'18.740', fuel:'Gasolina', engine:'3982 CC', power:'510 CV',
-    transmission:'Automática', color:'Azul', doors:'3', seats:'2', origin:'Importado',
-    warranty:'18 Meses', traction:'Traseira (RWD)', speed:'310 km/h', accel:'3.8s',
-    desc:'<p>Gran Turismo com alma de competição. V8 biturbo de 4.0 litros com 510 cavalos, transmissão de dupla embraiagem e aerodinâmica ativa.</p><p>Apenas 18.740 km. Importado, em estado impecável. Garantia de 18 meses.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_amg_gt_s/assets/',
-    imgs:['omeustandcarros155729-1_fb2c6296cda3.webp','omeustandcarros155729-10_4dc6ca085a80.webp','omeustandcarros155729-11_ab3b68514633.webp','omeustandcarros155729-12_6be0eac4780e.webp','omeustandcarros155729-13_81a962327c1d.webp','omeustandcarros155729-14_263a7f2f3cb4.webp']
-  },
-  'mercedes-gle-63': {
-    brand:'Mercedes-Benz', model:'GLE 63 AMG S Coupé 4Matic', price:99990,
-    year:'2015', month:'12', km:'149.475', fuel:'Gasolina', engine:'5461 CC', power:'585 CV',
-    transmission:'Automática', color:'Cinzento', doors:'5', seats:'5', origin:'Importado',
-    warranty:'18 Meses', traction:'Integral (AWD)', speed:'250 km/h', accel:'4.2s',
-    desc:'<p>A fusão entre SUV e coupé desportivo. V8 biturbo de 5.5 litros com 585 cavalos, tracção integral e conforto de luxo.</p><p>Equipamento completo. Importado, garantia de 18 meses por acordo mútuo.</p>',
-    imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_gle_63_a/assets/',
-    imgs:['omeustandcarros160253-1_1623a07bb6eb.webp','omeustandcarros160253-10_cd02a9e9006a.webp','omeustandcarros160253-11_1465586ab672.webp','omeustandcarros160253-12_3896b840364e.webp','omeustandcarros160253-13_613b75bd5d08.webp','omeustandcarros160253-14_ccdb580c949f.webp']
-  }
-};
+var DB={'lamborghini':{brand:'Lamborghini',model:'Aventador 6.5 V12 LP700-4',price:349900,year:'2012',month:'10',km:'17.929',fuel:'Gasolina',engine:'6498 CC',power:'700 CV',transmission:'Automática',color:'Laranja',doors:'2',seats:'2',origin:'Nacional',warranty:'18 Meses',traction:'Integral (AWD)',speed:'350 km/h',accel:'2.9s',desc:'<p>Motor V12 de 6.5 litros, 700 cavalos e 690 Nm. Chassis em fibra de carbono, caixa ISR de 7 velocidades. Apenas 17.929 km. Revisões na marca.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_lamborghini_aventador_/assets/',imgs:['omeustandcarros153408-1_c2eff74a921c.webp','omeustandcarros153408-10_1f16ca72bbc5.webp','omeustandcarros153408-11_7859f4d3f635.webp','omeustandcarros153408-12_240ac363b17e.webp','omeustandcarros153408-13_af18ae3cfedc.webp','omeustandcarros153408-14_0411db4c4692.webp']},'ferrari':{brand:'Ferrari',model:'488 GTB',price:269990,year:'2018',month:'03',km:'34.724',fuel:'Gasolina',engine:'3902 CC',power:'670 CV',transmission:'Automática',color:'Vermelho',doors:'2',seats:'2',origin:'Importado',warranty:'18 Meses',traction:'Traseira',speed:'330 km/h',accel:'3.0s',desc:'<p>Twin-turbo V8 de 3.9 litros, 670 cavalos. 0-100 em 3.0s. Revisões na marca.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_ferrari_488_gtb_ID1359/assets/',imgs:['omeustandcarros135963-1_3063937cdf10.webp','omeustandcarros135963-10_0f1669535805.webp','omeustandcarros135963-11_c29fd3849cec.webp','omeustandcarros135963-12_3aaa57d15ddf.webp','omeustandcarros135963-13_f26723b8306a.webp','omeustandcarros135963-14_2c40bb920151.webp']},'mercedes-g63':{brand:'Mercedes-Benz',model:'G 63 AMG 9G-TRONIC',price:220000,year:'2021',month:'09',km:'20.820',fuel:'Gasolina',engine:'3982 CC',power:'585 CV',transmission:'Automática',color:'Bege',doors:'5',seats:'5',origin:'Importado',warranty:'—',traction:'Integral',speed:'220 km/h',accel:'4.5s',desc:'<p>V8 biturbo 4.0L, 585cv. Versão Exclusive. Importado da Alemanha.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_g_63_amg/assets/',imgs:['omeustandcarros130027-1_44565ae75b8c.webp','omeustandcarros130027-10_921e1738babe.webp','omeustandcarros130027-11_2409e10e0818.webp','omeustandcarros130027-12_76af630126da.webp','omeustandcarros130027-13_58aff1c0c7b8.webp','omeustandcarros130027-14_9615b9ec4264.webp']},'audi-r8':{brand:'Audi',model:'R8 Spyder 5.2 V10 quattro',price:119990,year:'2012',month:'06',km:'88.858',fuel:'Gasolina',engine:'5204 CC',power:'525 CV',transmission:'Automática',color:'Preto',doors:'2',seats:'2',origin:'Importado',warranty:'18 Meses',traction:'Integral',speed:'313 km/h',accel:'3.8s',desc:'<p>V10 naturalmente aspirado, 525cv. Spyder com capota eléctrica. Quattro integral.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_audi_r8_spyder_5_2_fsi/assets/',imgs:['omeustandcarros161314-1_c2f0dde86ee9.webp','omeustandcarros161314-10_125064251058.webp','omeustandcarros161314-11_0a3c088b52d7.webp','omeustandcarros161314-12_3a13c48cc26a.webp','omeustandcarros161314-13_48df503f13e6.webp','omeustandcarros161314-14_3e59bce1db2a.webp']},'mercedes-amg-gt':{brand:'Mercedes-Benz',model:'AMG GT S 7G-DCT',price:114990,year:'2017',month:'06',km:'18.740',fuel:'Gasolina',engine:'3982 CC',power:'510 CV',transmission:'Automática',color:'Azul',doors:'3',seats:'2',origin:'Importado',warranty:'18 Meses',traction:'Traseira',speed:'310 km/h',accel:'3.8s',desc:'<p>V8 biturbo 4.0L, 510cv, DCT. Apenas 18.740 km. Estado impecável.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_amg_gt_s/assets/',imgs:['omeustandcarros155729-1_fb2c6296cda3.webp','omeustandcarros155729-10_4dc6ca085a80.webp','omeustandcarros155729-11_ab3b68514633.webp','omeustandcarros155729-12_6be0eac4780e.webp','omeustandcarros155729-13_81a962327c1d.webp','omeustandcarros155729-14_263a7f2f3cb4.webp']},'mercedes-gle-63':{brand:'Mercedes-Benz',model:'GLE 63 AMG S Coupé',price:99990,year:'2015',month:'12',km:'149.475',fuel:'Gasolina',engine:'5461 CC',power:'585 CV',transmission:'Automática',color:'Cinzento',doors:'5',seats:'5',origin:'Importado',warranty:'18 Meses',traction:'Integral',speed:'250 km/h',accel:'4.2s',desc:'<p>V8 biturbo 5.5L, 585cv. Tracção integral, equipamento completo.</p>',imgBase:'assets/pagina-carros/pilotoautomoveis.pt_viatura_mercedes_benz_gle_63_a/assets/',imgs:['omeustandcarros160253-1_1623a07bb6eb.webp','omeustandcarros160253-10_cd02a9e9006a.webp','omeustandcarros160253-11_1465586ab672.webp','omeustandcarros160253-12_3896b840364e.webp','omeustandcarros160253-13_613b75bd5d08.webp','omeustandcarros160253-14_ccdb580c949f.webp']}};
 
-// Get car ID from URL
-var params = new URLSearchParams(window.location.search);
-var id = params.get('id') || 'lamborghini';
-var car = DB[id];
-if (!car) { car = DB['lamborghini']; id = 'lamborghini'; }
+var id=new URLSearchParams(location.search).get('id')||'lamborghini';
+var car=DB[id]||DB['lamborghini'];
+var ps=car.price.toLocaleString('pt-PT')+'€';
+var ii=0;
 
-var priceStr = car.price.toLocaleString('pt-PT') + '€';
+document.getElementById('page-title').textContent=car.brand+' '+car.model+' — Piloto Automóveis';
+document.getElementById('bc-name').textContent=car.brand+' '+car.model;
+document.getElementById('v-brand').textContent=car.brand;
+document.getElementById('v-model').textContent=car.model;
+document.getElementById('v-price').textContent=ps;
+document.getElementById('v-desc').innerHTML=car.desc;
+document.getElementById('main-img').src=car.imgBase+car.imgs[0];
+document.getElementById('img-tot').textContent=car.imgs.length;
+document.getElementById('sb-name').textContent=car.brand+' '+car.model;
+document.getElementById('sb-price').textContent=ps;
 
-// Fill page
-document.getElementById('page-title').textContent = car.brand + ' ' + car.model + ' — Piloto Automóveis';
-document.getElementById('page-desc').content = car.brand + ' ' + car.model + ', ' + car.year + ', ' + car.km + ' km, ' + car.fuel + '. ' + priceStr;
-document.getElementById('hero-img').src = car.imgBase + car.imgs[0];
-document.getElementById('hero-img').alt = car.brand + ' ' + car.model;
-document.getElementById('v-brand').textContent = car.brand;
-document.getElementById('v-model').textContent = car.model;
-document.getElementById('v-price-hero').textContent = priceStr;
-document.getElementById('v-price').textContent = priceStr;
-document.getElementById('v-desc').innerHTML = car.desc;
+// Badges
+document.getElementById('v-badges').innerHTML=[car.year,car.km+' km',car.fuel,car.power,car.color].map(function(b){return '<span class="bg-bg border border-border px-2.5 py-1 text-[11px] rounded-sm">'+b+'</span>';}).join('');
 
-// Gallery
-var gallery = document.getElementById('gallery');
-car.imgs.forEach(function(img, i) {
-  var el = document.createElement('img');
-  el.src = car.imgBase + img;
-  el.className = 'thumb w-20 h-14 md:w-28 md:h-20 object-cover shrink-0' + (i===0?' active':'');
-  el.onclick = function() {
-    var hero = document.getElementById('hero-img');
-    gsap.to(hero, {opacity:0, duration:.3, onComplete:function(){ hero.src=el.src; gsap.to(hero,{opacity:1,duration:.5}); }});
-    document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('active');});
-    el.classList.add('active');
-  };
-  gallery.appendChild(el);
-});
-
-// Specs grid
-var specs = [
-  {l:'Ano',v:car.year+'/'+car.month}, {l:'Quilómetros',v:car.km+' km'}, {l:'Combustível',v:car.fuel},
-  {l:'Motor',v:car.engine}, {l:'Potência',v:car.power}, {l:'Transmissão',v:car.transmission},
-  {l:'Tracção',v:car.traction}, {l:'0-100 km/h',v:car.accel}, {l:'Vel. Máxima',v:car.speed},
-  {l:'Cor',v:car.color}, {l:'Portas',v:car.doors}, {l:'Lugares',v:car.seats},
-  {l:'Origem',v:car.origin}, {l:'Garantia',v:car.warranty}
-];
-var grid = document.getElementById('specs-grid');
-specs.forEach(function(s) {
-  grid.innerHTML += '<div class="bg-bg p-6 md:p-8"><p class="label mb-2">'+s.l+'</p><p class="heading-md text-white">'+s.v+'</p></div>';
-});
-
-// Finance calc
-var entrada = Math.round(car.price * 0.2);
-var financ = car.price - entrada;
-var mensal = Math.round(financ / 120);
-document.getElementById('v-finance').innerHTML =
-  '<div class="flex justify-between text-sm"><span class="text-muted">Entrada (20%)</span><span class="text-white">'+entrada.toLocaleString('pt-PT')+'€</span></div>'+
-  '<div class="divider"></div>'+
-  '<div class="flex justify-between text-sm"><span class="text-muted">Financiamento</span><span class="text-white">'+financ.toLocaleString('pt-PT')+'€</span></div>'+
-  '<div class="divider"></div>'+
-  '<div class="flex justify-between text-sm"><span class="text-muted">120 meses</span><span class="text-white">~'+mensal.toLocaleString('pt-PT')+'€/mês</span></div>';
+// Finance
+var en=Math.round(car.price*.2),fi=car.price-en,me=Math.round(fi/120);
+document.getElementById('v-finance').innerHTML='<div class="flex items-center gap-2 mb-2"><iconify-icon icon="solar:calculator-linear" class="text-muted text-sm"></iconify-icon><span class="text-xs font-medium">Simulação</span></div><div class="flex justify-between text-xs text-muted mb-1"><span>Entrada 20%</span><span class="text-white">'+en.toLocaleString('pt-PT')+'€</span></div><div class="flex justify-between text-xs text-muted"><span>120 meses</span><span class="text-white font-medium">~'+me.toLocaleString('pt-PT')+'€/mês</span></div>';
 
 // WhatsApp
-var waMsg = encodeURIComponent('Olá, tenho interesse no ' + car.brand + ' ' + car.model + ' (' + priceStr + ')');
-document.getElementById('wa-link').href = 'https://wa.me/+351966232555?text=' + waMsg;
+var wm=encodeURIComponent('Olá, tenho interesse no '+car.brand+' '+car.model+' ('+ps+')');
+var wu='https://wa.me/+351966232555?text='+wm;
+['wa-cta','wa-float','sb-wa'].forEach(function(x){document.getElementById(x).href=wu;});
 
-// Share
-document.getElementById('v-share').innerHTML =
-  '<a href="https://wa.me/+351966232555?text='+waMsg+'" target="_blank" class="flex items-center gap-2 label text-muted/40 hover:text-white/60 transition-colors duration-500"><iconify-icon icon="logos:whatsapp-icon" class="text-base"></iconify-icon> WhatsApp</a>'+
-  '<span class="text-border">|</span>'+
-  '<button onclick="navigator.share&&navigator.share({title:\''+car.brand+' '+car.model+'\',url:location.href})" class="flex items-center gap-2 label text-muted/40 hover:text-white/60 transition-colors duration-500"><iconify-icon icon="solar:share-linear" class="text-base pointer-events-none"></iconify-icon> Partilhar</button>';
+// Gallery
+var gal=document.getElementById('gallery');
+car.imgs.forEach(function(img,i){var e=document.createElement('img');e.src=car.imgBase+img;e.className='thumb w-16 h-11 md:w-20 md:h-14 object-cover shrink-0'+(i===0?' active':'');e.onclick=function(){go(i);};gal.appendChild(e);});
 
-// Similar vehicles — show 3 others
-var similar = document.getElementById('similar');
-var others = Object.keys(DB).filter(function(k){return k!==id;}).slice(0,3);
-others.forEach(function(k) {
-  var c = DB[k];
-  similar.innerHTML +=
-    '<a href="viatura.html?id='+k+'" class="bg-bg p-6 md:p-8 group reveal block">'+
-      '<div class="aspect-[4/3] overflow-hidden mb-5"><img src="'+c.imgBase+c.imgs[0]+'" alt="'+c.brand+' '+c.model+'" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" loading="lazy"/></div>'+
-      '<p class="label mb-2">'+c.brand+'</p>'+
-      '<h3 class="heading-md text-white mb-3 group-hover:text-muted transition-colors duration-500">'+c.model+'</h3>'+
-      '<div class="flex items-center gap-6 text-sm text-muted font-light"><span>'+c.year+'</span><span class="w-px h-3 bg-border"></span><span>'+c.km+' km</span></div>'+
-      '<div class="divider my-4"></div>'+
-      '<p class="heading-md text-white">'+c.price.toLocaleString('pt-PT')+'€</p>'+
-    '</a>';
-});
+function go(i){ii=i;var h=document.getElementById('main-img');gsap.to(h,{opacity:0,duration:.15,onComplete:function(){h.src=car.imgBase+car.imgs[i];gsap.to(h,{opacity:1,duration:.25});}});document.querySelectorAll('.thumb').forEach(function(t,j){t.classList.toggle('active',j===i);});document.getElementById('img-cur').textContent=i+1;}
+document.getElementById('img-next').addEventListener('click',function(){go((ii+1)%car.imgs.length);});
+document.getElementById('img-prev').addEventListener('click',function(){go((ii-1+car.imgs.length)%car.imgs.length);});
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go((ii+1)%car.imgs.length);if(e.key==='ArrowLeft')go((ii-1+car.imgs.length)%car.imgs.length);});
 
-// Nav bg
-window.addEventListener('scroll',function(){var n=document.getElementById('nav');n.style.background=window.scrollY>80?'rgba(10,10,10,.9)':'transparent';n.style.backdropFilter=window.scrollY>80?'blur(20px)':'none';n.style.borderBottom=window.scrollY>80?'1px solid rgba(255,255,255,.05)':'none';});
+// Specs
+[{l:'Ano',v:car.year+'/'+car.month},{l:'Km',v:car.km+' km'},{l:'Combustível',v:car.fuel},{l:'Motor',v:car.engine},{l:'Potência',v:car.power},{l:'Caixa',v:car.transmission},{l:'Tracção',v:car.traction},{l:'0-100',v:car.accel},{l:'Vel. Máx.',v:car.speed},{l:'Cor',v:car.color},{l:'Portas',v:car.doors},{l:'Lugares',v:car.seats},{l:'Origem',v:car.origin},{l:'Garantia',v:car.warranty}].forEach(function(s){document.getElementById('specs').innerHTML+='<div class="bg-card p-3.5"><p class="label mb-0.5" style="font-size:.55rem">'+s.l+'</p><p class="text-sm font-medium text-white">'+s.v+'</p></div>';});
+
+// Similar
+var sim=document.getElementById('similar');
+Object.keys(DB).filter(function(k){return k!==id;}).slice(0,3).forEach(function(k){var c=DB[k];sim.innerHTML+='<a href="viatura.html?id='+k+'" class="bg-bg p-5 group reveal block"><div class="aspect-[4/3] overflow-hidden mb-3 rounded-sm"><img src="'+c.imgBase+c.imgs[0]+'" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" loading="lazy"/></div><p class="label mb-1">'+c.brand+'</p><h3 class="heading-md text-white mb-1 group-hover:text-muted transition-colors">'+c.model+'</h3><div class="flex gap-3 text-xs text-muted mb-2"><span>'+c.year+'</span><span>'+c.km+' km</span></div><p class="heading-md text-white">'+c.price.toLocaleString('pt-PT')+'€</p></a>';});
+
+// Sticky bar
+var pe=document.getElementById('v-price'),sb=document.getElementById('sticky-bar');
+window.addEventListener('scroll',function(){if(pe){sb.classList.toggle('visible',pe.getBoundingClientRect().bottom<0);}});
 
 // Reveals
 gsap.registerPlugin(ScrollTrigger);
-gsap.utils.toArray('.reveal').forEach(function(el){gsap.fromTo(el,{opacity:0,y:30},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});});
+gsap.utils.toArray('.reveal').forEach(function(el){gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}});});
 </script>
 </body>
 </html>
