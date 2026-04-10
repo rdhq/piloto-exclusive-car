@@ -323,7 +323,7 @@ loader.load('assets/3d-models/lamborghini-aventador/source/aventador-sv-opt.glb'
 
   // Remove fallback image
   const fb = document.getElementById('hero-fallback');
-  if (fb) fb.style.transition = 'opacity 1s'; fb.style.opacity = '0'; setTimeout(() => fb.remove(), 1000);
+  if (fb) { fb.style.transition = 'opacity 1s'; fb.style.opacity = '0'; setTimeout(function(){ fb.remove(); }, 1000); }
 
   // Load road
   loader.load('assets/3d-models/road__avenue__street.glb', function(rg) {
