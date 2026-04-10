@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Viaturas — Piloto Automóveis</title>
 <meta name="description" content="Consulte o nosso stock de viaturas usadas e semi-novas. Piloto Automóveis, Barcelos, Braga."/>
-<link rel="icon" href="site-antigo/pilotoautomoveis.pt_home/assets/favicon_70a28403b374.ico"/>
+<link rel="icon" href="img/logos/favicon_70a28403b374.ico"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -39,7 +39,7 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#0a0a0a',card:'#141
 <!-- NAV -->
 <nav class="sticky top-0 w-full z-50 transition-all duration-500 border-b border-white/5" id="main-nav">
   <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
-    <a href="/" class="shrink-0"><img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert"/></a>
+    <a href="/" class="shrink-0"><img src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto Automóveis" class="h-10 md:h-12 brightness-0 invert"/></a>
     <div class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-medium text-muted">
       <a href="/" class="hover:text-white transition-colors">Home</a>
       <a href="empresa.html" class="hover:text-white transition-colors">Empresa</a>
@@ -167,7 +167,7 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#0a0a0a',card:'#141
 <!-- FOOTER -->
 <footer class="border-t border-border py-12 px-6 md:px-12 lg:px-24">
   <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-    <img src="site-antigo/pilotoautomoveis.pt_home/assets/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert"/>
+    <img src="img/logos/logotipo-rodape_3c030f916ab0.webp" alt="Piloto" class="h-8 brightness-0 invert"/>
     <div class="flex gap-6 text-xs text-muted">
       <a href="tel:+351966232555" class="hover:text-white transition-colors">966 232 555</a>
       <a href="mailto:geral@pilotoautomoveis.pt" class="hover:text-white transition-colors">geral@pilotoautomoveis.pt</a>
@@ -183,32 +183,32 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{bg:'#0a0a0a',card:'#141
 <script>
 // VEHICLE DATA
 var CARS=[
-{t:'Mazda CX-9',b:'Mazda',m:'CX-9',p:21990,y:2017,km:145918,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/5524326181_omeustand_foto_7425d92912e3.webp'},
-{t:'Renault Mégane Sport Tourer 1.5 dCi',b:'Renault',m:'Mégane Sport Tourer',p:19490,y:2017,km:233602,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/5524324405_omeustand_foto_3602e48c7507.webp'},
-{t:'Mercedes-Benz CLA 200 d Shooting Brake AMG',b:'Mercedes-Benz',m:'CLA 200 d AMG Line',p:12990,y:2015,km:142879,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros163543-1_d26cd2f8844a.webp'},
-{t:'Mercedes-Benz A 180 CDI',b:'Mercedes-Benz',m:'A 180 CDI',p:12990,y:2013,km:237399,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros163534-1_0490a0198b41.webp'},
-{t:'Fiat 500X 1.6 E-Torq Urban',b:'Fiat',m:'500X Urban',p:21990,y:2018,km:156250,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros163463-1_1268c315de00.webp'},
-{t:'Mercedes-Benz CLA 180 d Shooting Brake',b:'Mercedes-Benz',m:'CLA 180 d Style Plus',p:15790,y:2020,km:166689,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros162677-1_d7d640cc1523.webp'},
-{t:'Peugeot 208 1.5 BlueHDi Active',b:'Peugeot',m:'208 Active Pack',p:12990,y:2021,km:40566,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros162556-1_5ada12c801c1.webp'},
-{t:'BMW 116 d Urban Line',b:'BMW',m:'116 d Urban Line',p:9990,y:2017,km:176327,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros162551-1_9b11c17997b7.webp'},
-{t:'Fiat Tipo 1.3 M-Jet Lounge',b:'Fiat',m:'Tipo 1.3 Lounge',p:6990,y:2019,km:91115,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros162548-1_0556fcf9d00f.webp'},
-{t:'Renault Clio 1.5 dCi Dynamique',b:'Renault',m:'Clio Dynamique S',p:13990,y:2019,km:263155,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros162370-1_d1f0c20bc5a5.webp'},
-{t:'Mercedes-Benz A 180 CDI Edition',b:'Mercedes-Benz',m:'A 180 CDI Edition',p:13990,y:2014,km:259250,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros161778-1_1a008478c229.webp'},
-{t:'Mercedes-Benz SLK 200 K',b:'Mercedes-Benz',m:'SLK 200 K',p:12990,y:2006,km:217153,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros161776-1_39f6f8fa8d46.webp'},
-{t:'Audi R8 Spyder 5.2 V10',b:'Audi',m:'R8 Spyder V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros161314-1_c2f0dde86ee9.webp'},
-{t:'MINI Countryman One D',b:'MINI',m:'Countryman One D',p:10980,y:2010,km:187041,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros161092-1_0b7cc8df1900.webp'},
-{t:'BMW 520 d Pack M Auto',b:'BMW',m:'520 d Pack M',p:23990,y:2017,km:262000,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros161084-1_5758c1391478.webp'},
-{t:'BMW 218 i Cabrio Sport',b:'BMW',m:'218 i Cabrio Sport',p:19490,y:2016,km:108715,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros160626-1_875b9801f0b0.webp'},
-{t:'Mercedes-Benz GLE 63 AMG S Coupé',b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros160253-1_1623a07bb6eb.webp'},
-{t:'Renault Clio LPG',b:'Renault',m:'Clio LPG',p:11490,y:2021,km:171078,f:'GPL',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros160179-1_5656041d9ef7.webp'},
-{t:'Renault Mégane ST 1.5 Blue dCi',b:'Renault',m:'Mégane ST Intens',p:13990,y:2020,km:137993,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros160173-1_952699f4a7a6.webp'},
-{t:'Citroën C4 Cactus 1.2 PureTech',b:'Citroën',m:'C4 Cactus Feel',p:10990,y:2020,km:176794,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros159793-1_7340aab1fe23.webp'},
-{t:'Audi Q8 50 TDI quattro',b:'Audi',m:'Q8 50 TDI quattro',p:63990,y:2019,km:133725,f:'Gasóleo',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros159789-1_937c581904b1.webp'},
-{t:'BMW 428 i M Sport',b:'BMW',m:'428 i M Sport',p:33990,y:2014,km:110590,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_viaturas/assets/omeustandcarros159739-1_fc9e6e8ef451.webp'},
-{t:'Lamborghini Aventador LP700-4',b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros153408-1_c2eff74a921c.webp'},
-{t:'Ferrari 488 GTB',b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros135963-1_3063937cdf10.webp'},
-{t:'Mercedes-Benz G 63 AMG',b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros130027-1_44565ae75b8c.webp'},
-{t:'Mercedes-Benz AMG GT S',b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'site-antigo/pilotoautomoveis.pt_home/assets/omeustandcarros155729-1_fb2c6296cda3.webp'},
+{t:'Mazda CX-9',b:'Mazda',m:'CX-9',p:21990,y:2017,km:145918,f:'Gasolina',img:'img/cars/5524326181_omeustand_foto_7425d92912e3.webp'},
+{t:'Renault Mégane Sport Tourer 1.5 dCi',b:'Renault',m:'Mégane Sport Tourer',p:19490,y:2017,km:233602,f:'Gasóleo',img:'img/cars/5524324405_omeustand_foto_3602e48c7507.webp'},
+{t:'Mercedes-Benz CLA 200 d Shooting Brake AMG',b:'Mercedes-Benz',m:'CLA 200 d AMG Line',p:12990,y:2015,km:142879,f:'Gasóleo',img:'img/cars/omeustandcarros163543-1_d26cd2f8844a.webp'},
+{t:'Mercedes-Benz A 180 CDI',b:'Mercedes-Benz',m:'A 180 CDI',p:12990,y:2013,km:237399,f:'Gasóleo',img:'img/cars/omeustandcarros163534-1_0490a0198b41.webp'},
+{t:'Fiat 500X 1.6 E-Torq Urban',b:'Fiat',m:'500X Urban',p:21990,y:2018,km:156250,f:'Gasolina',img:'img/cars/omeustandcarros163463-1_1268c315de00.webp'},
+{t:'Mercedes-Benz CLA 180 d Shooting Brake',b:'Mercedes-Benz',m:'CLA 180 d Style Plus',p:15790,y:2020,km:166689,f:'Gasóleo',img:'img/cars/omeustandcarros162677-1_d7d640cc1523.webp'},
+{t:'Peugeot 208 1.5 BlueHDi Active',b:'Peugeot',m:'208 Active Pack',p:12990,y:2021,km:40566,f:'Gasóleo',img:'img/cars/omeustandcarros162556-1_5ada12c801c1.webp'},
+{t:'BMW 116 d Urban Line',b:'BMW',m:'116 d Urban Line',p:9990,y:2017,km:176327,f:'Gasóleo',img:'img/cars/omeustandcarros162551-1_9b11c17997b7.webp'},
+{t:'Fiat Tipo 1.3 M-Jet Lounge',b:'Fiat',m:'Tipo 1.3 Lounge',p:6990,y:2019,km:91115,f:'Gasóleo',img:'img/cars/omeustandcarros162548-1_0556fcf9d00f.webp'},
+{t:'Renault Clio 1.5 dCi Dynamique',b:'Renault',m:'Clio Dynamique S',p:13990,y:2019,km:263155,f:'Gasóleo',img:'img/cars/omeustandcarros162370-1_d1f0c20bc5a5.webp'},
+{t:'Mercedes-Benz A 180 CDI Edition',b:'Mercedes-Benz',m:'A 180 CDI Edition',p:13990,y:2014,km:259250,f:'Gasóleo',img:'img/cars/omeustandcarros161778-1_1a008478c229.webp'},
+{t:'Mercedes-Benz SLK 200 K',b:'Mercedes-Benz',m:'SLK 200 K',p:12990,y:2006,km:217153,f:'Gasolina',img:'img/cars/omeustandcarros161776-1_39f6f8fa8d46.webp'},
+{t:'Audi R8 Spyder 5.2 V10',b:'Audi',m:'R8 Spyder V10',p:119990,y:2012,km:88858,f:'Gasolina',img:'img/cars/omeustandcarros161314-1_c2f0dde86ee9.webp'},
+{t:'MINI Countryman One D',b:'MINI',m:'Countryman One D',p:10980,y:2010,km:187041,f:'Gasóleo',img:'img/cars/omeustandcarros161092-1_0b7cc8df1900.webp'},
+{t:'BMW 520 d Pack M Auto',b:'BMW',m:'520 d Pack M',p:23990,y:2017,km:262000,f:'Gasóleo',img:'img/cars/omeustandcarros161084-1_5758c1391478.webp'},
+{t:'BMW 218 i Cabrio Sport',b:'BMW',m:'218 i Cabrio Sport',p:19490,y:2016,km:108715,f:'Gasolina',img:'img/cars/omeustandcarros160626-1_875b9801f0b0.webp'},
+{t:'Mercedes-Benz GLE 63 AMG S Coupé',b:'Mercedes-Benz',m:'GLE 63 AMG S Coupé',p:99990,y:2015,km:149475,f:'Gasolina',img:'img/cars/omeustandcarros160253-1_1623a07bb6eb.webp'},
+{t:'Renault Clio LPG',b:'Renault',m:'Clio LPG',p:11490,y:2021,km:171078,f:'GPL',img:'img/cars/omeustandcarros160179-1_5656041d9ef7.webp'},
+{t:'Renault Mégane ST 1.5 Blue dCi',b:'Renault',m:'Mégane ST Intens',p:13990,y:2020,km:137993,f:'Gasóleo',img:'img/cars/omeustandcarros160173-1_952699f4a7a6.webp'},
+{t:'Citroën C4 Cactus 1.2 PureTech',b:'Citroën',m:'C4 Cactus Feel',p:10990,y:2020,km:176794,f:'Gasolina',img:'img/cars/omeustandcarros159793-1_7340aab1fe23.webp'},
+{t:'Audi Q8 50 TDI quattro',b:'Audi',m:'Q8 50 TDI quattro',p:63990,y:2019,km:133725,f:'Gasóleo',img:'img/cars/omeustandcarros159789-1_937c581904b1.webp'},
+{t:'BMW 428 i M Sport',b:'BMW',m:'428 i M Sport',p:33990,y:2014,km:110590,f:'Gasolina',img:'img/cars/omeustandcarros159739-1_fc9e6e8ef451.webp'},
+{t:'Lamborghini Aventador LP700-4',b:'Lamborghini',m:'Aventador LP700-4',p:349900,y:2012,km:17929,f:'Gasolina',img:'img/cars/omeustandcarros153408-1_c2eff74a921c.webp'},
+{t:'Ferrari 488 GTB',b:'Ferrari',m:'488 GTB',p:269990,y:2018,km:34724,f:'Gasolina',img:'img/cars/omeustandcarros135963-1_3063937cdf10.webp'},
+{t:'Mercedes-Benz G 63 AMG',b:'Mercedes-Benz',m:'G 63 AMG',p:220000,y:2021,km:20820,f:'Gasolina',img:'img/cars/omeustandcarros130027-1_44565ae75b8c.webp'},
+{t:'Mercedes-Benz AMG GT S',b:'Mercedes-Benz',m:'AMG GT S',p:114990,y:2017,km:18740,f:'Gasolina',img:'img/cars/omeustandcarros155729-1_fb2c6296cda3.webp'},
 ];
 
 // STATE

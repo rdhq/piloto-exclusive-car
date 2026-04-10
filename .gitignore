@@ -1,8 +1,15 @@
-# Templates de referência (não precisam no deploy)
+# Old site (keep locally, don't deploy)
+site-antigo/
+
+# Templates de referência
 templates/
 
-# Squidyrun (ferramenta de dev)
+# Squidyrun (dev tool)
 squidyrun/
+
+# Raw files (already copied to img/)
+assets/raw-files/
+assets/pagina-carros/
 
 # Zone.Identifier (Windows/WSL)
 *:Zone.Identifier
