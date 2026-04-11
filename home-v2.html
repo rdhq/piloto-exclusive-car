@@ -214,8 +214,8 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
     </div>
   </div>
 
-  <!-- Color picker + Reset — right side -->
-  <div class="absolute right-6 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-3">
+  <!-- Color picker + Reset — right side (hidden on mobile) -->
+  <div class="absolute right-6 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-3 hidden md:flex">
     <input type="color" id="hero-color" value="#ff6600" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);padding:0;-webkit-appearance:none;appearance:none;cursor:pointer;background:conic-gradient(red,yellow,lime,aqua,blue,magenta,red);overflow:hidden;" title="Mudar cor"/>
     <button id="hero-reset-cam" style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#999;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .4s;" title="Reset câmera">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
@@ -236,11 +236,10 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const container = document.getElementById('hero-3d');
-// Skip 3D on mobile or low-end devices
+// On mobile — show static image instead of 3D
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 if (isMobile) {
-  container.style.background = '#0a0a0a';
-  container.innerHTML = '';
+  container.innerHTML = '<img src="img/cars/omeustandcarros153408-1_c2eff74a921c.webp" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;filter:brightness(0.5);"/>';
   throw new Error('3D disabled on mobile');
 }
 const scene = new THREE.Scene();
