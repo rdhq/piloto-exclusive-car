@@ -157,9 +157,16 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
   <div class="text-center">
     <div id="pre-counter" class="font-display font-bold tracking-tighter text-white/[0.04]" style="font-size:clamp(8rem,25vw,20rem);line-height:1;transition:filter 1s;">0</div>
     <img id="pre-logo" src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-10 md:h-14 brightness-0 invert mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="opacity:0;filter:blur(10px);"/>
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 w-48">
-      <div class="h-px bg-white/10 overflow-hidden"><div id="preloader-bar" class="h-full bg-white/40" style="width:0%;"></div></div>
-      <p class="label mt-4 text-center" style="color:#2a2a2a;">Piloto Automóveis</p>
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 w-64 md:w-80">
+      <!-- Car progress bar -->
+      <div class="relative h-12 mb-2">
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
+        <img id="pre-car" src="img/cars/lambo-top-view.png" alt="" class="absolute bottom-1 h-8 md:h-10" style="left:0%;filter:brightness(0.7);transition:none;transform:rotate(90deg);"/>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="label" style="color:#2a2a2a;font-size:.5rem;">Piloto Automóveis</p>
+        <p id="pre-pct" class="label" style="color:#3a3a3a;font-size:.5rem;">0%</p>
+      </div>
     </div>
   </div>
 </div>
@@ -866,9 +873,14 @@ gsap.registerPlugin(ScrollTrigger);
   var pre = document.getElementById('preloader');
   var obj = {val:0};
   var logo = document.getElementById('pre-logo');
+  var preCar = document.getElementById('pre-car');
+  var prePct = document.getElementById('pre-pct');
   gsap.to(obj, {val:100, duration:3, ease:'power2.inOut', onUpdate:function(){
-    counter.textContent = Math.round(obj.val);
-    bar.style.width = obj.val + '%';
+    var v = Math.round(obj.val);
+    counter.textContent = v;
+    if(prePct) prePct.textContent = v + '%';
+    // Move car from left to right
+    if(preCar) preCar.style.left = (obj.val * 0.85) + '%';
   }, onComplete:function(){
     // Counter fades, logo appears
     gsap.to(counter, {opacity:0, filter:'blur(20px)', duration:0.5, ease:'power2.in'});
