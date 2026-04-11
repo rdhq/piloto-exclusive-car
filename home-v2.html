@@ -239,7 +239,19 @@ const container = document.getElementById('hero-3d');
 // On mobile — show static image instead of 3D
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 if (isMobile) {
-  container.innerHTML = '<img src="img/cars/omeustandcarros153408-1_c2eff74a921c.webp" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;filter:brightness(0.5);"/>';
+  var mImgs=['img/gallery/omeustandcarros153408-1_c2eff74a921c.webp','img/gallery/omeustandcarros153408-5_42d61fe5b5c5.webp','img/gallery/omeustandcarros153408-8_982f305362d3.webp','img/gallery/omeustandcarros153408-12_240ac363b17e.webp','img/gallery/omeustandcarros153408-20_9d4c833000d0.webp'];
+  container.innerHTML='<div id="mob-carousel" style="position:absolute;inset:0;"><img src="'+mImgs[0]+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.5;filter:brightness(0.4);transition:opacity 1.5s;"/></div>';
+  var mIdx=0;
+  setInterval(function(){
+    mIdx=(mIdx+1)%mImgs.length;
+    var mc=document.getElementById('mob-carousel');
+    var newImg=document.createElement('img');
+    newImg.src=mImgs[mIdx];
+    newImg.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(0.4);transition:opacity 1.5s;';
+    mc.appendChild(newImg);
+    requestAnimationFrame(function(){newImg.style.opacity='0.5';});
+    setTimeout(function(){while(mc.children.length>2)mc.removeChild(mc.children[0]);},2000);
+  },5000);
   throw new Error('3D disabled on mobile');
 }
 const scene = new THREE.Scene();
