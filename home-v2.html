@@ -319,7 +319,7 @@ loader.load('assets/3d-models/lamborghini-aventador/source/aventador-sv-opt.glb'
   scene.add(model);
 
   // Fake shadow under car — dark ellipse on the ground
-  const shadowGeo = new THREE.PlaneGeometry(3, 5);
+  const shadowGeo = new THREE.PlaneGeometry(4, 6);
   const shadowMat = new THREE.MeshBasicMaterial({
     color: 0x000000,
     transparent: true,
@@ -328,8 +328,7 @@ loader.load('assets/3d-models/lamborghini-aventador/source/aventador-sv-opt.glb'
   });
   const shadow = new THREE.Mesh(shadowGeo, shadowMat);
   shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.02;
-  shadow.position.set(0, 0.02, 0);
+  shadow.position.set(0, 0.05, 0);
   // Make it soft with a radial gradient texture
   const canvas = document.createElement('canvas');
   canvas.width = 256;
