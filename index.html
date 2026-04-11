@@ -159,9 +159,10 @@ input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
     <img id="pre-logo" src="img/logos/logotipo_b3f89f778c1e.webp" alt="Piloto" class="h-10 md:h-14 brightness-0 invert mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style="opacity:0;filter:blur(10px);"/>
     <div class="absolute bottom-12 left-1/2 -translate-x-1/2 w-64 md:w-80">
       <!-- Car progress bar -->
-      <div class="relative h-12 mb-2">
+      <div class="relative mb-2" style="height:3rem;">
         <div class="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
-        <img id="pre-car" src="img/cars/car_preloader.png" alt="" class="absolute h-8 md:h-10" style="left:0%;bottom:calc(100% - 4px);filter:brightness(0.7);transition:none;"/>
+        <div id="pre-bar-fill" class="absolute bottom-0 left-0 h-px bg-white/30" style="width:0%;"></div>
+        <img id="pre-car" src="img/cars/car_preloader.png" alt="" class="absolute h-8 md:h-10" style="left:0%;bottom:0px;filter:brightness(0.7);transition:none;"/>
       </div>
       <div class="flex justify-between items-center">
         <p class="label" style="color:#2a2a2a;font-size:.5rem;">Piloto Automóveis</p>
@@ -875,12 +876,13 @@ gsap.registerPlugin(ScrollTrigger);
   var logo = document.getElementById('pre-logo');
   var preCar = document.getElementById('pre-car');
   var prePct = document.getElementById('pre-pct');
+  var preBarFill = document.getElementById('pre-bar-fill');
   gsap.to(obj, {val:100, duration:3, ease:'power2.inOut', onUpdate:function(){
     var v = Math.round(obj.val);
     counter.textContent = v;
     if(prePct) prePct.textContent = v + '%';
-    // Move car from left to right
     if(preCar) preCar.style.left = (obj.val * 0.85) + '%';
+    if(preBarFill) preBarFill.style.width = (obj.val * 0.85 + 5) + '%';
   }, onComplete:function(){
     // Counter fades, logo appears
     gsap.to(counter, {opacity:0, filter:'blur(20px)', duration:0.5, ease:'power2.in'});
